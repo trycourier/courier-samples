@@ -9,11 +9,13 @@ A minimal Vite + React + TypeScript application that displays the Courier Inbox 
    npm install
    ```
 
-2. Ensure your `.env` file in the project root (`courier-samples/.env`) contains:
+2. Ensure your `.env` file in this directory (`web/react/inbox/.env`) contains:
    ```
-   VITE_USER_ID=your_user_id
-   VITE_JWT=your_jwt_token
+   VITE_COURIER_USER_ID=your_user_id
+   VITE_COURIER_JWT=your_jwt_token
    ```
+   
+   You can use the VS Code launch configuration "React: Inbox" which will automatically prompt you to set these values.
 
 ## Running
 

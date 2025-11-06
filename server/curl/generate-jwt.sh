@@ -1,12 +1,11 @@
 #!/bin/bash
 
-# Get the script directory and project root
+# Get the script directory
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-PROJECT_ROOT="$(cd "$SCRIPT_DIR/../.." && pwd)"
 
-# Load environment variables from .env file in project root
-if [ -f "$PROJECT_ROOT/.env" ]; then
-  export $(cat "$PROJECT_ROOT/.env" | grep -v '^#' | xargs)
+# Load environment variables from .env file in script directory
+if [ -f "$SCRIPT_DIR/.env" ]; then
+  export $(cat "$SCRIPT_DIR/.env" | grep -v '^#' | xargs)
 fi
 
 # Set the variables from environment or prompt (YOUR_AUTH_KEY, YOUR_USER_ID, YOUR_NUMBER)

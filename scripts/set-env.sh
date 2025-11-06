@@ -1,8 +1,9 @@
 #!/bin/bash
 
 # Script to set environment variables using gum input
-# Usage: ./set-env.sh [api_key] [user_id] [email] ...
+# Usage: ./set-env.sh [--dir DIRECTORY] [api_key] [user_id] [email] ...
 # This script updates only the specified variables, preserving all other existing values
+# If --dir is not specified, defaults to project root
 # Note: This script requires bash. Run with: bash set-env.sh or ./set-env.sh (if executable)
 
 # Ensure we're running with bash
@@ -16,7 +17,9 @@ set -e
 # Get the script directory and project root
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PROJECT_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
-ENV_FILE="$PROJECT_ROOT/.env"
+
+# Default to project root if no directory specified
+TARGET_DIR="$PROJECT_ROOT"
 
 # Check if gum is installed, install if not
 if ! command -v gum &> /dev/null; then
@@ -88,7 +91,29 @@ get_help_message() {
 
 # Parse command-line arguments
 VARS_TO_PROMPT=()
+TARGET_DIR_SET=0
+
 for arg in "$@"; do
+    # Check for --dir or -d flag
+    if [ "$arg" = "--dir" ] || [ "$arg" = "-d" ]; then
+        TARGET_DIR_SET=1
+        continue
+    fi
+    
+    # If previous arg was --dir, set the target directory
+    if [ $TARGET_DIR_SET -eq 1 ]; then
+        # If it's a relative path, make it relative to project root
+        if [[ "$arg" != /* ]]; then
+            TARGET_DIR="$PROJECT_ROOT/$arg"
+        else
+            TARGET_DIR="$arg"
+        fi
+        # Ensure directory exists
+        mkdir -p "$TARGET_DIR"
+        TARGET_DIR_SET=0
+        continue
+    fi
+    
     # Normalize the argument (handle both api_key and API_KEY)
     normalized=$(echo "$arg" | tr '[:upper:]' '[:lower:]' | tr '-' '_')
     VARS_TO_PROMPT+=("$normalized")
@@ -98,6 +123,9 @@ done
 if [ ${#VARS_TO_PROMPT[@]} -eq 0 ]; then
     VARS_TO_PROMPT=("api_key" "user_id" "email")
 fi
+
+# Set the ENV_FILE path
+ENV_FILE="$TARGET_DIR/.env"
 
 # Function to get env key for a variable
 get_env_key() {
