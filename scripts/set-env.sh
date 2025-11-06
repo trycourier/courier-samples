@@ -213,6 +213,12 @@ for var in "${VARS_TO_PROMPT[@]}"; do
         echo ""
     fi
     
+    # Show link for template_id above the prompt
+    if [ "$var" = "template_id" ]; then
+        gum style --foreground 240 "Find templates here: https://app.courier.com/assets/templates"
+        echo ""
+    fi
+    
     # Skip prompting for jwt - we'll generate it if needed
     if [ "$var" = "jwt" ]; then
         # Mark jwt as prompted but don't ask for it yet
