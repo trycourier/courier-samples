@@ -1,0 +1,12 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Curl: Send Template to Email",
+      "type": "node-terminal",
+      "request": "launch",
+      "command": "cd ${workspaceFolder}/server-side/curl && bash send-template-to-email.sh"
+    }
+  ]
+}
+
