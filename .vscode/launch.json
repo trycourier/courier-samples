@@ -2,6 +2,12 @@
   "version": "0.2.0",
   "configurations": [
     {
+      "name": "React: Inbox",
+      "type": "node-terminal",
+      "request": "launch",
+      "command": "cd ${workspaceFolder}/web/react/inbox && npm i && npm run dev"
+    },
+    {
       "name": "Curl: Send Template to Email",
       "type": "node-terminal",
       "request": "launch",
