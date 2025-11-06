@@ -5,7 +5,7 @@
       "name": "React: Inbox",
       "type": "node-terminal",
       "request": "launch",
-      "command": "cd ${workspaceFolder}/web/react/inbox && npm run dev -- --open"
+      "command": "cd ${workspaceFolder}/web/react/inbox && npm i && npm run dev"
     },
     {
       "name": "Curl: Send Template to Email",
