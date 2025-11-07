@@ -9,15 +9,7 @@ The easiest way to run any sample is using VS Code's **Launch Configuration** fe
 1. Open the Run and Debug panel (⌘⇧D / Ctrl+Shift+D)
 2. Select the sample you want to run from the dropdown
 3. Click the play button ▶️ or press F5
-4. Follow any prompts to enter your Courier API key and other required values
-
-Available launch configurations include:
-- **React: Inbox** - Full-page inbox component
-- **React: Toast** - Toast notifications component
-- **React: Popup Menu** - Inbox popup menu component
-- **Curl: Generate JWT** - Generate a JWT token for authentication
-- **Curl: Send Template to Email** - Send a template notification to an email
-- **Curl: Send Template to User ID** - Send a template notification to a user ID
+4. Follow any prompts to enter your Courier API credentials
 
 ### Demo
 
@@ -31,32 +23,28 @@ Available launch configurations include:
 - **[Toast](./web/react/toast/)** - Toast notifications
 - **[Popup Menu](./web/react/popup-menu/)** - Inbox popup menu
 
-Each React sample includes detailed setup and running instructions in its README.
-
 ### Mobile
 
-> **Note:** Mobile examples are coming soon. The following platforms are supported:
-> - **Android** - Inbox and Push notification samples
-> - **iOS** - Inbox and Push notification samples
-> - **Flutter** - Inbox and Push notification samples
-> - **React Native** - Inbox and Push notification samples
-> - **Expo** - Inbox and Push notification samples
+> - **[Android](./mobile/android/)** - [Inbox](./mobile/android/inbox/) and [Push](./mobile/android/push/) notification samples (Coming Soon 🔜)
+> - **[iOS](./mobile/ios/)** - [Inbox](./mobile/ios/inbox/) and [Push](./mobile/ios/push/) notification samples (Coming Soon 🔜)
+> - **[Flutter](./mobile/flutter/)** - [Inbox](./mobile/flutter/inbox/) and [Push](./mobile/flutter/push/) notification samples (Coming Soon 🔜)
+> - **[React Native](./mobile/react-native/)** - [Inbox](./mobile/react-native/inbox/) and [Push](./mobile/react-native/push/) notification samples (Coming Soon 🔜)
+> - **[Expo](./mobile/expo/)** - [Inbox](./mobile/expo/inbox/) and [Push](./mobile/expo/push/) notification samples (Coming Soon 🔜)
 
 ### Server
 
 - **[cURL Scripts](./server/curl/)** - Command-line examples for sending notifications and generating JWTs
-- **[Node.js](./server/node/)** - Node.js server examples
+- **[Node.js](./server/node/)** - Node.js server examples (Coming Soon 🔜)
+- **[Python](./server/python/)** - Python server examples (Coming Soon 🔜)
+- **[Java](./server/java/)** - Java server examples (Coming Soon 🔜)
+- **[Kotlin](./server/kotlin/)** - Kotlin server examples (Coming Soon 🔜)
+- **[Go](./server/go/)** - Go server examples (Coming Soon 🔜)
+- **[C#](./server/csharp/)** - C# server examples (Coming Soon 🔜)
+- **[PHP](./server/php/)** - PHP server examples (Coming Soon 🔜)
+- **[Ruby](./server/ruby/)** - Ruby server examples (Coming Soon 🔜)
 
 ## Documentation
 
-For complete reference documentation, see:
-- [Courier API Documentation](https://www.courier.com/docs/reference)
-
-## Requirements
-
-- Node.js (for React and Node.js samples)
-- VS Code (recommended for launch configurations)
-- Courier API key and account
-
-Each sample directory contains its own README with specific setup instructions.
+For complete documentation, see:
+- [Courier API Documentation](https://www.courier.com/docs)
 
