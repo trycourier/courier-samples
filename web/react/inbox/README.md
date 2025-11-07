@@ -9,34 +9,45 @@ A minimal Vite + React + TypeScript application that displays the Courier Inbox 
    npm install
    ```
 
-2. Ensure your `.env` file in this directory (`web/react/inbox/.env`) contains:
+2. Configure environment variables. When using the VS Code launch configuration, you'll be prompted to enter your Courier API key, user ID, and JWT. Alternatively, create a `.env` file in this directory (`web/react/inbox/.env`) with:
    ```
    VITE_COURIER_USER_ID=your_user_id
    VITE_COURIER_JWT=your_jwt_token
    ```
-   
-   You can use the VS Code launch configuration "React: Inbox" which will automatically prompt you to set these values.
 
 ## Running
 
-### Option 1: VS Code Launch Configuration
-1. Open the Run and Debug panel (Cmd+Shift+D / Ctrl+Shift+D)
-2. Select "React Inbox: Vite Dev Server" from the dropdown
-3. Click the play button or press F5
-4. The dev server will start on port 5173 and automatically open in your browser
+### Option 1: VS Code Debug Play Button
 
-### Option 2: Command Line
-```bash
-npm run dev
-```
+1. Open the Run and Debug panel (⌘⇧D / Ctrl+Shift+D)
+2. Select **"React: Inbox"** from the dropdown
+3. Click the play button ▶️ or press F5
+4. When prompted, enter your Courier API key, user ID, and JWT
+5. The dev server will start and automatically open in your browser
 
-The application will be available at `http://localhost:5173`
+### Option 2: npm
+
+1. Navigate to this directory:
+   ```bash
+   cd web/react/inbox
+   ```
+
+2. Start the dev server:
+   ```bash
+   npm run dev
+   ```
+
+3. Open `http://localhost:5173` in your browser
 
 ## Build
 
-To create a production build:
+Create a production build:
 ```bash
 npm run build
 ```
 
-The built files will be in the `dist` directory.
+Built files will be in the `dist` directory.
+
+## Documentation
+
+For complete reference documentation, see the [Courier React documentation](https://www.courier.com/docs/sdk-libraries/courier-react-web).

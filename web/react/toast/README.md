@@ -9,7 +9,7 @@ A minimal Vite + React + TypeScript application that displays the Courier Toast 
    npm install
    ```
 
-2. Ensure your `.env` file in the project root (`courier-samples/.env`) contains:
+2. Configure environment variables. When using the VS Code launch configuration, you'll be prompted to enter your Courier API key, user ID, and JWT. Alternatively, create a `.env` file in this directory (`web/react/toast/.env`) with:
    ```
    VITE_COURIER_USER_ID=your_user_id
    VITE_COURIER_JWT=your_jwt_token
@@ -17,34 +17,37 @@ A minimal Vite + React + TypeScript application that displays the Courier Toast 
 
 ## Running
 
-### Option 1: VS Code Launch Configuration
-1. Open the Run and Debug panel (Cmd+Shift+D / Ctrl+Shift+D)
-2. Select "React Toast: Vite Dev Server" from the dropdown
-3. Click the play button or press F5
-4. The dev server will start on port 5173 and automatically open in your browser
+### Option 1: VS Code Debug Play Button
 
-### Option 2: Command Line
-```bash
-npm run dev
-```
+1. Open the Run and Debug panel (⌘⇧D / Ctrl+Shift+D)
+2. Select **"React: Toast"** from the dropdown
+3. Click the play button ▶️ or press F5
+4. When prompted, enter your Courier API key, user ID, and JWT
+5. The dev server will start and automatically open in your browser
 
-The application will be available at `http://localhost:5173`
+### Option 2: npm
+
+1. Navigate to this directory:
+   ```bash
+   cd web/react/toast
+   ```
+
+2. Start the dev server:
+   ```bash
+   npm run dev
+   ```
+
+3. Open `http://localhost:5173` in your browser
 
 ## Build
 
-To create a production build:
+Create a production build:
 ```bash
 npm run build
 ```
 
-The built files will be in the `dist` directory.
+Built files will be in the `dist` directory.
 
-## Features
+## Documentation
 
-The Courier Toast component displays short-lived notifications that:
-- Sync with your Courier Inbox messages
-- Can be auto-dismissed with configurable timeout
-- Support action buttons
-- Are fully customizable with themes
-
-For more information, see the [Courier Toast Web Components documentation](https://www.courier.com/docs/sdk-libraries/courier-ui-toast-web).
+For complete reference documentation, see the [Courier React documentation](https://www.courier.com/docs/sdk-libraries/courier-react-web).
