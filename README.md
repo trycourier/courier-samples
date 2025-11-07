@@ -25,23 +25,23 @@ The easiest way to run any sample is using VS Code's **Launch Configuration** fe
 
 ### Mobile
 
-> - **[Android](./mobile/android/)** - [Inbox](./mobile/android/inbox/) and [Push](./mobile/android/push/) notification samples (Coming Soon 🔜)
-> - **[iOS](./mobile/ios/)** - [Inbox](./mobile/ios/inbox/) and [Push](./mobile/ios/push/) notification samples (Coming Soon 🔜)
-> - **[Flutter](./mobile/flutter/)** - [Inbox](./mobile/flutter/inbox/) and [Push](./mobile/flutter/push/) notification samples (Coming Soon 🔜)
-> - **[React Native](./mobile/react-native/)** - [Inbox](./mobile/react-native/inbox/) and [Push](./mobile/react-native/push/) notification samples (Coming Soon 🔜)
-> - **[Expo](./mobile/expo/)** - [Inbox](./mobile/expo/inbox/) and [Push](./mobile/expo/push/) notification samples (Coming Soon 🔜)
+- **[Android](./mobile/android/)** (Coming Soon 🔜)
+- **[iOS](./mobile/ios/)** (Coming Soon 🔜)
+- **[Flutter](./mobile/flutter/)** (Coming Soon 🔜)
+- **[React Native](./mobile/react-native/)** (Coming Soon 🔜)
+- **[Expo](./mobile/expo/)** (Coming Soon 🔜)
 
 ### Server
 
-- **[cURL Scripts](./server/curl/)** - Command-line examples for sending notifications and generating JWTs
-- **[Node.js](./server/node/)** - Node.js server examples (Coming Soon 🔜)
-- **[Python](./server/python/)** - Python server examples (Coming Soon 🔜)
-- **[Java](./server/java/)** - Java server examples (Coming Soon 🔜)
-- **[Kotlin](./server/kotlin/)** - Kotlin server examples (Coming Soon 🔜)
-- **[Go](./server/go/)** - Go server examples (Coming Soon 🔜)
-- **[C#](./server/csharp/)** - C# server examples (Coming Soon 🔜)
-- **[PHP](./server/php/)** - PHP server examples (Coming Soon 🔜)
-- **[Ruby](./server/ruby/)** - Ruby server examples (Coming Soon 🔜)
+- **[cURL Scripts](./server/curl/)**
+- **[Node.js](./server/node/)** (Coming Soon 🔜)
+- **[Python](./server/python/)** (Coming Soon 🔜)
+- **[Java](./server/java/)** (Coming Soon 🔜)
+- **[Kotlin](./server/kotlin/)** (Coming Soon 🔜)
+- **[Go](./server/go/)** (Coming Soon 🔜)
+- **[C#](./server/csharp/)** (Coming Soon 🔜)
+- **[PHP](./server/php/)** (Coming Soon 🔜)
+- **[Ruby](./server/ruby/)** (Coming Soon 🔜)
 
 ## Documentation
 
