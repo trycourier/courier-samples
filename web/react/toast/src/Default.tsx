@@ -5,39 +5,38 @@ export default function App() {
 
   const courier = useCourier();
 
-  // To obtain a working JWT for authentication, you need to call Courier's issue-token endpoint.
-  // You must pass your user ID as part of the request to receive a JWT token specific to that user.
-  // Example: POST to https://api.courier.com/authorize/issue-token with `{ "user_id": "<your_user_id>" }` in the payload.
-  // For more information and detailed docs, see: https://www.courier.com/docs/reference/authorization
-  const getJWTFromBackend = async () => {  
-    // const response = await fetch('https://api.courier.com/issue-token', {
-    //   method: 'POST',
-    //   headers: {
-    //     'Authorization': `Bearer ${process.env.COURIER_API_KEY}`,
-    //     'Content-Type': 'application/json'
-    //   },
-    //   body: JSON.stringify({
-    //     scope: `user_id:${your_user_id} inbox:read:messages inbox:write:events read:preferences write:preferences read:brands`,
-    //     expires_in: '1d'
-    //   })
-    // });
+  const generateCourierJwtOnYourServer = async () => {  
+    
+    // You should call an endpoint on your backend that wraps the Courier issue-token endpoint.
+    // For server sdk samples, see ../server-side
+
+    // Delay to simulate the time it takes to generate the JWT on your server.
+    await new Promise((resolve) => setTimeout(resolve, 1000));
     return import.meta.env.VITE_COURIER_JWT;
   };
 
   useEffect(() => {
-    const fetchJWTAndSignIn = async () => {
-      const jwt = await getJWTFromBackend();      
+    const signIn = async () => {
+      const jwt = await generateCourierJwtOnYourServer();      
       courier.shared.signIn({
         userId: import.meta.env.VITE_COURIER_USER_ID,
-        jwt: jwt,
+        jwt,
+      });
+      
+      // Add a local example
+      // Note: Other messages can be added when you send messages via inbox to your users
+      courier.toast.addMessage({
+        messageId: '123',
+        title: '🙌 Inbox is setup!',
+        body: 'You can now send messages to your users via the inbox or use addMessage (like this!) to show a notification locally.',
       });
     };
 
-    fetchJWTAndSignIn();
+    signIn();
   }, []);
 
   return (
-    <CourierToast/>
+    <CourierToast autoDismiss={true} />
   );
 }
 
