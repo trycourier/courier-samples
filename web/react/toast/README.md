@@ -1,52 +1,29 @@
 # Courier React Toast
 
-A minimal Vite + React + TypeScript application that displays the Courier Toast component for in-app notifications.
+![Screenshot](../../../assets/toast.png)
 
-## Setup
+## Run the app
 
-1. Install dependencies:
-   ```bash
-   npm install
-   ```
+There are two main ways to run the app:
 
-2. Configure environment variables. When using the VS Code launch configuration, you'll be prompted to enter your Courier API key, user ID, and JWT. Alternatively, create a `.env` file in this directory (`web/react/toast/.env`) with:
-   ```
-   VITE_COURIER_USER_ID=your_user_id
-   VITE_COURIER_JWT=your_jwt_token
-   ```
+### Option 1: VS Code Launch Configuration
 
-## Running
+- Open the Run and Debug panel in VS Code (⌘⇧D / Ctrl+Shift+D)
+- Click the play button ▶️
+- Select "React: Toast" from the dropdown
+- When prompted, enter your Courier API key, user ID, and JWT
+- The dev server will start and automatically open in your browser
 
-### Option 1: VS Code Debug Play Button
+### Option 2: Command Line
 
-1. Open the Run and Debug panel (⌘⇧D / Ctrl+Shift+D)
-2. Select **"React: Toast"** from the dropdown
-3. Click the play button ▶️ or press F5
-4. When prompted, enter your Courier API key, user ID, and JWT
-5. The dev server will start and automatically open in your browser
-
-### Option 2: npm
-
-1. Navigate to this directory:
-   ```bash
-   cd web/react/toast
-   ```
-
-2. Start the dev server:
-   ```bash
-   npm run dev
-   ```
-
-3. Open `http://localhost:5173` in your browser
-
-## Build
-
-Create a production build:
-```bash
-npm run build
-```
-
-Built files will be in the `dist` directory.
+- Create a `.env` file in this directory with these values:
+  ```
+  VITE_COURIER_USER_ID=your_user_id
+  VITE_COURIER_JWT=your_jwt_token
+  ```
+- Run `npm i`
+- Run `npm run dev`
+- Open http://localhost:5173 in your browser
 
 ## Documentation
 
