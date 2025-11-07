@@ -21,7 +21,7 @@ Available launch configurations include:
 
 ### Demo
 
-[Watch the demo video](assets/launcher-video.mov) showing how to start a sample app using the VS Code Launch Configuration.
+![Demo: Starting a sample app using the VS Code Launch Configuration](assets/launcher-video.gif)
 
 ## Sample Applications
 
