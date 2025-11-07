@@ -21,9 +21,7 @@ Available launch configurations include:
 
 ### Demo
 
-<video src="assets/launcher-video.mov" controls width="100%"></video>
-
-*Watch: Starting a sample app using the VS Code Launch Configuration*
+[Watch the demo video](assets/launcher-video.mov) showing how to start a sample app using the VS Code Launch Configuration.
 
 ## Sample Applications
 
@@ -37,11 +35,12 @@ Each React sample includes detailed setup and running instructions in its README
 
 ### Mobile
 
-- **Android** - Inbox and Push notification samples
-- **iOS** - Inbox and Push notification samples
-- **Flutter** - Inbox and Push notification samples
-- **React Native** - Inbox and Push notification samples
-- **Expo** - Inbox and Push notification samples
+> **Note:** Mobile examples are coming soon. The following platforms are supported:
+> - **Android** - Inbox and Push notification samples
+> - **iOS** - Inbox and Push notification samples
+> - **Flutter** - Inbox and Push notification samples
+> - **React Native** - Inbox and Push notification samples
+> - **Expo** - Inbox and Push notification samples
 
 ### Server
 
@@ -51,7 +50,6 @@ Each React sample includes detailed setup and running instructions in its README
 ## Documentation
 
 For complete reference documentation, see:
-- [Courier React Documentation](https://www.courier.com/docs/sdk-libraries/courier-react-web)
 - [Courier API Documentation](https://www.courier.com/docs/reference)
 
 ## Requirements
