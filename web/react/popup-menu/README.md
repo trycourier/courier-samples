@@ -1,0 +1,43 @@
+# Courier React Inbox Popup Menu
+
+A minimal Vite + React + TypeScript application that displays the Courier Inbox Popup Menu component.
+
+## Setup
+
+1. Install dependencies:
+   ```bash
+   npm install
+   ```
+
+2. Ensure your `.env` file in this directory (`web/react/popup-menu/.env`) contains:
+   ```
+   VITE_COURIER_USER_ID=your_user_id
+   VITE_COURIER_JWT=your_jwt_token
+   ```
+   
+   You can use the VS Code launch configuration "React: Popup Menu" which will automatically prompt you to set these values.
+
+## Running
+
+### Option 1: VS Code Launch Configuration
+1. Open the Run and Debug panel (Cmd+Shift+D / Ctrl+Shift+D)
+2. Select "React: Popup Menu" from the dropdown
+3. Click the play button or press F5
+4. The dev server will start on port 5173 and automatically open in your browser
+
+### Option 2: Command Line
+```bash
+npm run dev
+```
+
+The application will be available at `http://localhost:5173`
+
+## Build
+
+To create a production build:
+```bash
+npm run build
+```
+
+The built files will be in the `dist` directory.
+
