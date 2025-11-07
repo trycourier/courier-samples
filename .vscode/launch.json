@@ -2,17 +2,28 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "React: Inbox",
-      "type": "node-terminal",
-      "request": "launch",
-      "command": "cd ${workspaceFolder}/web/react/inbox && npm i && npm run dev"
-    },
-    {
       "name": "Curl: Send Template to Email",
       "type": "node-terminal",
       "request": "launch",
-      "command": "cd ${workspaceFolder}/server-side/curl && bash send-template-to-email.sh"
+      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh --dir server/curl api_key email template_id && bash server/curl/send-template-to-email.sh"
+    },
+    {
+      "name": "Curl: Send Template to User ID",
+      "type": "node-terminal",
+      "request": "launch",
+      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh --dir server/curl api_key user_id template_id && bash server/curl/send-template-to-user-id.sh"
+    },
+    {
+      "name": "Curl: Generate JWT",
+      "type": "node-terminal",
+      "request": "launch",
+      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh --dir server/curl api_key user_id && bash server/curl/generate-jwt.sh"
+    },
+    {
+      "name": "React: Inbox",
+      "type": "node-terminal",
+      "request": "launch",
+      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh --dir web/react/inbox api_key user_id jwt && cd web/react/inbox && npm i && npm run dev"
     }
   ]
 }
-

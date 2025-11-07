@@ -15,7 +15,7 @@ curl --request POST \
 --data "{
   \"message\": {
     \"to\": {
-      \"email\": \"${COURIER_EMAIL}\"
+      \"user_id\": \"${COURIER_USER_ID}\"
     },
     \"template\": \"${COURIER_TEMPLATE_ID}\",
     \"data\": {
