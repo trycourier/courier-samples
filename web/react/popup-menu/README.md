@@ -16,8 +16,6 @@ There are two main ways to run the app:
 
 ### Option 2: Command Line
 
-### Option 2: Command Line
-
 From this directory:
 
 - Create a .env file with:
