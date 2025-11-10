@@ -19,18 +19,18 @@ There are two main ways to run the app:
 From this directory:
 
 1. Create a .env file with:
-```
-VITE_COURIER_USER_ID=your_user_id
-VITE_COURIER_JWT=your_jwt_token
-```
+  ```
+  VITE_COURIER_USER_ID=your_user_id
+  VITE_COURIER_JWT=your_jwt_token
+  ```
 2. Run
-```
-npm i
-```
+  ```
+  npm i
+  ```
 3. Run 
-```
-npm run dev
-```
+  ```
+  npm run dev
+  ```
 4. Open http://localhost:5173 in your browser
 
 ## Documentation
