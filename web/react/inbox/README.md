@@ -16,14 +16,22 @@ There are two main ways to run the app:
 
 ### Option 2: Command Line
 
-- Create a `.env` file in this directory with these values:
+From this directory:
+
+1. Create a `.env` file with:
   ```
   VITE_COURIER_USER_ID=your_user_id
   VITE_COURIER_JWT=your_jwt_token
   ```
-- Run `npm i`
-- Run `npm run dev`
-- Open http://localhost:5173 in your browser
+2. Run
+  ```
+  npm i
+  ```
+3. Run 
+  ```
+  npm run dev
+  ```
+4. Open http://localhost:5173 in your browser
 
 ## Documentation
 
