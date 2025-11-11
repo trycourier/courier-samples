@@ -20,6 +20,12 @@
       "command": "cd ${workspaceFolder} && bash scripts/set-env.sh --dir server/curl api_key user_id && bash server/curl/generate-jwt.sh"
     },
     {
+      "name": "Curl: Create List",
+      "type": "node-terminal",
+      "request": "launch",
+      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh --dir server/curl api_key list_id list_name && bash server/curl/create-list.sh"
+    },
+    {
       "name": "React: Inbox",
       "type": "node-terminal",
       "request": "launch",

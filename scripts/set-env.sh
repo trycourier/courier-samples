@@ -63,6 +63,12 @@ get_display_name() {
         template_id|TEMPLATE_ID)
             echo "Courier Template ID"
             ;;
+        list_id|LIST_ID)
+            echo "List ID"
+            ;;
+        list_name|LIST_NAME)
+            echo "List Name"
+            ;;
         *)
             # Default: capitalize and replace underscores with spaces
             echo "$var" | sed 's/_/ /g' | sed 's/\b\(.\)/\u\1/g'
@@ -82,6 +88,12 @@ get_help_message() {
             ;;
         template_id|TEMPLATE_ID)
             echo "The ID of the notification template you want to send. Find templates in: https://app.courier.com/designer/templates"
+            ;;
+        list_id|LIST_ID)
+            echo "Use meaningful and consistent IDs with kebab-case or camelCase (e.g., 'newsletter-subscribers' or 'newsletterSubscribers')"
+            ;;
+        list_name|LIST_NAME)
+            echo "A human-readable name for your list (e.g., 'Newsletter Subscribers')"
             ;;
         *)
             echo ""
