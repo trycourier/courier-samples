@@ -37,7 +37,47 @@ get_env_value() {
     fi
 }
 
-# Function to normalize variable name (api_key -> COURIER_API_KEY)
+# Function to extract base variable name from script-specific name
+# e.g., upsert_user_email -> email, send_template_to_list_api_key -> api_key
+extract_base_var_name() {
+    local var=$1
+    # Common variable suffixes to look for
+    case "$var" in
+        *_api_key|*_API_KEY)
+            echo "api_key"
+            ;;
+        *_user_id|*_USER_ID)
+            echo "user_id"
+            ;;
+        *_email|*_EMAIL)
+            echo "email"
+            ;;
+        *_template_id|*_TEMPLATE_ID)
+            echo "template_id"
+            ;;
+        *_list_id|*_LIST_ID)
+            echo "list_id"
+            ;;
+        *_list_name|*_LIST_NAME)
+            echo "list_name"
+            ;;
+        *_name|*_NAME)
+            echo "name"
+            ;;
+        *_phone_number|*_PHONE_NUMBER)
+            echo "phone_number"
+            ;;
+        *_jwt|*_JWT)
+            echo "jwt"
+            ;;
+        *)
+            # If no match, assume it's already a base name
+            echo "$var"
+            ;;
+    esac
+}
+
+# Function to normalize variable name (upsert_user_email -> COURIER_UPSERT_USER_EMAIL)
 normalize_var_name() {
     local var=$1
     # Convert to uppercase and add COURIER_ prefix
@@ -47,7 +87,8 @@ normalize_var_name() {
 # Function to get display name for variable
 get_display_name() {
     local var=$1
-    case "$var" in
+    local base_var=$(extract_base_var_name "$var")
+    case "$base_var" in
         api_key|API_KEY)
             echo "Courier API Key"
             ;;
@@ -69,6 +110,12 @@ get_display_name() {
         list_name|LIST_NAME)
             echo "List Name"
             ;;
+        name|NAME)
+            echo "Name"
+            ;;
+        phone_number|PHONE_NUMBER)
+            echo "Phone Number"
+            ;;
         *)
             # Default: capitalize and replace underscores with spaces
             echo "$var" | sed 's/_/ /g' | sed 's/\b\(.\)/\u\1/g'
@@ -79,21 +126,31 @@ get_display_name() {
 # Function to get help message for variable
 get_help_message() {
     local var=$1
-    case "$var" in
+    local base_var=$(extract_base_var_name "$var")
+    case "$base_var" in
         api_key|API_KEY)
             echo "Get your API key here: https://app.courier.com/settings/api-keys"
             ;;
         user_id|USER_ID)
             echo "This is an id that you make up. Usually, developers match it to the user id's in their user database of their app"
             ;;
+        email|EMAIL)
+            echo "Email address for the user. Optional in some contexts - press Enter to skip and pass a blank value."
+            ;;
         template_id|TEMPLATE_ID)
-            echo "The ID of the notification template you want to send. Find templates in: https://app.courier.com/designer/templates"
+            echo "Find your templates in: https://app.courier.com/designer/templates. The template ID can be found in the URL of the template you want to use."
             ;;
         list_id|LIST_ID)
             echo "Use meaningful and consistent IDs with kebab-case or camelCase (e.g., 'newsletter-subscribers' or 'newsletterSubscribers')"
             ;;
         list_name|LIST_NAME)
             echo "A human-readable name for your list (e.g., 'Newsletter Subscribers')"
+            ;;
+        name|NAME)
+            echo "The user's name (e.g., 'John Doe'). Optional - press Enter to skip and pass a blank value."
+            ;;
+        phone_number|PHONE_NUMBER)
+            echo "Phone number in E.164 format (e.g., '+1234567890'). Optional - press Enter to skip and pass a blank value."
             ;;
         *)
             echo ""
@@ -140,29 +197,34 @@ fi
 ENV_FILE="$TARGET_DIR/.env"
 
 # Function to get env key for a variable
+# Maps script-specific names to COURIER_ prefixed environment variable names
+# Special case: api_key always maps to COURIER_API_KEY (shared across all scripts)
 get_env_key() {
     local var=$1
-    case "$var" in
-        api_key)
-            echo "COURIER_API_KEY"
-            ;;
-        user_id)
-            echo "COURIER_USER_ID"
-            ;;
-        email)
-            echo "COURIER_EMAIL"
-            ;;
-        jwt)
-            echo "VITE_COURIER_JWT"
-            ;;
-        template_id)
-            echo "COURIER_TEMPLATE_ID"
-            ;;
-        *)
-            # For custom variables, normalize the name
-            normalize_var_name "$var"
-            ;;
-    esac
+    local base_var=$(extract_base_var_name "$var")
+    
+    # Special case: api_key always maps to COURIER_API_KEY (shared)
+    if [ "$base_var" = "api_key" ]; then
+        echo "COURIER_API_KEY"
+        return
+    fi
+    
+    # If the extracted base is different from the original, it's a script-specific variable
+    if [ "$base_var" != "$var" ]; then
+        # Script-specific variable - normalize the full name
+        normalize_var_name "$var"
+    else
+        # Base variable - use legacy mapping for React apps (jwt needs VITE_ prefix)
+        case "$var" in
+            jwt)
+                echo "VITE_COURIER_JWT"
+                ;;
+            *)
+                # For other base variables, normalize with COURIER_ prefix
+                normalize_var_name "$var"
+                ;;
+        esac
+    fi
 }
 
 # Define all default variables
@@ -238,7 +300,9 @@ for var in "${VARS_TO_PROMPT[@]}"; do
         eval "NEW_${var}=\"\""
     else
         # Prompt for the value
-        new_value=$(gum input --placeholder "Enter $display_name" --prompt "$display_name: " --value "$existing_value")
+        # Use a simpler placeholder that doesn't duplicate the prompt text
+        placeholder_text=$(echo "$display_name" | sed 's/(.*)//' | xargs)  # Remove parenthetical text like "(optional - press Enter to skip)"
+        new_value=$(gum input --placeholder "$placeholder_text" --prompt "$display_name: " --value "$existing_value")
         eval "NEW_${var}=\"\$new_value\""
     fi
     

@@ -5,25 +5,55 @@
       "name": "Curl: Send Template to Email",
       "type": "node-terminal",
       "request": "launch",
-      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh --dir server/curl api_key email template_id && bash server/curl/send-template-to-email.sh"
+      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh --dir server/curl api_key send_template_to_email_email send_template_to_email_template_id && bash server/curl/send-template-to-email.sh"
     },
     {
       "name": "Curl: Send Template to User ID",
       "type": "node-terminal",
       "request": "launch",
-      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh --dir server/curl api_key user_id template_id && bash server/curl/send-template-to-user-id.sh"
+      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh --dir server/curl api_key send_template_to_user_id_user_id send_template_to_user_id_template_id && bash server/curl/send-template-to-user-id.sh"
     },
     {
       "name": "Curl: Generate JWT",
       "type": "node-terminal",
       "request": "launch",
-      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh --dir server/curl api_key user_id && bash server/curl/generate-jwt.sh"
+      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh --dir server/curl api_key generate_jwt_user_id && bash server/curl/generate-jwt.sh"
     },
     {
       "name": "Curl: Create List",
       "type": "node-terminal",
       "request": "launch",
-      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh --dir server/curl api_key list_id list_name && bash server/curl/create-list.sh"
+      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh --dir server/curl api_key create_list_list_id create_list_list_name && bash server/curl/create-list.sh"
+    },
+    {
+      "name": "Curl: Send Template to List",
+      "type": "node-terminal",
+      "request": "launch",
+      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh --dir server/curl api_key send_template_to_list_list_id send_template_to_list_template_id && bash server/curl/send-template-to-list.sh"
+    },
+    {
+      "name": "Curl: Upsert User",
+      "type": "node-terminal",
+      "request": "launch",
+      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh --dir server/curl api_key upsert_user_user_id upsert_user_email upsert_user_name upsert_user_phone_number && bash server/curl/upsert-user.sh"
+    },
+    {
+      "name": "Curl: Get User Profile",
+      "type": "node-terminal",
+      "request": "launch",
+      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh --dir server/curl api_key get_user_profile_user_id && bash server/curl/get-user-profile.sh"
+    },
+    {
+      "name": "Curl: Subscribe User to List",
+      "type": "node-terminal",
+      "request": "launch",
+      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh --dir server/curl api_key subscribe_user_to_list_list_id subscribe_user_to_list_user_id && bash server/curl/subscribe-user-to-list.sh"
+    },
+    {
+      "name": "Curl: Unsubscribe User from List",
+      "type": "node-terminal",
+      "request": "launch",
+      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh --dir server/curl api_key unsubscribe_user_from_list_list_id unsubscribe_user_from_list_user_id && bash server/curl/unsubscribe-user-from-list.sh"
     },
     {
       "name": "React: Inbox",

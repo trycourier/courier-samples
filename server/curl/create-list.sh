@@ -10,8 +10,8 @@ fi
 
 # Set the variables from environment or prompt
 AUTH_KEY="${COURIER_API_KEY:-$YOUR_AUTH_KEY}"
-LIST_ID="${COURIER_LIST_ID:-$YOUR_LIST_ID}"
-LIST_NAME="${COURIER_LIST_NAME:-My List Name}"
+LIST_ID="${COURIER_CREATE_LIST_LIST_ID:-$YOUR_LIST_ID}"
+LIST_NAME="${COURIER_CREATE_LIST_LIST_NAME:-My List Name}"
 
 curl --request PUT \
   --url "https://api.courier.com/lists/${LIST_ID}" \
