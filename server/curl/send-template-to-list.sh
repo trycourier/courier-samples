@@ -15,11 +15,9 @@ curl -s --request POST \
 --data "{
   \"message\": {
     \"to\": {
-      \"user_id\": \"${COURIER_SEND_TEMPLATE_TO_USER_ID_USER_ID}\"
+      \"list_id\": \"${COURIER_SEND_TEMPLATE_TO_LIST_LIST_ID}\"
     },
-    \"template\": \"${COURIER_SEND_TEMPLATE_TO_USER_ID_TEMPLATE_ID}\",
-    \"data\": {
-      \"name\": \"Your Name\"
-    }
+    \"template\": \"${COURIER_SEND_TEMPLATE_TO_LIST_TEMPLATE_ID}\"
   }
 }"
+

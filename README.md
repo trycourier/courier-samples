@@ -15,6 +15,32 @@ The easiest way to run any sample is using VS Code's **Launch Configuration** fe
 
 ![Demo: Starting a sample app using the VS Code Launch Configuration](assets/launcher-video.gif)
 
+## Environment Variables Setup
+
+Most samples require environment variables to be configured. You have two options:
+
+**Option A: Using the interactive script (Recommended)**
+
+The launch configurations will automatically prompt you for required variables using `scripts/set-env.sh`. You can also run it manually:
+
+```bash
+# From the project root, specify the directory and variables you need
+bash scripts/set-env.sh --dir server/curl api_key generate_jwt_user_id
+```
+
+The script will prompt you for each variable interactively. If `.env.example` exists in the target directory, it will be used as a starting point.
+
+**Option B: Copy from .env.example and edit manually**
+
+1. Navigate to the sample directory (e.g., `server/curl/` or `server/python/`)
+2. Copy the example file:
+   ```bash
+   cp .env.example .env
+   ```
+3. Edit `.env` with your actual Courier API credentials and values
+
+**Note:** The `.env` file is gitignored and should never be committed to version control. Each sample directory may have its own `.env` file, or they may share one (e.g., `server/curl/.env` is shared by both curl and Python scripts).
+
 ## Sample Applications
 
 ### Web (React)
@@ -35,7 +61,7 @@ The easiest way to run any sample is using VS Code's **Launch Configuration** fe
 
 - **[cURL Scripts](./server/curl/)**
 - **[Node.js](./server/node/)** (Coming Soon 🔜)
-- **[Python](./server/python/)** (Coming Soon 🔜)
+- **[Python](./server/python/)**
 - **[Java](./server/java/)** (Coming Soon 🔜)
 - **[Kotlin](./server/kotlin/)** (Coming Soon 🔜)
 - **[Go](./server/go/)** (Coming Soon 🔜)

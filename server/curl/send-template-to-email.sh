@@ -8,16 +8,16 @@ if [ -f "$SCRIPT_DIR/.env" ]; then
   export $(cat "$SCRIPT_DIR/.env" | grep -v '^#' | xargs)
 fi
 
-curl --request POST \
+curl -s --request POST \
 --url https://api.courier.com/send \
 --header "Authorization: Bearer ${COURIER_API_KEY}" \
 --header 'Content-Type: application/json' \
 --data "{
   \"message\": {
     \"to\": {
-      \"email\": \"${COURIER_EMAIL}\"
+      \"email\": \"${COURIER_SEND_TEMPLATE_TO_EMAIL_EMAIL}\"
     },
-    \"template\": \"${COURIER_TEMPLATE_ID}\",
+    \"template\": \"${COURIER_SEND_TEMPLATE_TO_EMAIL_TEMPLATE_ID}\",
     \"data\": {
       \"name\": \"Your Name\"
     }
