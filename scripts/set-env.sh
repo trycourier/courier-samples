@@ -138,7 +138,7 @@ get_help_message() {
             echo "Enter an email address. (e.g., 'name@courier.com')."
             ;;
         template_id|TEMPLATE_ID)
-            echo "Enter your template ID.\nSelect a template here: https://app.courier.com/assets/templates, click the ⚙️ icons in the top right, then copy the "Notification ID""
+            echo "Enter your template ID.\nSelect or create a template here: https://app.courier.com/assets/templates, click the ⚙️ icon in the top right, then copy the \"Notification ID\""
             ;;
         list_id|LIST_ID)
             echo "Enter a unique id for your list (e.g., 'newsletter-subscribers' or 'newsletterSubscribers')"
