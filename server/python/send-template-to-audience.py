@@ -9,7 +9,7 @@ load_dotenv(Path(__file__).parent.parent / "curl" / ".env")
 
 api_key = os.getenv("COURIER_API_KEY")
 audience_id = os.getenv("COURIER_SEND_TEMPLATE_TO_AUDIENCE_AUDIENCE_ID")
-template_id = os.getenv("COURIER_SEND_TEMPLATE_TO_LIST_TEMPLATE_ID")
+template_id = os.getenv("COURIER_SEND_TEMPLATE_TO_USER_ID_TEMPLATE_ID")
 
 client = Courier(api_key=api_key)
 

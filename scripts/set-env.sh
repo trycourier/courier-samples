@@ -195,6 +195,14 @@ fi
 
 # Set the ENV_FILE path
 ENV_FILE="$TARGET_DIR/.env"
+ENV_EXAMPLE_FILE="$TARGET_DIR/.env.example"
+
+# If .env doesn't exist but .env.example does, copy it as a starting point
+if [ ! -f "$ENV_FILE" ] && [ -f "$ENV_EXAMPLE_FILE" ]; then
+    cp "$ENV_EXAMPLE_FILE" "$ENV_FILE"
+    gum style --foreground 240 "📋 Initialized .env from .env.example"
+    echo ""
+fi
 
 # Function to get env key for a variable
 # Maps script-specific names to COURIER_ prefixed environment variable names
