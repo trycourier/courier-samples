@@ -5,151 +5,151 @@
       "name": "Curl: Create List",
       "type": "node-terminal",
       "request": "launch",
-      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh --dir server/curl api_key create_list_list_id create_list_list_name && bash server/curl/create-list.sh"
+      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh \"Curl: Create List\" --dir server/curl api_key create_list_list_id create_list_list_name && bash server/curl/create-list.sh"
     },
     {
       "name": "Curl: Generate JWT",
       "type": "node-terminal",
       "request": "launch",
-      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh --dir server/curl api_key generate_jwt_user_id && bash server/curl/generate-jwt.sh"
+      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh \"Curl: Generate JWT\" --dir server/curl api_key generate_jwt_user_id && bash server/curl/generate-jwt.sh"
     },
     {
       "name": "Curl: Get User Profile",
       "type": "node-terminal",
       "request": "launch",
-      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh --dir server/curl api_key get_user_profile_user_id && bash server/curl/get-user-profile.sh"
+      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh \"Curl: Get User Profile\" --dir server/curl api_key get_user_profile_user_id && bash server/curl/get-user-profile.sh"
     },
     {
       "name": "Curl: Send Template to Audience",
       "type": "node-terminal",
       "request": "launch",
-      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh --dir server/curl api_key send_template_to_audience_audience_id send_template_to_user_id_template_id && bash server/curl/send-template-to-audience.sh"
+      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh \"Curl: Send Template to Audience\" --dir server/curl api_key send_template_to_audience_audience_id send_template_to_user_id_template_id && bash server/curl/send-template-to-audience.sh"
     },
     {
       "name": "Curl: Send Template to Email",
       "type": "node-terminal",
       "request": "launch",
-      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh --dir server/curl api_key send_template_to_email_email send_template_to_email_template_id && bash server/curl/send-template-to-email.sh"
+      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh \"Curl: Send Template to Email\" --dir server/curl api_key send_template_to_email_email send_template_to_email_template_id && bash server/curl/send-template-to-email.sh"
     },
     {
       "name": "Curl: Send Template to List",
       "type": "node-terminal",
       "request": "launch",
-      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh --dir server/curl api_key send_template_to_list_list_id send_template_to_list_template_id && bash server/curl/send-template-to-list.sh"
+      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh \"Curl: Send Template to List\" --dir server/curl api_key send_template_to_list_list_id send_template_to_list_template_id && bash server/curl/send-template-to-list.sh"
     },
     {
       "name": "Curl: Send Template to Tenant",
       "type": "node-terminal",
       "request": "launch",
-      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh --dir server/curl api_key send_template_to_tenant_tenant_id send_template_to_tenant_id_template_id && bash server/curl/send-template-to-tenant.sh"
+      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh \"Curl: Send Template to Tenant\" --dir server/curl api_key send_template_to_tenant_tenant_id send_template_to_tenant_id_template_id && bash server/curl/send-template-to-tenant.sh"
     },
     {
       "name": "Curl: Send Template to User ID",
       "type": "node-terminal",
       "request": "launch",
-      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh --dir server/curl api_key send_template_to_user_id_user_id send_template_to_user_id_template_id && bash server/curl/send-template-to-user-id.sh"
+      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh \"Curl: Send Template to User ID\" --dir server/curl api_key send_template_to_user_id_user_id send_template_to_user_id_template_id && bash server/curl/send-template-to-user-id.sh"
     },
     {
       "name": "Curl: Subscribe User to List",
       "type": "node-terminal",
       "request": "launch",
-      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh --dir server/curl api_key subscribe_user_to_list_list_id subscribe_user_to_list_user_id && bash server/curl/subscribe-user-to-list.sh"
+      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh \"Curl: Subscribe User to List\" --dir server/curl api_key subscribe_user_to_list_list_id subscribe_user_to_list_user_id && bash server/curl/subscribe-user-to-list.sh"
     },
     {
       "name": "Curl: Unsubscribe User from List",
       "type": "node-terminal",
       "request": "launch",
-      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh --dir server/curl api_key unsubscribe_user_from_list_list_id unsubscribe_user_from_list_user_id && bash server/curl/unsubscribe-user-from-list.sh"
+      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh \"Curl: Unsubscribe User from List\" --dir server/curl api_key unsubscribe_user_from_list_list_id unsubscribe_user_from_list_user_id && bash server/curl/unsubscribe-user-from-list.sh"
     },
     {
       "name": "Curl: Upsert User",
       "type": "node-terminal",
       "request": "launch",
-      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh --dir server/curl api_key upsert_user_user_id upsert_user_email upsert_user_name upsert_user_phone_number && bash server/curl/upsert-user.sh"
+      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh \"Curl: Upsert User\" --dir server/curl api_key upsert_user_user_id upsert_user_email upsert_user_name upsert_user_phone_number && bash server/curl/upsert-user.sh"
     },
     {
       "name": "Python: Create List",
       "type": "node-terminal",
       "request": "launch",
-      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh --dir server/curl api_key create_list_list_id create_list_list_name && cd server/python && ([ -d venv ] || python3 -m venv venv) && source venv/bin/activate && pip install -q -r requirements.txt && python create-list.py"
+      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh \"Python: Create List\" --dir server/curl api_key create_list_list_id create_list_list_name && cd server/python && ([ -d venv ] || python3 -m venv venv) && source venv/bin/activate && pip install -q -r requirements.txt && python create-list.py"
     },
     {
       "name": "Python: Generate JWT",
       "type": "node-terminal",
       "request": "launch",
-      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh --dir server/curl api_key generate_jwt_user_id && cd server/python && ([ -d venv ] || python3 -m venv venv) && source venv/bin/activate && pip install -q -r requirements.txt && python generate-jwt.py"
+      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh \"Python: Generate JWT\" --dir server/curl api_key generate_jwt_user_id && cd server/python && ([ -d venv ] || python3 -m venv venv) && source venv/bin/activate && pip install -q -r requirements.txt && python generate-jwt.py"
     },
     {
       "name": "Python: Get User Profile",
       "type": "node-terminal",
       "request": "launch",
-      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh --dir server/curl api_key get_user_profile_user_id && cd server/python && ([ -d venv ] || python3 -m venv venv) && source venv/bin/activate && pip install -q -r requirements.txt && python get-user-profile.py"
+      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh \"Python: Get User Profile\" --dir server/curl api_key get_user_profile_user_id && cd server/python && ([ -d venv ] || python3 -m venv venv) && source venv/bin/activate && pip install -q -r requirements.txt && python get-user-profile.py"
     },
     {
       "name": "Python: Send Template to Audience",
       "type": "node-terminal",
       "request": "launch",
-      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh --dir server/curl api_key send_template_to_audience_audience_id send_template_to_user_id_template_id && cd server/python && ([ -d venv ] || python3 -m venv venv) && source venv/bin/activate && pip install -q -r requirements.txt && python send-template-to-audience.py"
+      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh \"Python: Send Template to Audience\" --dir server/curl api_key send_template_to_audience_audience_id send_template_to_user_id_template_id && cd server/python && ([ -d venv ] || python3 -m venv venv) && source venv/bin/activate && pip install -q -r requirements.txt && python send-template-to-audience.py"
     },
     {
       "name": "Python: Send Template to Email",
       "type": "node-terminal",
       "request": "launch",
-      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh --dir server/curl api_key send_template_to_email_email send_template_to_email_template_id && cd server/python && ([ -d venv ] || python3 -m venv venv) && source venv/bin/activate && pip install -q -r requirements.txt && python send-template-to-email.py"
+      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh \"Python: Send Template to Email\" --dir server/curl api_key send_template_to_email_email send_template_to_email_template_id && cd server/python && ([ -d venv ] || python3 -m venv venv) && source venv/bin/activate && pip install -q -r requirements.txt && python send-template-to-email.py"
     },
     {
       "name": "Python: Send Template to List",
       "type": "node-terminal",
       "request": "launch",
-      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh --dir server/curl api_key send_template_to_list_list_id send_template_to_list_template_id && cd server/python && ([ -d venv ] || python3 -m venv venv) && source venv/bin/activate && pip install -q -r requirements.txt && python send-template-to-list.py"
+      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh \"Python: Send Template to List\" --dir server/curl api_key send_template_to_list_list_id send_template_to_list_template_id && cd server/python && ([ -d venv ] || python3 -m venv venv) && source venv/bin/activate && pip install -q -r requirements.txt && python send-template-to-list.py"
     },
     {
       "name": "Python: Send Template to Tenant",
       "type": "node-terminal",
       "request": "launch",
-      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh --dir server/curl api_key send_template_to_tenant_tenant_id send_template_to_tenant_id_template_id && cd server/python && ([ -d venv ] || python3 -m venv venv) && source venv/bin/activate && pip install -q -r requirements.txt && python send-template-to-tenant.py"
+      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh \"Python: Send Template to Tenant\" --dir server/curl api_key send_template_to_tenant_tenant_id send_template_to_tenant_id_template_id && cd server/python && ([ -d venv ] || python3 -m venv venv) && source venv/bin/activate && pip install -q -r requirements.txt && python send-template-to-tenant.py"
     },
     {
       "name": "Python: Send Template to User ID",
       "type": "node-terminal",
       "request": "launch",
-      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh --dir server/curl api_key send_template_to_user_id_user_id send_template_to_user_id_template_id && cd server/python && ([ -d venv ] || python3 -m venv venv) && source venv/bin/activate && pip install -q -r requirements.txt && python send-template-to-user-id.py"
+      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh \"Python: Send Template to User ID\" --dir server/curl api_key send_template_to_user_id_user_id send_template_to_user_id_template_id && cd server/python && ([ -d venv ] || python3 -m venv venv) && source venv/bin/activate && pip install -q -r requirements.txt && python send-template-to-user-id.py"
     },
     {
       "name": "Python: Subscribe User to List",
       "type": "node-terminal",
       "request": "launch",
-      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh --dir server/curl api_key subscribe_user_to_list_list_id subscribe_user_to_list_user_id && cd server/python && ([ -d venv ] || python3 -m venv venv) && source venv/bin/activate && pip install -q -r requirements.txt && python subscribe-user.py"
+      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh \"Python: Subscribe User to List\" --dir server/curl api_key subscribe_user_to_list_list_id subscribe_user_to_list_user_id && cd server/python && ([ -d venv ] || python3 -m venv venv) && source venv/bin/activate && pip install -q -r requirements.txt && python subscribe-user.py"
     },
     {
       "name": "Python: Unsubscribe User from List",
       "type": "node-terminal",
       "request": "launch",
-      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh --dir server/curl api_key unsubscribe_user_from_list_list_id unsubscribe_user_from_list_user_id && cd server/python && ([ -d venv ] || python3 -m venv venv) && source venv/bin/activate && pip install -q -r requirements.txt && python unsubscribe-user.py"
+      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh \"Python: Unsubscribe User from List\" --dir server/curl api_key unsubscribe_user_from_list_list_id unsubscribe_user_from_list_user_id && cd server/python && ([ -d venv ] || python3 -m venv venv) && source venv/bin/activate && pip install -q -r requirements.txt && python unsubscribe-user.py"
     },
     {
       "name": "Python: Upsert User",
       "type": "node-terminal",
       "request": "launch",
-      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh --dir server/curl api_key upsert_user_user_id upsert_user_email upsert_user_name upsert_user_phone_number && cd server/python && ([ -d venv ] || python3 -m venv venv) && source venv/bin/activate && pip install -q -r requirements.txt && python upsert-user.py"
+      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh \"Python: Upsert User\" --dir server/curl api_key upsert_user_user_id upsert_user_email upsert_user_name upsert_user_phone_number && cd server/python && ([ -d venv ] || python3 -m venv venv) && source venv/bin/activate && pip install -q -r requirements.txt && python upsert-user.py"
     },
     {
       "name": "React: Inbox",
       "type": "node-terminal",
       "request": "launch",
-      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh --dir web/react/inbox api_key user_id jwt && cd web/react/inbox && npm i && npm run dev"
+      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh \"React: Inbox\" --dir web/react/inbox api_key user_id jwt && cd web/react/inbox && npm i && npm run dev"
     },
     {
       "name": "React: Popup Menu",
       "type": "node-terminal",
       "request": "launch",
-      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh --dir web/react/popup-menu api_key user_id jwt && cd web/react/popup-menu && npm i && npm run dev"
+      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh \"React: Popup Menu\" --dir web/react/popup-menu api_key user_id jwt && cd web/react/popup-menu && npm i && npm run dev"
     },
     {
       "name": "React: Toast",
       "type": "node-terminal",
       "request": "launch",
-      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh --dir web/react/toast api_key user_id jwt && cd web/react/toast && npm i && npm run dev -- --open"
+      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh \"React: Toast\" --dir web/react/toast api_key user_id jwt && cd web/react/toast && npm i && npm run dev -- --open"
     }
   ]
 }

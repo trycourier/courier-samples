@@ -12,7 +12,7 @@ fi
 AUTH_KEY="${COURIER_API_KEY:-$YOUR_AUTH_KEY}"
 USER_ID="${COURIER_GET_USER_PROFILE_USER_ID:-$YOUR_USER_ID}"
 
-curl --request GET \
+curl -s --request GET \
   --url "https://api.courier.com/profiles/${USER_ID}" \
   --header 'Accept: application/json' \
   --header "Authorization: Bearer ${AUTH_KEY}"

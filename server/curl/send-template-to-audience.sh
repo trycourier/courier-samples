@@ -8,7 +8,7 @@ if [ -f "$SCRIPT_DIR/.env" ]; then
   export $(cat "$SCRIPT_DIR/.env" | grep -v '^#' | xargs)
 fi
 
-curl --request POST \
+curl -s --request POST \
 --url https://api.courier.com/send \
 --header "Authorization: Bearer ${COURIER_API_KEY}" \
 --header 'Content-Type: application/json' \

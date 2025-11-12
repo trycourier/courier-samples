@@ -13,7 +13,7 @@ AUTH_KEY="${COURIER_API_KEY:-$YOUR_AUTH_KEY}"
 LIST_ID="${COURIER_UNSUBSCRIBE_USER_FROM_LIST_LIST_ID:-$YOUR_LIST_ID}"
 USER_ID="${COURIER_UNSUBSCRIBE_USER_FROM_LIST_USER_ID:-$YOUR_USER_ID}"
 
-curl --request DELETE \
+curl -s --request DELETE \
   --url "https://api.courier.com/lists/${LIST_ID}/subscriptions/${USER_ID}" \
   --header 'Accept: application/json' \
   --header "Authorization: Bearer ${AUTH_KEY}"

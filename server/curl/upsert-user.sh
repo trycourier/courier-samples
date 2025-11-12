@@ -35,7 +35,7 @@ if [ -n "$PHONE_NUMBER" ]; then
 fi
 PROFILE_JSON="${PROFILE_JSON}}"
 
-curl --request POST \
+curl -s --request POST \
   --url "https://api.courier.com/profiles/${USER_ID}" \
   --header 'Accept: application/json' \
   --header "Authorization: Bearer ${AUTH_KEY}" \

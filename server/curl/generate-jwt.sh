@@ -13,7 +13,7 @@ AUTH_KEY="${COURIER_API_KEY:-$YOUR_AUTH_KEY}"
 USER_ID="${COURIER_GENERATE_JWT_USER_ID:-$YOUR_USER_ID}"
 EXPIRES_IN_DAYS="${COURIER_EXPIRES_IN_DAYS:-30}" # Default to 30 days if not set
 
-curl --request POST \
+curl -s --request POST \
   --url https://api.courier.com/auth/issue-token \
   --header 'Accept: application/json' \
   --header "Authorization: Bearer ${AUTH_KEY}" \

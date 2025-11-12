@@ -13,7 +13,7 @@ AUTH_KEY="${COURIER_API_KEY:-$YOUR_AUTH_KEY}"
 LIST_ID="${COURIER_SUBSCRIBE_USER_TO_LIST_LIST_ID:-$YOUR_LIST_ID}"
 USER_ID="${COURIER_SUBSCRIBE_USER_TO_LIST_USER_ID:-$YOUR_USER_ID}"
 
-curl --request PUT \
+curl -s --request PUT \
   --url "https://api.courier.com/lists/${LIST_ID}/subscriptions/${USER_ID}" \
   --header 'Accept: application/json' \
   --header "Authorization: Bearer ${AUTH_KEY}" \
