@@ -134,6 +134,72 @@
       "command": "cd ${workspaceFolder} && bash scripts/set-env.sh \"Python: Upsert User\" --dir server/curl api_key upsert_user_user_id upsert_user_email upsert_user_name upsert_user_phone_number && cd server/python && ([ -d venv ] || python3 -m venv venv) && source venv/bin/activate && pip install -q -r requirements.txt && python upsert-user.py"
     },
     {
+      "name": "Node: Send Template to Email",
+      "type": "node-terminal",
+      "request": "launch",
+      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh --dir server/curl api_key send_template_to_email_email send_template_to_email_template_id && cd server/node && npm install --silent && node --no-warnings send-template-to-email.js"
+    },
+    {
+      "name": "Node: Send Template to User ID",
+      "type": "node-terminal",
+      "request": "launch",
+      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh --dir server/curl api_key send_template_to_user_id_user_id send_template_to_user_id_template_id && cd server/node && npm install --silent && node --no-warnings send-template-to-user-id.js"
+    },
+    {
+      "name": "Node: Generate JWT",
+      "type": "node-terminal",
+      "request": "launch",
+      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh --dir server/curl api_key generate_jwt_user_id && cd server/node && npm install --silent && node --no-warnings generate-jwt.js"
+    },
+    {
+      "name": "Node: Create List",
+      "type": "node-terminal",
+      "request": "launch",
+      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh --dir server/curl api_key create_list_list_id create_list_list_name && cd server/node && npm install --silent && node --no-warnings create-list.js"
+    },
+    {
+      "name": "Node: Send Template to List",
+      "type": "node-terminal",
+      "request": "launch",
+      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh --dir server/curl api_key send_template_to_list_list_id send_template_to_list_template_id && cd server/node && npm install --silent && node --no-warnings send-template-to-list.js"
+    },
+    {
+      "name": "Node: Send Template to Audience",
+      "type": "node-terminal",
+      "request": "launch",
+      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh --dir server/curl api_key send_template_to_audience_audience_id send_template_to_list_template_id && cd server/node && npm install --silent && node --no-warnings send-template-to-audience.js"
+    },
+    {
+      "name": "Node: Send Template to Tenant",
+      "type": "node-terminal",
+      "request": "launch",
+      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh --dir server/curl api_key send_template_to_tenant_tenant_id send_template_to_list_template_id && cd server/node && npm install --silent && node --no-warnings send-template-to-tenant.js"
+    },
+    {
+      "name": "Node: Upsert User",
+      "type": "node-terminal",
+      "request": "launch",
+      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh --dir server/curl api_key upsert_user_user_id upsert_user_email upsert_user_name upsert_user_phone_number && cd server/node && npm install --silent && node --no-warnings upsert-user.js"
+    },
+    {
+      "name": "Node: Get User Profile",
+      "type": "node-terminal",
+      "request": "launch",
+      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh --dir server/curl api_key get_user_profile_user_id && cd server/node && npm install --silent && node --no-warnings get-user-profile.js"
+    },
+    {
+      "name": "Node: Subscribe User to List",
+      "type": "node-terminal",
+      "request": "launch",
+      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh --dir server/curl api_key subscribe_user_to_list_list_id subscribe_user_to_list_user_id && cd server/node && npm install --silent && node --no-warnings subscribe-user-to-list.js"
+    },
+    {
+      "name": "Node: Unsubscribe User from List",
+      "type": "node-terminal",
+      "request": "launch",
+      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh --dir server/curl api_key unsubscribe_user_from_list_list_id unsubscribe_user_from_list_user_id && cd server/node && npm install --silent && node --no-warnings unsubscribe-user-from-list.js"
+    },
+    {
       "name": "React: Inbox",
       "type": "node-terminal",
       "request": "launch",
