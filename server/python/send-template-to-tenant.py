@@ -8,7 +8,7 @@ from courier import Courier
 load_dotenv(Path(__file__).parent.parent / "curl" / ".env")
 
 api_key = os.getenv("COURIER_API_KEY")
-list_id = os.getenv("COURIER_SEND_TEMPLATE_TO_TENANT_TENANT_ID")
+tenant_id = os.getenv("COURIER_SEND_TEMPLATE_TO_TENANT_TENANT_ID")
 template_id = os.getenv("COURIER_SEND_TEMPLATE_TO_LIST_TEMPLATE_ID")
 
 client = Courier(api_key=api_key)
@@ -16,7 +16,7 @@ client = Courier(api_key=api_key)
 response = client.send.message(
     message={
         "to": {
-            "tenant_id": list_id
+            "tenant_id": tenant_id
         },
         "template": template_id,
     },
