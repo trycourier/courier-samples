@@ -56,6 +56,60 @@
       "command": "cd ${workspaceFolder} && bash scripts/set-env.sh --dir server/curl api_key unsubscribe_user_from_list_list_id unsubscribe_user_from_list_user_id && bash server/curl/unsubscribe-user-from-list.sh"
     },
     {
+      "name": "Python: Send Template to Email",
+      "type": "node-terminal",
+      "request": "launch",
+      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh --dir server/curl api_key send_template_to_email_email send_template_to_email_template_id && cd server/python && pip3 install -q -r requirements.txt && python3 send-template-to-email.py"
+    },
+    {
+      "name": "Python: Send Template to User ID",
+      "type": "node-terminal",
+      "request": "launch",
+      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh --dir server/curl api_key send_template_to_user_id_user_id send_template_to_user_id_template_id && cd server/python && pip3 install -q -r requirements.txt && python3 send-template-to-user-id.py"
+    },
+    {
+      "name": "Python: Generate JWT",
+      "type": "node-terminal",
+      "request": "launch",
+      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh --dir server/curl api_key generate_jwt_user_id && cd server/python && pip3 install -q -r requirements.txt && python3 generate-jwt.py"
+    },
+    {
+      "name": "Python: Create List",
+      "type": "node-terminal",
+      "request": "launch",
+      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh --dir server/curl api_key create_list_list_id create_list_list_name && cd server/python && pip3 install -q -r requirements.txt && python3 create-list.py"
+    },
+    {
+      "name": "Python: Send Template to List",
+      "type": "node-terminal",
+      "request": "launch",
+      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh --dir server/curl api_key send_template_to_list_list_id send_template_to_list_template_id && cd server/python && pip3 install -q -r requirements.txt && python3 send-template-to-list.py"
+    },
+    {
+      "name": "Python: Upsert User",
+      "type": "node-terminal",
+      "request": "launch",
+      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh --dir server/curl api_key upsert_user_user_id upsert_user_email upsert_user_name upsert_user_phone_number && cd server/python && pip3 install -q -r requirements.txt && python3 upsert-user.py"
+    },
+    {
+      "name": "Python: Get User Profile",
+      "type": "node-terminal",
+      "request": "launch",
+      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh --dir server/curl api_key get_user_profile_user_id && cd server/python && pip3 install -q -r requirements.txt && python3 get-user-profile.py"
+    },
+    {
+      "name": "Python: Subscribe User to List",
+      "type": "node-terminal",
+      "request": "launch",
+      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh --dir server/curl api_key subscribe_user_to_list_list_id subscribe_user_to_list_user_id && cd server/python && pip3 install -q -r requirements.txt && python3 subscribe-user.py"
+    },
+    {
+      "name": "Python: Unsubscribe User from List",
+      "type": "node-terminal",
+      "request": "launch",
+      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh --dir server/curl api_key unsubscribe_user_from_list_list_id unsubscribe_user_from_list_user_id && cd server/python && pip3 install -q -r requirements.txt && python3 unsubscribe-user.py"
+    },
+    {
       "name": "React: Inbox",
       "type": "node-terminal",
       "request": "launch",
