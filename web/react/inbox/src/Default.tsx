@@ -13,7 +13,7 @@ export default function App() {
     // Delay to simulate the time it takes to generate the JWT on your server.
     await new Promise((resolve) => setTimeout(resolve, 1000));
 
-    // For this example, we are using an env value, but this should be what is returned from the issue-token api.
+    // For this example we are using an env value, but this should be what is returned from the issue-token api.
     return import.meta.env.VITE_COURIER_JWT;
   };
 
