@@ -332,6 +332,72 @@
       "command": "cd ${workspaceFolder} && bash scripts/set-env.sh \"Ruby: Upsert User\" --dir server api_key upsert_user_user_id upsert_user_email upsert_user_name upsert_user_phone_number && cd server/ruby && bundle install --quiet --path vendor/bundle && bundle exec ruby upsert-user.rb"
     },
     {
+      "name": "PHP: Create List",
+      "type": "node-terminal",
+      "request": "launch",
+      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh \"PHP: Create List\" --dir server api_key create_list_list_id create_list_list_name && cd server/php && composer install --quiet --no-interaction && php create-list.php"
+    },
+    {
+      "name": "PHP: Generate JWT",
+      "type": "node-terminal",
+      "request": "launch",
+      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh \"PHP: Generate JWT\" --dir server api_key generate_jwt_user_id && cd server/php && composer install --quiet --no-interaction && php generate-jwt.php"
+    },
+    {
+      "name": "PHP: Get User Profile",
+      "type": "node-terminal",
+      "request": "launch",
+      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh \"PHP: Get User Profile\" --dir server api_key get_user_profile_user_id && cd server/php && composer install --quiet --no-interaction && php get-user-profile.php"
+    },
+    {
+      "name": "PHP: Send Template to Audience",
+      "type": "node-terminal",
+      "request": "launch",
+      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh \"PHP: Send Template to Audience\" --dir server api_key send_template_to_audience_audience_id send_template_to_user_id_template_id && cd server/php && composer install --quiet --no-interaction && php send-template-to-audience.php"
+    },
+    {
+      "name": "PHP: Send Template to Email",
+      "type": "node-terminal",
+      "request": "launch",
+      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh \"PHP: Send Template to Email\" --dir server api_key send_template_to_email_email send_template_to_email_template_id && cd server/php && composer install --quiet --no-interaction && php send-template-to-email.php"
+    },
+    {
+      "name": "PHP: Send Template to List",
+      "type": "node-terminal",
+      "request": "launch",
+      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh \"PHP: Send Template to List\" --dir server api_key send_template_to_list_list_id send_template_to_list_template_id && cd server/php && composer install --quiet --no-interaction && php send-template-to-list.php"
+    },
+    {
+      "name": "PHP: Send Template to Tenant",
+      "type": "node-terminal",
+      "request": "launch",
+      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh \"PHP: Send Template to Tenant\" --dir server api_key send_template_to_tenant_tenant_id send_template_to_tenant_id_template_id && cd server/php && composer install --quiet --no-interaction && php send-template-to-tenant.php"
+    },
+    {
+      "name": "PHP: Send Template to User ID",
+      "type": "node-terminal",
+      "request": "launch",
+      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh \"PHP: Send Template to User ID\" --dir server api_key send_template_to_user_id_user_id send_template_to_user_id_template_id && cd server/php && composer install --quiet --no-interaction && php send-template-to-user-id.php"
+    },
+    {
+      "name": "PHP: Subscribe User to List",
+      "type": "node-terminal",
+      "request": "launch",
+      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh \"PHP: Subscribe User to List\" --dir server api_key subscribe_user_to_list_list_id subscribe_user_to_list_user_id && cd server/php && composer install --quiet --no-interaction && php subscribe-user-to-list.php"
+    },
+    {
+      "name": "PHP: Unsubscribe User from List",
+      "type": "node-terminal",
+      "request": "launch",
+      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh \"PHP: Unsubscribe User from List\" --dir server api_key unsubscribe_user_from_list_list_id unsubscribe_user_from_list_user_id && cd server/php && composer install --quiet --no-interaction && php unsubscribe-user-from-list.php"
+    },
+    {
+      "name": "PHP: Upsert User",
+      "type": "node-terminal",
+      "request": "launch",
+      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh \"PHP: Upsert User\" --dir server api_key upsert_user_user_id upsert_user_email upsert_user_name upsert_user_phone_number && cd server/php && composer install --quiet --no-interaction && php upsert-user.php"
+    },
+    {
       "name": "React: Inbox",
       "type": "node-terminal",
       "request": "launch",

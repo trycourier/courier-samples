@@ -135,6 +135,19 @@ get_display_name() {
     esac
 }
 
+# Function to quote value if it contains spaces (for PHP Dotenv compatibility)
+quote_if_needed() {
+    local value="$1"
+    # If value contains spaces, quotes, or special characters, quote it
+    if [[ "$value" =~ [[:space:]] ]] || [[ "$value" =~ [\"\$\`] ]]; then
+        # Escape any existing quotes and wrap in quotes
+        value="${value//\"/\\\"}"
+        echo "\"$value\""
+    else
+        echo "$value"
+    fi
+}
+
 # Function to get help message for variable
 get_help_message() {
     local var=$1
@@ -534,7 +547,8 @@ update_env_file() {
                 
                 # If this key should be updated, write the new value in place
                 if [ $should_update -eq 1 ] && [ -n "$updated_value" ]; then
-                    printf '%s=%s\n' "$key" "$updated_value" >> "$temp_file"
+                    quoted_value=$(quote_if_needed "$updated_value")
+                    printf '%s=%s\n' "$key" "$quoted_value" >> "$temp_file"
                     continue
                 fi
             fi
@@ -552,14 +566,16 @@ update_env_file() {
             if ! grep -q "^[[:space:]]*${env_key}=" "$ENV_FILE" 2>/dev/null; then
                 # Variable doesn't exist, add it
                 if [ -n "$value" ]; then
-                    printf '%s=%s\n' "$env_key" "$value" >> "$temp_file"
+                    quoted_value=$(quote_if_needed "$value")
+                    printf '%s=%s\n' "$env_key" "$quoted_value" >> "$temp_file"
                 fi
             fi
             
             # For user_id, also check/add VITE_COURIER_USER_ID
             if [ "$var" = "user_id" ] && [ -n "$value" ]; then
                 if ! grep -q "^[[:space:]]*VITE_COURIER_USER_ID=" "$ENV_FILE" 2>/dev/null; then
-                    printf '%s=%s\n' "VITE_COURIER_USER_ID" "$value" >> "$temp_file"
+                    quoted_value=$(quote_if_needed "$value")
+                    printf '%s=%s\n' "VITE_COURIER_USER_ID" "$quoted_value" >> "$temp_file"
                 fi
             fi
         done
@@ -574,12 +590,14 @@ update_env_file() {
             env_key=$(get_env_key "$var")
             eval "value=\$NEW_${var}"
             if [ -n "$value" ]; then
-                printf '%s=%s\n' "$env_key" "$value" >> "$temp_file"
+                quoted_value=$(quote_if_needed "$value")
+                printf '%s=%s\n' "$env_key" "$quoted_value" >> "$temp_file"
             fi
             
             # For user_id, also write VITE_COURIER_USER_ID with the same value
             if [ "$var" = "user_id" ] && [ -n "$value" ]; then
-                printf '%s=%s\n' "VITE_COURIER_USER_ID" "$value" >> "$temp_file"
+                quoted_value=$(quote_if_needed "$value")
+                printf '%s=%s\n' "VITE_COURIER_USER_ID" "$quoted_value" >> "$temp_file"
             fi
         done
     fi
