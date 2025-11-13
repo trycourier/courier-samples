@@ -3,8 +3,8 @@ require 'json'
 require 'net/http'
 require 'uri'
 
-# Load environment variables from .env file in server/curl directory (shared with curl scripts)
-env_path = File.join(File.dirname(__FILE__), '..', 'curl', '.env')
+# Load environment variables from .env file in server directory (shared across all language examples)
+env_path = File.join(File.dirname(__FILE__), '..', '.env')
 Dotenv.load(env_path)
 
 api_key = ENV['COURIER_API_KEY']

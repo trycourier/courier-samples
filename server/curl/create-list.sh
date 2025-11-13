@@ -2,8 +2,10 @@
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
-if [ -f "$SCRIPT_DIR/.env" ]; then
-  export $(cat "$SCRIPT_DIR/.env" | grep -v '^#' | xargs)
+SERVER_DIR="$(cd "$SCRIPT_DIR/.." && pwd)"
+# Load environment variables from .env file in server directory (shared across all language examples)
+if [ -f "$SERVER_DIR/.env" ]; then
+  export $(cat "$SERVER_DIR/.env" | grep -v '^#' | xargs)
 fi
 
 AUTH_KEY="${COURIER_API_KEY:-}"

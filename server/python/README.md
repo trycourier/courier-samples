@@ -16,18 +16,18 @@ Get up and running in 3 steps:
 
 2. **Set up environment variables:**
    
-   Create a `.env` file in the `server/curl/` directory (shared with curl scripts). You have two options:
+   Create a `.env` file in the `server/` directory (shared across all language examples). You have two options:
 
    **Option A: Using the interactive script (Recommended)**
    ```bash
    # From the project root, run set-env.sh for the variables you need
-   bash scripts/set-env.sh --dir server/curl api_key generate_jwt_user_id
+   bash scripts/set-env.sh --dir server api_key generate_jwt_user_id
    ```
    The script will prompt you for each variable interactively. If `.env.example` exists, it will be used as a starting point.
 
    **Option B: Copy from .env.example and edit manually**
    ```bash
-   cd server/curl
+   cd server
    cp .env.example .env
    # Then edit .env with your actual values
    ```

@@ -4,8 +4,8 @@ from pathlib import Path
 from dotenv import load_dotenv
 from courier import Courier
 
-# Load environment variables from .env file in server/curl directory (shared with curl scripts)
-load_dotenv(Path(__file__).parent.parent / "curl" / ".env")
+# Load environment variables from .env file in server directory (shared across all language examples)
+load_dotenv(Path(__file__).parent.parent / ".env")
 
 api_key = os.getenv("COURIER_API_KEY")
 list_id = os.getenv("COURIER_CREATE_LIST_LIST_ID")

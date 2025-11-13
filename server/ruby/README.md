@@ -9,7 +9,7 @@ Ruby examples for interacting with the Courier API.
    bundle install
    ```
 
-2. Set up environment variables in `../curl/.env` (shared with curl scripts)
+2. Set up environment variables in `../.env` (shared across all language examples)
 
 3. Run scripts via VS Code debugger or directly:
    ```bash

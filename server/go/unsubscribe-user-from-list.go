@@ -12,8 +12,8 @@ import (
 )
 
 func main() {
-	// Load environment variables from .env file in server/curl directory (shared with curl scripts)
-	envPath := filepath.Join("..", "curl", ".env")
+	// Load environment variables from .env file in server directory (shared across all language examples)
+	envPath := filepath.Join("..", ".env")
 	godotenv.Load(envPath)
 
 	apiKey := os.Getenv("COURIER_API_KEY")
