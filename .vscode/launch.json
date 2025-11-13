@@ -2,214 +2,202 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "Curl: Create List",
+      "name": "Ruby: Generate JWT",
       "type": "node-terminal",
       "request": "launch",
-      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh \"Curl: Create List\" --dir server api_key create_list_list_id create_list_list_name && bash server/curl/create-list.sh"
+      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh \"Ruby: Generate JWT\" --dir server api_key generate_jwt_user_id && cd server/ruby && bundle install --quiet --path vendor/bundle && bundle exec ruby generate-jwt.rb"
     },
     {
-      "name": "Curl: Generate JWT",
+      "name": "Ruby: Upsert User",
       "type": "node-terminal",
       "request": "launch",
-      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh \"Curl: Generate JWT\" --dir server api_key generate_jwt_user_id && bash server/curl/generate-jwt.sh"
+      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh \"Ruby: Upsert User\" --dir server api_key upsert_user_user_id upsert_user_email upsert_user_name upsert_user_phone_number && cd server/ruby && bundle install --quiet --path vendor/bundle && bundle exec ruby upsert-user.rb"
     },
     {
-      "name": "Curl: Get User Profile",
+      "name": "Ruby: Get User Profile",
       "type": "node-terminal",
       "request": "launch",
-      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh \"Curl: Get User Profile\" --dir server api_key get_user_profile_user_id && bash server/curl/get-user-profile.sh"
+      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh \"Ruby: Get User Profile\" --dir server api_key get_user_profile_user_id && cd server/ruby && bundle install --quiet --path vendor/bundle && bundle exec ruby get-user-profile.rb"
     },
     {
-      "name": "Curl: Send Template to Audience",
+      "name": "Ruby: Create List",
       "type": "node-terminal",
       "request": "launch",
-      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh \"Curl: Send Template to Audience\" --dir server api_key send_template_to_audience_audience_id send_template_to_user_id_template_id && bash server/curl/send-template-to-audience.sh"
+      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh \"Ruby: Create List\" --dir server api_key create_list_list_id create_list_list_name && cd server/ruby && bundle install --quiet --path vendor/bundle && bundle exec ruby create-list.rb"
     },
     {
-      "name": "Curl: Send Template to Email",
+      "name": "Ruby: Subscribe User to List",
       "type": "node-terminal",
       "request": "launch",
-      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh \"Curl: Send Template to Email\" --dir server api_key send_template_to_email_email send_template_to_email_template_id && bash server/curl/send-template-to-email.sh"
+      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh \"Ruby: Subscribe User to List\" --dir server api_key subscribe_user_to_list_list_id subscribe_user_to_list_user_id && cd server/ruby && bundle install --quiet --path vendor/bundle && bundle exec ruby subscribe-user-to-list.rb"
     },
     {
-      "name": "Curl: Send Template to List",
+      "name": "Ruby: Unsubscribe User from List",
       "type": "node-terminal",
       "request": "launch",
-      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh \"Curl: Send Template to List\" --dir server api_key send_template_to_list_list_id send_template_to_list_template_id && bash server/curl/send-template-to-list.sh"
+      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh \"Ruby: Unsubscribe User from List\" --dir server api_key unsubscribe_user_from_list_list_id unsubscribe_user_from_list_user_id && cd server/ruby && bundle install --quiet --path vendor/bundle && bundle exec ruby unsubscribe-user-from-list.rb"
     },
     {
-      "name": "Curl: Send Template to Tenant",
+      "name": "Ruby: Send Template to User ID",
       "type": "node-terminal",
       "request": "launch",
-      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh \"Curl: Send Template to Tenant\" --dir server api_key send_template_to_tenant_tenant_id send_template_to_tenant_id_template_id && bash server/curl/send-template-to-tenant.sh"
+      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh \"Ruby: Send Template to User ID\" --dir server api_key send_template_to_user_id_user_id send_template_to_user_id_template_id && cd server/ruby && bundle install --quiet --path vendor/bundle && bundle exec ruby send-template-to-user-id.rb"
     },
     {
-      "name": "Curl: Send Template to User ID",
+      "name": "Ruby: Send Template to Email",
       "type": "node-terminal",
       "request": "launch",
-      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh \"Curl: Send Template to User ID\" --dir server api_key send_template_to_user_id_user_id send_template_to_user_id_template_id && bash server/curl/send-template-to-user-id.sh"
+      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh \"Ruby: Send Template to Email\" --dir server api_key send_template_to_email_email send_template_to_email_template_id && cd server/ruby && bundle install --quiet --path vendor/bundle && bundle exec ruby send-template-to-email.rb"
     },
     {
-      "name": "Curl: Subscribe User to List",
+      "name": "Ruby: Send Template to List",
       "type": "node-terminal",
       "request": "launch",
-      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh \"Curl: Subscribe User to List\" --dir server api_key subscribe_user_to_list_list_id subscribe_user_to_list_user_id && bash server/curl/subscribe-user-to-list.sh"
+      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh \"Ruby: Send Template to List\" --dir server api_key send_template_to_list_list_id send_template_to_list_template_id && cd server/ruby && bundle install --quiet --path vendor/bundle && bundle exec ruby send-template-to-list.rb"
     },
     {
-      "name": "Curl: Unsubscribe User from List",
+      "name": "Ruby: Send Template to Audience",
       "type": "node-terminal",
       "request": "launch",
-      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh \"Curl: Unsubscribe User from List\" --dir server api_key unsubscribe_user_from_list_list_id unsubscribe_user_from_list_user_id && bash server/curl/unsubscribe-user-from-list.sh"
+      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh \"Ruby: Send Template to Audience\" --dir server api_key send_template_to_audience_audience_id send_template_to_user_id_template_id && cd server/ruby && bundle install --quiet --path vendor/bundle && bundle exec ruby send-template-to-audience.rb"
     },
     {
-      "name": "Curl: Upsert User",
+      "name": "Ruby: Send Template to Tenant",
       "type": "node-terminal",
       "request": "launch",
-      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh \"Curl: Upsert User\" --dir server api_key upsert_user_user_id upsert_user_email upsert_user_name upsert_user_phone_number && bash server/curl/upsert-user.sh"
+      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh \"Ruby: Send Template to Tenant\" --dir server api_key send_template_to_tenant_tenant_id send_template_to_tenant_id_template_id && cd server/ruby && bundle install --quiet --path vendor/bundle && bundle exec ruby send-template-to-tenant.rb"
     },
     {
-      "name": "Python: Create List",
+      "name": "PHP: Generate JWT",
       "type": "node-terminal",
       "request": "launch",
-      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh \"Python: Create List\" --dir server api_key create_list_list_id create_list_list_name && cd server/python && ([ -d venv ] || python3 -m venv venv) && source venv/bin/activate && pip install -q -r requirements.txt && python create-list.py"
+      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh \"PHP: Generate JWT\" --dir server api_key generate_jwt_user_id && cd server/php && composer install --quiet --no-interaction && php generate-jwt.php"
     },
     {
-      "name": "Python: Generate JWT",
+      "name": "PHP: Upsert User",
       "type": "node-terminal",
       "request": "launch",
-      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh \"Python: Generate JWT\" --dir server api_key generate_jwt_user_id && cd server/python && ([ -d venv ] || python3 -m venv venv) && source venv/bin/activate && pip install -q -r requirements.txt && python generate-jwt.py"
+      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh \"PHP: Upsert User\" --dir server api_key upsert_user_user_id upsert_user_email upsert_user_name upsert_user_phone_number && cd server/php && composer install --quiet --no-interaction && php upsert-user.php"
     },
     {
-      "name": "Python: Get User Profile",
+      "name": "PHP: Get User Profile",
       "type": "node-terminal",
       "request": "launch",
-      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh \"Python: Get User Profile\" --dir server api_key get_user_profile_user_id && cd server/python && ([ -d venv ] || python3 -m venv venv) && source venv/bin/activate && pip install -q -r requirements.txt && python get-user-profile.py"
+      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh \"PHP: Get User Profile\" --dir server api_key get_user_profile_user_id && cd server/php && composer install --quiet --no-interaction && php get-user-profile.php"
     },
     {
-      "name": "Python: Send Template to Audience",
+      "name": "PHP: Create List",
       "type": "node-terminal",
       "request": "launch",
-      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh \"Python: Send Template to Audience\" --dir server api_key send_template_to_audience_audience_id send_template_to_user_id_template_id && cd server/python && ([ -d venv ] || python3 -m venv venv) && source venv/bin/activate && pip install -q -r requirements.txt && python send-template-to-audience.py"
+      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh \"PHP: Create List\" --dir server api_key create_list_list_id create_list_list_name && cd server/php && composer install --quiet --no-interaction && php create-list.php"
     },
     {
-      "name": "Python: Send Template to Email",
+      "name": "PHP: Subscribe User to List",
       "type": "node-terminal",
       "request": "launch",
-      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh \"Python: Send Template to Email\" --dir server api_key send_template_to_email_email send_template_to_email_template_id && cd server/python && ([ -d venv ] || python3 -m venv venv) && source venv/bin/activate && pip install -q -r requirements.txt && python send-template-to-email.py"
+      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh \"PHP: Subscribe User to List\" --dir server api_key subscribe_user_to_list_list_id subscribe_user_to_list_user_id && cd server/php && composer install --quiet --no-interaction && php subscribe-user-to-list.php"
     },
     {
-      "name": "Python: Send Template to List",
+      "name": "PHP: Unsubscribe User from List",
       "type": "node-terminal",
       "request": "launch",
-      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh \"Python: Send Template to List\" --dir server api_key send_template_to_list_list_id send_template_to_list_template_id && cd server/python && ([ -d venv ] || python3 -m venv venv) && source venv/bin/activate && pip install -q -r requirements.txt && python send-template-to-list.py"
+      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh \"PHP: Unsubscribe User from List\" --dir server api_key unsubscribe_user_from_list_list_id unsubscribe_user_from_list_user_id && cd server/php && composer install --quiet --no-interaction && php unsubscribe-user-from-list.php"
     },
     {
-      "name": "Python: Send Template to Tenant",
+      "name": "PHP: Send Template to User ID",
       "type": "node-terminal",
       "request": "launch",
-      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh \"Python: Send Template to Tenant\" --dir server api_key send_template_to_tenant_tenant_id send_template_to_tenant_id_template_id && cd server/python && ([ -d venv ] || python3 -m venv venv) && source venv/bin/activate && pip install -q -r requirements.txt && python send-template-to-tenant.py"
+      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh \"PHP: Send Template to User ID\" --dir server api_key send_template_to_user_id_user_id send_template_to_user_id_template_id && cd server/php && composer install --quiet --no-interaction && php send-template-to-user-id.php"
     },
     {
-      "name": "Python: Send Template to User ID",
+      "name": "PHP: Send Template to Email",
       "type": "node-terminal",
       "request": "launch",
-      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh \"Python: Send Template to User ID\" --dir server api_key send_template_to_user_id_user_id send_template_to_user_id_template_id && cd server/python && ([ -d venv ] || python3 -m venv venv) && source venv/bin/activate && pip install -q -r requirements.txt && python send-template-to-user-id.py"
+      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh \"PHP: Send Template to Email\" --dir server api_key send_template_to_email_email send_template_to_email_template_id && cd server/php && composer install --quiet --no-interaction && php send-template-to-email.php"
     },
     {
-      "name": "Python: Subscribe User to List",
+      "name": "PHP: Send Template to List",
       "type": "node-terminal",
       "request": "launch",
-      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh \"Python: Subscribe User to List\" --dir server api_key subscribe_user_to_list_list_id subscribe_user_to_list_user_id && cd server/python && ([ -d venv ] || python3 -m venv venv) && source venv/bin/activate && pip install -q -r requirements.txt && python subscribe-user.py"
+      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh \"PHP: Send Template to List\" --dir server api_key send_template_to_list_list_id send_template_to_list_template_id && cd server/php && composer install --quiet --no-interaction && php send-template-to-list.php"
     },
     {
-      "name": "Python: Unsubscribe User from List",
+      "name": "PHP: Send Template to Audience",
       "type": "node-terminal",
       "request": "launch",
-      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh \"Python: Unsubscribe User from List\" --dir server api_key unsubscribe_user_from_list_list_id unsubscribe_user_from_list_user_id && cd server/python && ([ -d venv ] || python3 -m venv venv) && source venv/bin/activate && pip install -q -r requirements.txt && python unsubscribe-user.py"
+      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh \"PHP: Send Template to Audience\" --dir server api_key send_template_to_audience_audience_id send_template_to_user_id_template_id && cd server/php && composer install --quiet --no-interaction && php send-template-to-audience.php"
     },
     {
-      "name": "Python: Upsert User",
+      "name": "PHP: Send Template to Tenant",
       "type": "node-terminal",
       "request": "launch",
-      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh \"Python: Upsert User\" --dir server api_key upsert_user_user_id upsert_user_email upsert_user_name upsert_user_phone_number && cd server/python && ([ -d venv ] || python3 -m venv venv) && source venv/bin/activate && pip install -q -r requirements.txt && python upsert-user.py"
+      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh \"PHP: Send Template to Tenant\" --dir server api_key send_template_to_tenant_tenant_id send_template_to_tenant_id_template_id && cd server/php && composer install --quiet --no-interaction && php send-template-to-tenant.php"
     },
     {
-      "name": "Node: Send Template to Email",
+      "name": "Kotlin: Generate JWT",
       "type": "node-terminal",
       "request": "launch",
-      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh \"Node: Send Template to Email\" --dir server api_key send_template_to_email_email send_template_to_email_template_id && cd server/node && npm install --silent && node --no-warnings send-template-to-email.js"
+      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh \"Kotlin: Generate JWT\" --dir server api_key generate_jwt_user_id && cd server/kotlin && export JAVA_HOME=$(/usr/libexec/java_home 2>/dev/null || echo /usr/local/Cellar/openjdk/25.0.1/libexec/openjdk.jdk/Contents/Home) && export PATH=\"$JAVA_HOME/bin:$PATH\" && kotlinc generate-jwt.kt -include-runtime -d generate-jwt.jar 2>/dev/null && java -jar generate-jwt.jar && rm -f generate-jwt.jar"
     },
     {
-      "name": "Node: Send Template to User ID",
+      "name": "Kotlin: Upsert User",
       "type": "node-terminal",
       "request": "launch",
-      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh \"Node: Send Template to User ID\" --dir server api_key send_template_to_user_id_user_id send_template_to_user_id_template_id && cd server/node && npm install --silent && node --no-warnings send-template-to-user-id.js"
+      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh \"Kotlin: Upsert User\" --dir server api_key upsert_user_user_id upsert_user_email upsert_user_name upsert_user_phone_number && cd server/kotlin && export JAVA_HOME=$(/usr/libexec/java_home 2>/dev/null || echo /usr/local/Cellar/openjdk/25.0.1/libexec/openjdk.jdk/Contents/Home) && export PATH=\"$JAVA_HOME/bin:$PATH\" && kotlinc upsert-user.kt -include-runtime -d upsert-user.jar 2>/dev/null && java -jar upsert-user.jar && rm -f upsert-user.jar"
     },
     {
-      "name": "Node: Generate JWT",
+      "name": "Kotlin: Get User Profile",
       "type": "node-terminal",
       "request": "launch",
-      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh \"Node: Generate JWT\" --dir server api_key generate_jwt_user_id && cd server/node && npm install --silent && node --no-warnings generate-jwt.js"
+      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh \"Kotlin: Get User Profile\" --dir server api_key get_user_profile_user_id && cd server/kotlin && export JAVA_HOME=$(/usr/libexec/java_home 2>/dev/null || echo /usr/local/Cellar/openjdk/25.0.1/libexec/openjdk.jdk/Contents/Home) && export PATH=\"$JAVA_HOME/bin:$PATH\" && kotlinc get-user-profile.kt -include-runtime -d get-user-profile.jar 2>/dev/null && java -jar get-user-profile.jar && rm -f get-user-profile.jar"
     },
     {
-      "name": "Node: Create List",
+      "name": "Kotlin: Create List",
       "type": "node-terminal",
       "request": "launch",
-      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh \"Node: Create List\" --dir server api_key create_list_list_id create_list_list_name && cd server/node && npm install --silent && node --no-warnings create-list.js"
+      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh \"Kotlin: Create List\" --dir server api_key create_list_list_id create_list_list_name && cd server/kotlin && export JAVA_HOME=$(/usr/libexec/java_home 2>/dev/null || echo /usr/local/Cellar/openjdk/25.0.1/libexec/openjdk.jdk/Contents/Home) && export PATH=\"$JAVA_HOME/bin:$PATH\" && kotlinc create-list.kt -include-runtime -d create-list.jar 2>/dev/null && java -jar create-list.jar && rm -f create-list.jar"
     },
     {
-      "name": "Node: Send Template to List",
+      "name": "Kotlin: Subscribe User to List",
       "type": "node-terminal",
       "request": "launch",
-      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh \"Node: Send Template to List\" --dir server api_key send_template_to_list_list_id send_template_to_list_template_id && cd server/node && npm install --silent && node --no-warnings send-template-to-list.js"
+      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh \"Kotlin: Subscribe User to List\" --dir server api_key subscribe_user_to_list_list_id subscribe_user_to_list_user_id && cd server/kotlin && export JAVA_HOME=$(/usr/libexec/java_home 2>/dev/null || echo /usr/local/Cellar/openjdk/25.0.1/libexec/openjdk.jdk/Contents/Home) && export PATH=\"$JAVA_HOME/bin:$PATH\" && kotlinc subscribe-user-to-list.kt -include-runtime -d subscribe-user-to-list.jar 2>/dev/null && java -jar subscribe-user-to-list.jar && rm -f subscribe-user-to-list.jar"
     },
     {
-      "name": "Node: Send Template to Audience",
+      "name": "Kotlin: Unsubscribe User from List",
       "type": "node-terminal",
       "request": "launch",
-      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh \"Node: Send Template to Audience\" --dir server api_key send_template_to_audience_audience_id send_template_to_list_template_id && cd server/node && npm install --silent && node --no-warnings send-template-to-audience.js"
+      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh \"Kotlin: Unsubscribe User from List\" --dir server api_key unsubscribe_user_from_list_list_id unsubscribe_user_from_list_user_id && cd server/kotlin && export JAVA_HOME=$(/usr/libexec/java_home 2>/dev/null || echo /usr/local/Cellar/openjdk/25.0.1/libexec/openjdk.jdk/Contents/Home) && export PATH=\"$JAVA_HOME/bin:$PATH\" && kotlinc unsubscribe-user-from-list.kt -include-runtime -d unsubscribe-user-from-list.jar 2>/dev/null && java -jar unsubscribe-user-from-list.jar && rm -f unsubscribe-user-from-list.jar"
     },
     {
-      "name": "Node: Send Template to Tenant",
+      "name": "Kotlin: Send Template to User ID",
       "type": "node-terminal",
       "request": "launch",
-      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh \"Node: Send Template to Tenant\" --dir server api_key send_template_to_tenant_tenant_id send_template_to_list_template_id && cd server/node && npm install --silent && node --no-warnings send-template-to-tenant.js"
+      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh \"Kotlin: Send Template to User ID\" --dir server api_key send_template_to_user_id_user_id send_template_to_user_id_template_id && cd server/kotlin && export JAVA_HOME=$(/usr/libexec/java_home 2>/dev/null || echo /usr/local/Cellar/openjdk/25.0.1/libexec/openjdk.jdk/Contents/Home) && export PATH=\"$JAVA_HOME/bin:$PATH\" && kotlinc send-template-to-user-id.kt -include-runtime -d send-template-to-user-id.jar 2>/dev/null && java -jar send-template-to-user-id.jar && rm -f send-template-to-user-id.jar"
     },
     {
-      "name": "Node: Upsert User",
+      "name": "Kotlin: Send Template to Email",
       "type": "node-terminal",
       "request": "launch",
-      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh \"Node: Upsert User\" --dir server api_key upsert_user_user_id upsert_user_email upsert_user_name upsert_user_phone_number && cd server/node && npm install --silent && node --no-warnings upsert-user.js"
+      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh \"Kotlin: Send Template to Email\" --dir server api_key send_template_to_email_email send_template_to_email_template_id && cd server/kotlin && export JAVA_HOME=$(/usr/libexec/java_home 2>/dev/null || echo /usr/local/Cellar/openjdk/25.0.1/libexec/openjdk.jdk/Contents/Home) && export PATH=\"$JAVA_HOME/bin:$PATH\" && kotlinc send-template-to-email.kt -include-runtime -d send-template-to-email.jar 2>/dev/null && java -jar send-template-to-email.jar && rm -f send-template-to-email.jar"
     },
     {
-      "name": "Node: Get User Profile",
+      "name": "Kotlin: Send Template to List",
       "type": "node-terminal",
       "request": "launch",
-      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh \"Node: Get User Profile\" --dir server api_key get_user_profile_user_id && cd server/node && npm install --silent && node --no-warnings get-user-profile.js"
+      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh \"Kotlin: Send Template to List\" --dir server api_key send_template_to_list_list_id send_template_to_list_template_id && cd server/kotlin && export JAVA_HOME=$(/usr/libexec/java_home 2>/dev/null || echo /usr/local/Cellar/openjdk/25.0.1/libexec/openjdk.jdk/Contents/Home) && export PATH=\"$JAVA_HOME/bin:$PATH\" && kotlinc send-template-to-list.kt -include-runtime -d send-template-to-list.jar 2>/dev/null && java -jar send-template-to-list.jar && rm -f send-template-to-list.jar"
     },
     {
-      "name": "Node: Subscribe User to List",
+      "name": "Kotlin: Send Template to Audience",
       "type": "node-terminal",
       "request": "launch",
-      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh \"Node: Subscribe User to List\" --dir server api_key subscribe_user_to_list_list_id subscribe_user_to_list_user_id && cd server/node && npm install --silent && node --no-warnings subscribe-user-to-list.js"
+      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh \"Kotlin: Send Template to Audience\" --dir server api_key send_template_to_audience_audience_id send_template_to_user_id_template_id && cd server/kotlin && export JAVA_HOME=$(/usr/libexec/java_home 2>/dev/null || echo /usr/local/Cellar/openjdk/25.0.1/libexec/openjdk.jdk/Contents/Home) && export PATH=\"$JAVA_HOME/bin:$PATH\" && kotlinc send-template-to-audience.kt -include-runtime -d send-template-to-audience.jar 2>/dev/null && java -jar send-template-to-audience.jar && rm -f send-template-to-audience.jar"
     },
     {
-      "name": "Node: Unsubscribe User from List",
+      "name": "Kotlin: Send Template to Tenant",
       "type": "node-terminal",
       "request": "launch",
-      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh \"Node: Unsubscribe User from List\" --dir server api_key unsubscribe_user_from_list_list_id unsubscribe_user_from_list_user_id && cd server/node && npm install --silent && node --no-warnings unsubscribe-user-from-list.js"
-    },
-    {
-      "name": "Go: Send Template to Email",
-      "type": "node-terminal",
-      "request": "launch",
-      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh --dir server api_key send_template_to_email_email send_template_to_email_template_id && cd server/go && go mod tidy && go run send-template-to-email.go"
-    },
-    {
-      "name": "Go: Send Template to User ID",
-      "type": "node-terminal",
-      "request": "launch",
-      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh --dir server api_key send_template_to_user_id_user_id send_template_to_user_id_template_id && cd server/go && go mod tidy && go run send-template-to-user-id.go"
+      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh \"Kotlin: Send Template to Tenant\" --dir server api_key send_template_to_tenant_tenant_id send_template_to_tenant_id_template_id && cd server/kotlin && export JAVA_HOME=$(/usr/libexec/java_home 2>/dev/null || echo /usr/local/Cellar/openjdk/25.0.1/libexec/openjdk.jdk/Contents/Home) && export PATH=\"$JAVA_HOME/bin:$PATH\" && kotlinc send-template-to-tenant.kt -include-runtime -d send-template-to-tenant.jar 2>/dev/null && java -jar send-template-to-tenant.jar && rm -f send-template-to-tenant.jar"
     },
     {
       "name": "Go: Generate JWT",
@@ -218,10 +206,46 @@
       "command": "cd ${workspaceFolder} && bash scripts/set-env.sh --dir server api_key generate_jwt_user_id && cd server/go && go mod tidy && go run generate-jwt.go"
     },
     {
+      "name": "Go: Upsert User",
+      "type": "node-terminal",
+      "request": "launch",
+      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh --dir server api_key upsert_user_user_id upsert_user_email upsert_user_name upsert_user_phone_number && cd server/go && go mod tidy && go run upsert-user.go"
+    },
+    {
+      "name": "Go: Get User Profile",
+      "type": "node-terminal",
+      "request": "launch",
+      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh --dir server api_key get_user_profile_user_id && cd server/go && go mod tidy && go run get-user-profile.go"
+    },
+    {
       "name": "Go: Create List",
       "type": "node-terminal",
       "request": "launch",
       "command": "cd ${workspaceFolder} && bash scripts/set-env.sh --dir server api_key create_list_list_id create_list_list_name && cd server/go && go mod tidy && go run create-list.go"
+    },
+    {
+      "name": "Go: Subscribe User to List",
+      "type": "node-terminal",
+      "request": "launch",
+      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh --dir server api_key subscribe_user_to_list_list_id subscribe_user_to_list_user_id && cd server/go && go mod tidy && go run subscribe-user-to-list.go"
+    },
+    {
+      "name": "Go: Unsubscribe User from List",
+      "type": "node-terminal",
+      "request": "launch",
+      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh --dir server api_key unsubscribe_user_from_list_list_id unsubscribe_user_from_list_user_id && cd server/go && go mod tidy && go run unsubscribe-user-from-list.go"
+    },
+    {
+      "name": "Go: Send Template to User ID",
+      "type": "node-terminal",
+      "request": "launch",
+      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh --dir server api_key send_template_to_user_id_user_id send_template_to_user_id_template_id && cd server/go && go mod tidy && go run send-template-to-user-id.go"
+    },
+    {
+      "name": "Go: Send Template to Email",
+      "type": "node-terminal",
+      "request": "launch",
+      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh --dir server api_key send_template_to_email_email send_template_to_email_template_id && cd server/go && go mod tidy && go run send-template-to-email.go"
     },
     {
       "name": "Go: Send Template to List",
@@ -242,160 +266,334 @@
       "command": "cd ${workspaceFolder} && bash scripts/set-env.sh --dir server api_key send_template_to_tenant_tenant_id send_template_to_list_template_id && cd server/go && go mod tidy && go run send-template-to-tenant.go"
     },
     {
-      "name": "Go: Upsert User",
+      "name": "C#: Generate JWT",
       "type": "node-terminal",
       "request": "launch",
-      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh --dir server api_key upsert_user_user_id upsert_user_email upsert_user_name upsert_user_phone_number && cd server/go && go mod tidy && go run upsert-user.go"
+      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh \"C#: Generate JWT\" --dir server api_key generate_jwt_user_id && cd server/csharp/generate-jwt && export PATH=\"$HOME/.dotnet:$PATH\" && dotnet restore -v q && dotnet run"
     },
     {
-      "name": "Go: Get User Profile",
+      "name": "C#: Upsert User",
       "type": "node-terminal",
       "request": "launch",
-      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh --dir server api_key get_user_profile_user_id && cd server/go && go mod tidy && go run get-user-profile.go"
+      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh \"C#: Upsert User\" --dir server api_key upsert_user_user_id upsert_user_email upsert_user_name upsert_user_phone_number && cd server/csharp/upsert-user && export PATH=\"$HOME/.dotnet:$PATH\" && dotnet restore -v q && dotnet run"
     },
     {
-      "name": "Go: Subscribe User to List",
+      "name": "C#: Get User Profile",
       "type": "node-terminal",
       "request": "launch",
-      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh --dir server api_key subscribe_user_to_list_list_id subscribe_user_to_list_user_id && cd server/go && go mod tidy && go run subscribe-user-to-list.go"
+      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh \"C#: Get User Profile\" --dir server api_key get_user_profile_user_id && cd server/csharp/get-user-profile && export PATH=\"$HOME/.dotnet:$PATH\" && dotnet restore -v q && dotnet run"
     },
     {
-      "name": "Go: Unsubscribe User from List",
+      "name": "C#: Create List",
       "type": "node-terminal",
       "request": "launch",
-      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh --dir server api_key unsubscribe_user_from_list_list_id unsubscribe_user_from_list_user_id && cd server/go && go mod tidy && go run unsubscribe-user-from-list.go"
+      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh \"C#: Create List\" --dir server api_key create_list_list_id create_list_list_name && cd server/csharp/create-list && export PATH=\"$HOME/.dotnet:$PATH\" && dotnet restore -v q && dotnet run"
     },
     {
-      "name": "Ruby: Create List",
+      "name": "C#: Subscribe User to List",
       "type": "node-terminal",
       "request": "launch",
-      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh \"Ruby: Create List\" --dir server api_key create_list_list_id create_list_list_name && cd server/ruby && bundle install --quiet --path vendor/bundle && bundle exec ruby create-list.rb"
+      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh \"C#: Subscribe User to List\" --dir server api_key subscribe_user_to_list_list_id subscribe_user_to_list_user_id && cd server/csharp/subscribe-user-to-list && export PATH=\"$HOME/.dotnet:$PATH\" && dotnet restore -v q && dotnet run"
     },
     {
-      "name": "Ruby: Generate JWT",
+      "name": "C#: Unsubscribe User from List",
       "type": "node-terminal",
       "request": "launch",
-      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh \"Ruby: Generate JWT\" --dir server api_key generate_jwt_user_id && cd server/ruby && bundle install --quiet --path vendor/bundle && bundle exec ruby generate-jwt.rb"
+      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh \"C#: Unsubscribe User from List\" --dir server api_key unsubscribe_user_from_list_list_id unsubscribe_user_from_list_user_id && cd server/csharp/unsubscribe-user-from-list && export PATH=\"$HOME/.dotnet:$PATH\" && dotnet restore -v q && dotnet run"
     },
     {
-      "name": "Ruby: Get User Profile",
+      "name": "C#: Send Template to User ID",
       "type": "node-terminal",
       "request": "launch",
-      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh \"Ruby: Get User Profile\" --dir server api_key get_user_profile_user_id && cd server/ruby && bundle install --quiet --path vendor/bundle && bundle exec ruby get-user-profile.rb"
+      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh \"C#: Send Template to User ID\" --dir server api_key send_template_to_user_id_user_id send_template_to_user_id_template_id && cd server/csharp/send-template-to-user-id && export PATH=\"$HOME/.dotnet:$PATH\" && dotnet restore -v q && dotnet run"
     },
     {
-      "name": "Ruby: Send Template to Audience",
+      "name": "C#: Send Template to Email",
       "type": "node-terminal",
       "request": "launch",
-      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh \"Ruby: Send Template to Audience\" --dir server api_key send_template_to_audience_audience_id send_template_to_user_id_template_id && cd server/ruby && bundle install --quiet --path vendor/bundle && bundle exec ruby send-template-to-audience.rb"
+      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh \"C#: Send Template to Email\" --dir server api_key send_template_to_email_email send_template_to_email_template_id && cd server/csharp/send-template-to-email && export PATH=\"$HOME/.dotnet:$PATH\" && dotnet restore -v q && dotnet run"
     },
     {
-      "name": "Ruby: Send Template to Email",
+      "name": "C#: Send Template to List",
       "type": "node-terminal",
       "request": "launch",
-      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh \"Ruby: Send Template to Email\" --dir server api_key send_template_to_email_email send_template_to_email_template_id && cd server/ruby && bundle install --quiet --path vendor/bundle && bundle exec ruby send-template-to-email.rb"
+      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh \"C#: Send Template to List\" --dir server api_key send_template_to_list_list_id send_template_to_list_template_id && cd server/csharp/send-template-to-list && export PATH=\"$HOME/.dotnet:$PATH\" && dotnet restore -v q && dotnet run"
     },
     {
-      "name": "Ruby: Send Template to List",
+      "name": "C#: Send Template to Audience",
       "type": "node-terminal",
       "request": "launch",
-      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh \"Ruby: Send Template to List\" --dir server api_key send_template_to_list_list_id send_template_to_list_template_id && cd server/ruby && bundle install --quiet --path vendor/bundle && bundle exec ruby send-template-to-list.rb"
+      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh \"C#: Send Template to Audience\" --dir server api_key send_template_to_audience_audience_id send_template_to_user_id_template_id && cd server/csharp/send-template-to-audience && export PATH=\"$HOME/.dotnet:$PATH\" && dotnet restore -v q && dotnet run"
     },
     {
-      "name": "Ruby: Send Template to Tenant",
+      "name": "C#: Send Template to Tenant",
       "type": "node-terminal",
       "request": "launch",
-      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh \"Ruby: Send Template to Tenant\" --dir server api_key send_template_to_tenant_tenant_id send_template_to_tenant_id_template_id && cd server/ruby && bundle install --quiet --path vendor/bundle && bundle exec ruby send-template-to-tenant.rb"
+      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh \"C#: Send Template to Tenant\" --dir server api_key send_template_to_tenant_tenant_id send_template_to_tenant_id_template_id && cd server/csharp/send-template-to-tenant && export PATH=\"$HOME/.dotnet:$PATH\" && dotnet restore -v q && dotnet run"
     },
     {
-      "name": "Ruby: Send Template to User ID",
+      "name": "Java: Generate JWT",
       "type": "node-terminal",
       "request": "launch",
-      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh \"Ruby: Send Template to User ID\" --dir server api_key send_template_to_user_id_user_id send_template_to_user_id_template_id && cd server/ruby && bundle install --quiet --path vendor/bundle && bundle exec ruby send-template-to-user-id.rb"
+      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh \"Java: Generate JWT\" --dir server api_key generate_jwt_user_id && cd server/java && bash run.sh GenerateJwt"
     },
     {
-      "name": "Ruby: Subscribe User to List",
+      "name": "Java: Upsert User",
       "type": "node-terminal",
       "request": "launch",
-      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh \"Ruby: Subscribe User to List\" --dir server api_key subscribe_user_to_list_list_id subscribe_user_to_list_user_id && cd server/ruby && bundle install --quiet --path vendor/bundle && bundle exec ruby subscribe-user-to-list.rb"
+      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh \"Java: Upsert User\" --dir server api_key upsert_user_user_id upsert_user_email upsert_user_name upsert_user_phone_number && cd server/java && bash run.sh UpsertUser"
     },
     {
-      "name": "Ruby: Unsubscribe User from List",
+      "name": "Java: Get User Profile",
       "type": "node-terminal",
       "request": "launch",
-      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh \"Ruby: Unsubscribe User from List\" --dir server api_key unsubscribe_user_from_list_list_id unsubscribe_user_from_list_user_id && cd server/ruby && bundle install --quiet --path vendor/bundle && bundle exec ruby unsubscribe-user-from-list.rb"
+      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh \"Java: Get User Profile\" --dir server api_key get_user_profile_user_id && cd server/java && bash run.sh GetUserProfile"
     },
     {
-      "name": "Ruby: Upsert User",
+      "name": "Java: Create List",
       "type": "node-terminal",
       "request": "launch",
-      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh \"Ruby: Upsert User\" --dir server api_key upsert_user_user_id upsert_user_email upsert_user_name upsert_user_phone_number && cd server/ruby && bundle install --quiet --path vendor/bundle && bundle exec ruby upsert-user.rb"
+      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh \"Java: Create List\" --dir server api_key create_list_list_id create_list_list_name && cd server/java && bash run.sh CreateList"
     },
     {
-      "name": "PHP: Create List",
+      "name": "Java: Subscribe User to List",
       "type": "node-terminal",
       "request": "launch",
-      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh \"PHP: Create List\" --dir server api_key create_list_list_id create_list_list_name && cd server/php && composer install --quiet --no-interaction && php create-list.php"
+      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh \"Java: Subscribe User to List\" --dir server api_key subscribe_user_to_list_list_id subscribe_user_to_list_user_id && cd server/java && bash run.sh SubscribeUser"
     },
     {
-      "name": "PHP: Generate JWT",
+      "name": "Java: Unsubscribe User from List",
       "type": "node-terminal",
       "request": "launch",
-      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh \"PHP: Generate JWT\" --dir server api_key generate_jwt_user_id && cd server/php && composer install --quiet --no-interaction && php generate-jwt.php"
+      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh \"Java: Unsubscribe User from List\" --dir server api_key unsubscribe_user_from_list_list_id unsubscribe_user_from_list_user_id && cd server/java && bash run.sh UnsubscribeUser"
     },
     {
-      "name": "PHP: Get User Profile",
+      "name": "Java: Send Template to User ID",
       "type": "node-terminal",
       "request": "launch",
-      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh \"PHP: Get User Profile\" --dir server api_key get_user_profile_user_id && cd server/php && composer install --quiet --no-interaction && php get-user-profile.php"
+      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh \"Java: Send Template to User ID\" --dir server api_key send_template_to_user_id_user_id send_template_to_user_id_template_id && cd server/java && bash run.sh SendTemplateToUserId"
     },
     {
-      "name": "PHP: Send Template to Audience",
+      "name": "Java: Send Template to Email",
       "type": "node-terminal",
       "request": "launch",
-      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh \"PHP: Send Template to Audience\" --dir server api_key send_template_to_audience_audience_id send_template_to_user_id_template_id && cd server/php && composer install --quiet --no-interaction && php send-template-to-audience.php"
+      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh \"Java: Send Template to Email\" --dir server api_key send_template_to_email_email send_template_to_email_template_id && cd server/java && bash run.sh SendTemplateToEmail"
     },
     {
-      "name": "PHP: Send Template to Email",
+      "name": "Java: Send Template to List",
       "type": "node-terminal",
       "request": "launch",
-      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh \"PHP: Send Template to Email\" --dir server api_key send_template_to_email_email send_template_to_email_template_id && cd server/php && composer install --quiet --no-interaction && php send-template-to-email.php"
+      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh \"Java: Send Template to List\" --dir server api_key send_template_to_list_list_id send_template_to_list_template_id && cd server/java && bash run.sh SendTemplateToList"
     },
     {
-      "name": "PHP: Send Template to List",
+      "name": "Java: Send Template to Audience",
       "type": "node-terminal",
       "request": "launch",
-      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh \"PHP: Send Template to List\" --dir server api_key send_template_to_list_list_id send_template_to_list_template_id && cd server/php && composer install --quiet --no-interaction && php send-template-to-list.php"
+      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh \"Java: Send Template to Audience\" --dir server api_key send_template_to_audience_audience_id send_template_to_user_id_template_id && cd server/java && bash run.sh SendTemplateToAudience"
     },
     {
-      "name": "PHP: Send Template to Tenant",
+      "name": "Java: Send Template to Tenant",
       "type": "node-terminal",
       "request": "launch",
-      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh \"PHP: Send Template to Tenant\" --dir server api_key send_template_to_tenant_tenant_id send_template_to_tenant_id_template_id && cd server/php && composer install --quiet --no-interaction && php send-template-to-tenant.php"
+      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh \"Java: Send Template to Tenant\" --dir server api_key send_template_to_tenant_tenant_id send_template_to_tenant_id_template_id && cd server/java && bash run.sh SendTemplateToTenant"
     },
     {
-      "name": "PHP: Send Template to User ID",
+      "name": "Node: Generate JWT",
       "type": "node-terminal",
       "request": "launch",
-      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh \"PHP: Send Template to User ID\" --dir server api_key send_template_to_user_id_user_id send_template_to_user_id_template_id && cd server/php && composer install --quiet --no-interaction && php send-template-to-user-id.php"
+      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh \"Node: Generate JWT\" --dir server api_key generate_jwt_user_id && cd server/node && npm install --silent && node --no-warnings generate-jwt.js"
     },
     {
-      "name": "PHP: Subscribe User to List",
+      "name": "Node: Upsert User",
       "type": "node-terminal",
       "request": "launch",
-      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh \"PHP: Subscribe User to List\" --dir server api_key subscribe_user_to_list_list_id subscribe_user_to_list_user_id && cd server/php && composer install --quiet --no-interaction && php subscribe-user-to-list.php"
+      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh \"Node: Upsert User\" --dir server api_key upsert_user_user_id upsert_user_email upsert_user_name upsert_user_phone_number && cd server/node && npm install --silent && node --no-warnings upsert-user.js"
     },
     {
-      "name": "PHP: Unsubscribe User from List",
+      "name": "Node: Get User Profile",
       "type": "node-terminal",
       "request": "launch",
-      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh \"PHP: Unsubscribe User from List\" --dir server api_key unsubscribe_user_from_list_list_id unsubscribe_user_from_list_user_id && cd server/php && composer install --quiet --no-interaction && php unsubscribe-user-from-list.php"
+      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh \"Node: Get User Profile\" --dir server api_key get_user_profile_user_id && cd server/node && npm install --silent && node --no-warnings get-user-profile.js"
     },
     {
-      "name": "PHP: Upsert User",
+      "name": "Node: Create List",
       "type": "node-terminal",
       "request": "launch",
-      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh \"PHP: Upsert User\" --dir server api_key upsert_user_user_id upsert_user_email upsert_user_name upsert_user_phone_number && cd server/php && composer install --quiet --no-interaction && php upsert-user.php"
+      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh \"Node: Create List\" --dir server api_key create_list_list_id create_list_list_name && cd server/node && npm install --silent && node --no-warnings create-list.js"
+    },
+    {
+      "name": "Node: Subscribe User to List",
+      "type": "node-terminal",
+      "request": "launch",
+      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh \"Node: Subscribe User to List\" --dir server api_key subscribe_user_to_list_list_id subscribe_user_to_list_user_id && cd server/node && npm install --silent && node --no-warnings subscribe-user-to-list.js"
+    },
+    {
+      "name": "Node: Unsubscribe User from List",
+      "type": "node-terminal",
+      "request": "launch",
+      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh \"Node: Unsubscribe User from List\" --dir server api_key unsubscribe_user_from_list_list_id unsubscribe_user_from_list_user_id && cd server/node && npm install --silent && node --no-warnings unsubscribe-user-from-list.js"
+    },
+    {
+      "name": "Node: Send Template to User ID",
+      "type": "node-terminal",
+      "request": "launch",
+      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh \"Node: Send Template to User ID\" --dir server api_key send_template_to_user_id_user_id send_template_to_user_id_template_id && cd server/node && npm install --silent && node --no-warnings send-template-to-user-id.js"
+    },
+    {
+      "name": "Node: Send Template to Email",
+      "type": "node-terminal",
+      "request": "launch",
+      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh \"Node: Send Template to Email\" --dir server api_key send_template_to_email_email send_template_to_email_template_id && cd server/node && npm install --silent && node --no-warnings send-template-to-email.js"
+    },
+    {
+      "name": "Node: Send Template to List",
+      "type": "node-terminal",
+      "request": "launch",
+      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh \"Node: Send Template to List\" --dir server api_key send_template_to_list_list_id send_template_to_list_template_id && cd server/node && npm install --silent && node --no-warnings send-template-to-list.js"
+    },
+    {
+      "name": "Node: Send Template to Audience",
+      "type": "node-terminal",
+      "request": "launch",
+      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh \"Node: Send Template to Audience\" --dir server api_key send_template_to_audience_audience_id send_template_to_list_template_id && cd server/node && npm install --silent && node --no-warnings send-template-to-audience.js"
+    },
+    {
+      "name": "Node: Send Template to Tenant",
+      "type": "node-terminal",
+      "request": "launch",
+      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh \"Node: Send Template to Tenant\" --dir server api_key send_template_to_tenant_tenant_id send_template_to_list_template_id && cd server/node && npm install --silent && node --no-warnings send-template-to-tenant.js"
+    },
+    {
+      "name": "Python: Generate JWT",
+      "type": "node-terminal",
+      "request": "launch",
+      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh \"Python: Generate JWT\" --dir server api_key generate_jwt_user_id && cd server/python && ([ -d venv ] || python3 -m venv venv) && source venv/bin/activate && pip install -q -r requirements.txt && python generate-jwt.py"
+    },
+    {
+      "name": "Python: Upsert User",
+      "type": "node-terminal",
+      "request": "launch",
+      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh \"Python: Upsert User\" --dir server api_key upsert_user_user_id upsert_user_email upsert_user_name upsert_user_phone_number && cd server/python && ([ -d venv ] || python3 -m venv venv) && source venv/bin/activate && pip install -q -r requirements.txt && python upsert-user.py"
+    },
+    {
+      "name": "Python: Get User Profile",
+      "type": "node-terminal",
+      "request": "launch",
+      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh \"Python: Get User Profile\" --dir server api_key get_user_profile_user_id && cd server/python && ([ -d venv ] || python3 -m venv venv) && source venv/bin/activate && pip install -q -r requirements.txt && python get-user-profile.py"
+    },
+    {
+      "name": "Python: Create List",
+      "type": "node-terminal",
+      "request": "launch",
+      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh \"Python: Create List\" --dir server api_key create_list_list_id create_list_list_name && cd server/python && ([ -d venv ] || python3 -m venv venv) && source venv/bin/activate && pip install -q -r requirements.txt && python create-list.py"
+    },
+    {
+      "name": "Python: Subscribe User to List",
+      "type": "node-terminal",
+      "request": "launch",
+      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh \"Python: Subscribe User to List\" --dir server api_key subscribe_user_to_list_list_id subscribe_user_to_list_user_id && cd server/python && ([ -d venv ] || python3 -m venv venv) && source venv/bin/activate && pip install -q -r requirements.txt && python subscribe-user-to-list.py"
+    },
+    {
+      "name": "Python: Unsubscribe User from List",
+      "type": "node-terminal",
+      "request": "launch",
+      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh \"Python: Unsubscribe User from List\" --dir server api_key unsubscribe_user_from_list_list_id unsubscribe_user_from_list_user_id && cd server/python && ([ -d venv ] || python3 -m venv venv) && source venv/bin/activate && pip install -q -r requirements.txt && python unsubscribe-user-from-list.py"
+    },
+    {
+      "name": "Python: Send Template to User ID",
+      "type": "node-terminal",
+      "request": "launch",
+      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh \"Python: Send Template to User ID\" --dir server api_key send_template_to_user_id_user_id send_template_to_user_id_template_id && cd server/python && ([ -d venv ] || python3 -m venv venv) && source venv/bin/activate && pip install -q -r requirements.txt && python send-template-to-user-id.py"
+    },
+    {
+      "name": "Python: Send Template to Email",
+      "type": "node-terminal",
+      "request": "launch",
+      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh \"Python: Send Template to Email\" --dir server api_key send_template_to_email_email send_template_to_email_template_id && cd server/python && ([ -d venv ] || python3 -m venv venv) && source venv/bin/activate && pip install -q -r requirements.txt && python send-template-to-email.py"
+    },
+    {
+      "name": "Python: Send Template to List",
+      "type": "node-terminal",
+      "request": "launch",
+      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh \"Python: Send Template to List\" --dir server api_key send_template_to_list_list_id send_template_to_list_template_id && cd server/python && ([ -d venv ] || python3 -m venv venv) && source venv/bin/activate && pip install -q -r requirements.txt && python send-template-to-list.py"
+    },
+    {
+      "name": "Python: Send Template to Audience",
+      "type": "node-terminal",
+      "request": "launch",
+      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh \"Python: Send Template to Audience\" --dir server api_key send_template_to_audience_audience_id send_template_to_user_id_template_id && cd server/python && ([ -d venv ] || python3 -m venv venv) && source venv/bin/activate && pip install -q -r requirements.txt && python send-template-to-audience.py"
+    },
+    {
+      "name": "Python: Send Template to Tenant",
+      "type": "node-terminal",
+      "request": "launch",
+      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh \"Python: Send Template to Tenant\" --dir server api_key send_template_to_tenant_tenant_id send_template_to_tenant_id_template_id && cd server/python && ([ -d venv ] || python3 -m venv venv) && source venv/bin/activate && pip install -q -r requirements.txt && python send-template-to-tenant.py"
+    },
+    {
+      "name": "Curl: Generate JWT",
+      "type": "node-terminal",
+      "request": "launch",
+      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh \"Curl: Generate JWT\" --dir server api_key generate_jwt_user_id && bash server/curl/generate-jwt.sh"
+    },
+    {
+      "name": "Curl: Upsert User",
+      "type": "node-terminal",
+      "request": "launch",
+      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh \"Curl: Upsert User\" --dir server api_key upsert_user_user_id upsert_user_email upsert_user_name upsert_user_phone_number && bash server/curl/upsert-user.sh"
+    },
+    {
+      "name": "Curl: Get User Profile",
+      "type": "node-terminal",
+      "request": "launch",
+      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh \"Curl: Get User Profile\" --dir server api_key get_user_profile_user_id && bash server/curl/get-user-profile.sh"
+    },
+    {
+      "name": "Curl: Create List",
+      "type": "node-terminal",
+      "request": "launch",
+      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh \"Curl: Create List\" --dir server api_key create_list_list_id create_list_list_name && bash server/curl/create-list.sh"
+    },
+    {
+      "name": "Curl: Subscribe User to List",
+      "type": "node-terminal",
+      "request": "launch",
+      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh \"Curl: Subscribe User to List\" --dir server api_key subscribe_user_to_list_list_id subscribe_user_to_list_user_id && bash server/curl/subscribe-user-to-list.sh"
+    },
+    {
+      "name": "Curl: Unsubscribe User from List",
+      "type": "node-terminal",
+      "request": "launch",
+      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh \"Curl: Unsubscribe User from List\" --dir server api_key unsubscribe_user_from_list_list_id unsubscribe_user_from_list_user_id && bash server/curl/unsubscribe-user-from-list.sh"
+    },
+    {
+      "name": "Curl: Send Template to User ID",
+      "type": "node-terminal",
+      "request": "launch",
+      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh \"Curl: Send Template to User ID\" --dir server api_key send_template_to_user_id_user_id send_template_to_user_id_template_id && bash server/curl/send-template-to-user-id.sh"
+    },
+    {
+      "name": "Curl: Send Template to Email",
+      "type": "node-terminal",
+      "request": "launch",
+      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh \"Curl: Send Template to Email\" --dir server api_key send_template_to_email_email send_template_to_email_template_id && bash server/curl/send-template-to-email.sh"
+    },
+    {
+      "name": "Curl: Send Template to List",
+      "type": "node-terminal",
+      "request": "launch",
+      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh \"Curl: Send Template to List\" --dir server api_key send_template_to_list_list_id send_template_to_list_template_id && bash server/curl/send-template-to-list.sh"
+    },
+    {
+      "name": "Curl: Send Template to Audience",
+      "type": "node-terminal",
+      "request": "launch",
+      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh \"Curl: Send Template to Audience\" --dir server api_key send_template_to_audience_audience_id send_template_to_user_id_template_id && bash server/curl/send-template-to-audience.sh"
+    },
+    {
+      "name": "Curl: Send Template to Tenant",
+      "type": "node-terminal",
+      "request": "launch",
+      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh \"Curl: Send Template to Tenant\" --dir server api_key send_template_to_tenant_tenant_id send_template_to_tenant_id_template_id && bash server/curl/send-template-to-tenant.sh"
     },
     {
       "name": "React: Inbox",

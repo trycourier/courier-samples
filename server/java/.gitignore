@@ -1,0 +1,17 @@
+# Maven build artifacts
+target/
+**/*.class
+
+# IDE
+.idea/
+*.iml
+.classpath
+.project
+.settings/
+
+# Environment variables
+.env
+
+# OS
+.DS_Store
+

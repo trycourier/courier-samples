@@ -89,8 +89,8 @@ All 11 Python samples are available (listed alphabetically):
 - **`send-template-to-list.py`** - Send notifications to a list
 - **`send-template-to-tenant.py`** - Send notifications to a tenant
 - **`send-template-to-user-id.py`** - Send notifications to a user ID
-- **`subscribe-user.py`** - Subscribe a user to a list
-- **`unsubscribe-user.py`** - Unsubscribe a user from a list
+- **`subscribe-user-to-list.py`** - Subscribe a user to a list
+- **`unsubscribe-user-from-list.py`** - Unsubscribe a user from a list
 - **`upsert-user.py`** - Create or update a user profile
 
 ## Dependencies

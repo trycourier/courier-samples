@@ -1,0 +1,14 @@
+# .NET build artifacts
+**/bin/
+**/obj/
+.vs/
+*.user
+*.suo
+*.cache
+
+# Environment variables
+.env
+
+# OS
+.DS_Store
+

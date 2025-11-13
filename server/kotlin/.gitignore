@@ -1,0 +1,19 @@
+# Gradle
+.gradle/
+build/
+*.iml
+.idea/
+
+# Environment variables
+.env
+
+# OS
+.DS_Store
+
+# Kotlin
+*.class
+*.jar
+*.war
+*.nar
+# Note: .kts files are source files (like build.gradle.kts), not build artifacts
+
