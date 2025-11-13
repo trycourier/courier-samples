@@ -1,0 +1,18 @@
+# Environment variables
+.env
+
+# Bundler
+.bundle/
+vendor/bundle/
+
+# Ruby version managers
+.ruby-version
+.ruby-gemset
+
+# IDE
+.idea/
+.vscode/
+
+# OS
+.DS_Store
+

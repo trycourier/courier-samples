@@ -67,6 +67,12 @@ extract_base_var_name() {
         *_phone_number|*_PHONE_NUMBER)
             echo "phone_number"
             ;;
+        *_tenant_id|*_TENANT_ID)
+            echo "tenant_id"
+            ;;
+        *_audience_id|*_AUDIENCE_ID)
+            echo "audience_id"
+            ;;
         *_jwt|*_JWT)
             echo "jwt"
             ;;
@@ -115,6 +121,12 @@ get_display_name() {
             ;;
         phone_number|PHONE_NUMBER)
             echo "Phone Number"
+            ;;
+        tenant_id|TENANT_ID)
+            echo "Tenant ID"
+            ;;
+        audience_id|AUDIENCE_ID)
+            echo "Audience ID"
             ;;
         *)
             # Default: capitalize and replace underscores with spaces
