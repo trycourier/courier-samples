@@ -2,11 +2,25 @@
 
 C# code samples demonstrating how to integrate with Courier's notification platform.
 
+## Prerequisites
+
+- **.NET SDK 10.0 or later** - Required to build and run C# examples
+- **Operating System:** Windows, macOS, or Linux
+
+### Verify Prerequisites
+
+Check if .NET SDK is installed:
+```bash
+dotnet --version
+```
+
+If the command is not found, install the .NET SDK (see Quick Start below).
+
 ## Quick Start
 
 Get up and running in 3 steps:
 
-1. **Install .NET SDK:**
+1. **Install .NET SDK (if not already installed):**
    
    The .NET SDK is required to build and run C# examples. If you haven't installed it yet:
    

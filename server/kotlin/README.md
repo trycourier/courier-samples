@@ -2,18 +2,45 @@
 
 Kotlin examples for interacting with the Courier API.
 
-## Setup
+## Prerequisites
 
-1. Ensure Java is installed (Kotlin requires Java):
+- **Kotlin** - Install via Homebrew (`brew install kotlin`) or [SDKMAN](https://sdkman.io/)
+- **Java 8 or higher** - Kotlin requires Java Runtime Environment (JRE)
+
+### Verify Prerequisites
+
+1. Check Kotlin installation:
+   ```bash
+   kotlinc -version
+   ```
+
+2. Check Java installation:
    ```bash
    java -version
    ```
 
-2. Set up environment variables in `../.env` (shared across all language examples)
-
-3. Run scripts via VS Code debugger or directly:
+3. Set JAVA_HOME (macOS/Linux):
    ```bash
+   # macOS
    export JAVA_HOME=$(/usr/libexec/java_home 2>/dev/null)
+   
+   # Linux (adjust path based on your Java installation)
+   export JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64
+   ```
+
+   **Note:** Add this to your `~/.bashrc` or `~/.zshrc` to make it permanent.
+
+## Setup
+
+1. Set up environment variables in `../.env` (shared across all language examples)
+
+2. Run scripts via VS Code debugger or directly:
+   ```bash
+   # Make sure JAVA_HOME is set (see Prerequisites above)
+   export JAVA_HOME=$(/usr/libexec/java_home 2>/dev/null)
+   export PATH="$JAVA_HOME/bin:$PATH"
+   
+   # Compile and run
    kotlinc create-list.kt -include-runtime -d create-list.jar
    java -jar create-list.jar
    rm -f create-list.jar

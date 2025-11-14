@@ -15,6 +15,36 @@ The easiest way to run any sample is using VS Code's **Launch Configuration** fe
 
 ![Demo: Starting a sample app using the VS Code Launch Configuration](assets/launcher-video.gif)
 
+## Prerequisites
+
+Before running examples, ensure you have the required tools installed for your chosen language(s).
+
+### Quick Check
+
+Run the prerequisites checker to see what's installed:
+
+```bash
+bash scripts/check-prerequisites.sh
+```
+
+This script will verify:
+- ✅ Required tools (Ruby, Python, Node.js, etc.)
+- ⚠️ Optional tools (Go, PHP, Kotlin, C#)
+- 🔧 Configuration (JAVA_HOME for Java/Kotlin)
+
+### Language-Specific Requirements
+
+Each language has its own requirements. See the README in each language directory for details:
+
+- **[Ruby](./server/ruby/README.md)** - Ruby 2.6+, Bundler
+- **[Python](./server/python/README.md)** - Python 3.x, pip
+- **[Node.js](./server/node/README.md)** - Node.js, npm
+- **[Java](./server/java/README.md)** - Java 8+, Maven
+- **[Kotlin](./server/kotlin/README.md)** - Kotlin, Java 8+ (JAVA_HOME must be set)
+- **[C#](./server/csharp/README.md)** - .NET SDK 10.0+
+- **[Go](./server/go/README.md)** - Go 1.x
+- **[PHP](./server/php/README.md)** - PHP 7.4+, Composer
+
 ## Environment Variables Setup
 
 Most samples require environment variables to be configured. You have two options:

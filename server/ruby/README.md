@@ -2,19 +2,28 @@
 
 Ruby examples for interacting with the Courier API.
 
+## Prerequisites
+
+- Ruby 2.6 or higher
+- Bundler gem (usually comes with Ruby)
+
 ## Setup
 
 1. Install dependencies:
    ```bash
-   bundle install
+   bundle install --path vendor/bundle
    ```
+   
+   This installs gems locally in the `vendor/bundle` directory to avoid system-wide conflicts.
 
 2. Set up environment variables in `../.env` (shared across all language examples)
 
 3. Run scripts via VS Code debugger or directly:
    ```bash
-   ruby create-list.rb
+   bundle exec ruby create-list.rb
    ```
+   
+   **Note:** Use `bundle exec` to ensure the correct gem versions are used.
 
 ## Scripts
 
