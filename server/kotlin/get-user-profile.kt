@@ -1,61 +1,46 @@
-import java.io.File
-import java.net.HttpURLConnection
-import java.net.URL
+import com.courier.client.CourierClient
+import com.courier.client.okhttp.CourierOkHttpClient
+import com.courier.models.profiles.ProfileRetrieveParams
+import com.fasterxml.jackson.databind.ObjectMapper
 
-// Load environment variables from .env file in server directory (shared across all language examples)
-fun loadEnv(): Map<String, String> {
-    val envFile = File("..").resolve(".env")
-    val env = mutableMapOf<String, String>()
-    if (envFile.exists()) {
-        envFile.readLines().forEach { line ->
-            val trimmed = line.trim()
-            if (trimmed.isNotEmpty() && !trimmed.startsWith("#") && trimmed.contains("=")) {
-                val parts = trimmed.split("=", limit = 2)
-                if (parts.size == 2) {
-                    var key = parts[0].trim()
-                    var value = parts[1].trim()
-                    if (value.startsWith("\"") && value.endsWith("\"")) {
-                        value = value.substring(1, value.length - 1)
-                    }
-                    env[key] = value
-                }
-            }
-        }
-    }
-    return env
-}
-
-val env = loadEnv()
-val apiKey = env["COURIER_API_KEY"] ?: ""
-val userId = env["COURIER_GET_USER_PROFILE_USER_ID"] ?: ""
-
+/**
+ * Retrieve a user profile using the Courier Java SDK.
+ */
 fun main() {
-    // Make API request
-    val url = URL("https://api.courier.com/profiles/$userId")
-    val connection = url.openConnection() as HttpURLConnection
-    connection.requestMethod = "GET"
-    connection.setRequestProperty("Authorization", "Bearer $apiKey")
-    connection.setRequestProperty("Accept", "application/json")
-
     try {
-        val responseCode = connection.responseCode
-        val responseBody = if (responseCode >= 200 && responseCode < 300) {
-            connection.inputStream.bufferedReader().use { it.readText() }
-        } else {
-            connection.errorStream?.bufferedReader()?.use { it.readText() } ?: ""
-        }
+        val apiKey = EnvLoader.getEnv("COURIER_API_KEY")
+        val userId = EnvLoader.getEnv("COURIER_GET_USER_PROFILE_USER_ID")
 
-        if (responseCode >= 200 && responseCode < 300) {
-            println(responseBody)
-        } else {
-            println(responseBody)
+        if (apiKey == null || apiKey.isEmpty()) {
+            System.err.println("Error: COURIER_API_KEY environment variable is required")
             kotlin.system.exitProcess(1)
         }
+
+        if (userId == null || userId.isEmpty()) {
+            System.err.println("Error: COURIER_GET_USER_PROFILE_USER_ID environment variable is required")
+            kotlin.system.exitProcess(1)
+        }
+
+        // Initialize Courier client using the SDK
+        val client: CourierClient = CourierOkHttpClient.builder()
+            .apiKey(apiKey)
+            .build()
+
+        // Build request parameters using the SDK's builder pattern
+        val params = ProfileRetrieveParams.builder()
+            .userId(userId)
+            .build()
+
+        // Retrieve user profile using the SDK
+        val response = client.profiles().retrieve(params)
+
+        // Print response as JSON
+        val mapper = ObjectMapper()
+        println(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(response))
     } catch (e: Exception) {
-        println("{\"error\": \"${e.message}\"}")
+        System.err.println("Error: ${e.message}")
+        e.printStackTrace()
         kotlin.system.exitProcess(1)
-    } finally {
-        connection.disconnect()
     }
 }
 

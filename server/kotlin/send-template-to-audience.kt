@@ -1,80 +1,58 @@
-import java.io.File
-import java.net.HttpURLConnection
-import java.net.URL
+import com.courier.client.CourierClient
+import com.courier.client.okhttp.CourierOkHttpClient
+import com.courier.core.JsonValue
+import com.courier.models.send.SendMessageParams
+import com.fasterxml.jackson.databind.ObjectMapper
 
-// Load environment variables from .env file in server directory (shared across all language examples)
-fun loadEnv(): Map<String, String> {
-    val envFile = File("..").resolve(".env")
-    val env = mutableMapOf<String, String>()
-    if (envFile.exists()) {
-        envFile.readLines().forEach { line ->
-            val trimmed = line.trim()
-            if (trimmed.isNotEmpty() && !trimmed.startsWith("#") && trimmed.contains("=")) {
-                val parts = trimmed.split("=", limit = 2)
-                if (parts.size == 2) {
-                    var key = parts[0].trim()
-                    var value = parts[1].trim()
-                    if (value.startsWith("\"") && value.endsWith("\"")) {
-                        value = value.substring(1, value.length - 1)
-                    }
-                    env[key] = value
-                }
-            }
-        }
-    }
-    return env
-}
-
-val env = loadEnv()
-val apiKey = env["COURIER_API_KEY"] ?: ""
-val audienceId = env["COURIER_SEND_TEMPLATE_TO_AUDIENCE_AUDIENCE_ID"] ?: ""
-val templateId = env["COURIER_SEND_TEMPLATE_TO_USER_ID_TEMPLATE_ID"] ?: ""
-
+/**
+ * Send notifications to an audience using the Courier Java SDK.
+ */
 fun main() {
-    // Build request body
-    val requestBody = """
-        {
-            "message": {
-                "to": {
-                    "audience_id": "$audienceId"
-                },
-                "template": "$templateId"
-            }
-        }
-    """.trimIndent()
-
-    // Make API request
-    val url = URL("https://api.courier.com/send")
-    val connection = url.openConnection() as HttpURLConnection
-    connection.requestMethod = "POST"
-    connection.setRequestProperty("Authorization", "Bearer $apiKey")
-    connection.setRequestProperty("Content-Type", "application/json")
-    connection.setRequestProperty("Accept", "application/json")
-    connection.doOutput = true
-
     try {
-        connection.outputStream.use { output ->
-            output.write(requestBody.toByteArray())
-        }
+        val apiKey = EnvLoader.getEnv("COURIER_API_KEY")
+        val audienceId = EnvLoader.getEnv("COURIER_SEND_TEMPLATE_TO_AUDIENCE_AUDIENCE_ID")
+        val templateId = EnvLoader.getEnv("COURIER_SEND_TEMPLATE_TO_USER_ID_TEMPLATE_ID")
 
-        val responseCode = connection.responseCode
-        val responseBody = if (responseCode >= 200 && responseCode < 300) {
-            connection.inputStream.bufferedReader().use { it.readText() }
-        } else {
-            connection.errorStream?.bufferedReader()?.use { it.readText() } ?: ""
-        }
-
-        if (responseCode >= 200 && responseCode < 300) {
-            println(responseBody)
-        } else {
-            println(responseBody)
+        if (apiKey == null || apiKey.isEmpty()) {
+            System.err.println("Error: COURIER_API_KEY environment variable is required")
             kotlin.system.exitProcess(1)
         }
+
+        if (audienceId == null || audienceId.isEmpty()) {
+            System.err.println("Error: COURIER_SEND_TEMPLATE_TO_AUDIENCE_AUDIENCE_ID environment variable is required")
+            kotlin.system.exitProcess(1)
+        }
+
+        if (templateId == null || templateId.isEmpty()) {
+            System.err.println("Error: COURIER_SEND_TEMPLATE_TO_USER_ID_TEMPLATE_ID environment variable is required")
+            kotlin.system.exitProcess(1)
+        }
+
+        // Initialize Courier client using the SDK
+        val client: CourierClient = CourierOkHttpClient.builder()
+            .apiKey(apiKey)
+            .build()
+
+        // Build request parameters using the SDK's builder pattern
+        val params = SendMessageParams.builder()
+            .message(
+                SendMessageParams.Message.builder()
+                    .to(JsonValue.from(mapOf("audience_id" to audienceId)))
+                    .template(templateId)
+                    .build()
+            )
+            .build()
+
+        // Send message using the SDK
+        val response = client.send().message(params)
+
+        // Print response as JSON
+        val mapper = ObjectMapper()
+        println(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(response))
     } catch (e: Exception) {
-        println("{\"error\": \"${e.message}\"}")
+        System.err.println("Error: ${e.message}")
+        e.printStackTrace()
         kotlin.system.exitProcess(1)
-    } finally {
-        connection.disconnect()
     }
 }
 

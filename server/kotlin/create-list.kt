@@ -1,87 +1,64 @@
-import java.io.File
-import java.net.HttpURLConnection
-import java.net.URL
+import com.courier.client.CourierClient
+import com.courier.client.okhttp.CourierOkHttpClient
+import com.courier.core.JsonValue
+import com.courier.models.lists.ListUpdateParams
+import com.fasterxml.jackson.databind.ObjectMapper
 
-// Load environment variables from .env file in server directory (shared across all language examples)
-fun loadEnv(): Map<String, String> {
-    val envFile = File("..").resolve(".env")
-    val env = mutableMapOf<String, String>()
-    if (envFile.exists()) {
-        envFile.readLines().forEach { line ->
-            val trimmed = line.trim()
-            if (trimmed.isNotEmpty() && !trimmed.startsWith("#") && trimmed.contains("=")) {
-                val parts = trimmed.split("=", limit = 2)
-                if (parts.size == 2) {
-                    var key = parts[0].trim()
-                    var value = parts[1].trim()
-                    // Remove quotes if present
-                    if (value.startsWith("\"") && value.endsWith("\"")) {
-                        value = value.substring(1, value.length - 1)
-                    }
-                    env[key] = value
-                }
-            }
-        }
-    }
-    return env
-}
-
-val env = loadEnv()
-val apiKey = env["COURIER_API_KEY"] ?: ""
-val listId = env["COURIER_CREATE_LIST_LIST_ID"] ?: ""
-val listName = env["COURIER_CREATE_LIST_LIST_NAME"] ?: "My List Name"
-
+/**
+ * Create or update a notification list using the Courier Java SDK.
+ */
 fun main() {
-    // Build request body
-    val requestBody = """
-        {
-            "name": "${listName.replace("\"", "\\\"")}",
-            "preferences": {
-                "categories": {},
-                "notifications": {}
-            }
-        }
-    """.trimIndent()
-
-    // Make API request
-    val url = URL("https://api.courier.com/lists/$listId")
-    val connection = url.openConnection() as HttpURLConnection
-    connection.requestMethod = "PUT"
-    connection.setRequestProperty("Authorization", "Bearer $apiKey")
-    connection.setRequestProperty("Content-Type", "application/json")
-    connection.setRequestProperty("Accept", "application/json")
-    connection.doOutput = true
-
     try {
-        connection.outputStream.use { output ->
-            output.write(requestBody.toByteArray())
-        }
+        val apiKey = EnvLoader.getEnv("COURIER_API_KEY")
+        val listId = EnvLoader.getEnv("COURIER_CREATE_LIST_LIST_ID")
+        val listName = EnvLoader.getEnv("COURIER_CREATE_LIST_LIST_NAME", "My List Name")
 
-        val responseCode = connection.responseCode
-        val responseBody = if (responseCode >= 200 && responseCode < 300) {
-            connection.inputStream.bufferedReader().use { it.readText() }
-        } else {
-            connection.errorStream?.bufferedReader()?.use { it.readText() } ?: ""
-        }
-
-        if (responseCode >= 200 && responseCode < 300) {
-            val successResponse = """
-                {
-                    "success": true,
-                    "message": "List '$listId' created/updated successfully",
-                    "list_id": "$listId",
-                    "list_name": "${listName.replace("\"", "\\\"")}"
-                }
-            """.trimIndent()
-            println(successResponse)
-        } else {
-            println(responseBody)
+        if (apiKey == null || apiKey.isEmpty()) {
+            System.err.println("Error: COURIER_API_KEY environment variable is required")
             kotlin.system.exitProcess(1)
         }
+
+        if (listId == null || listId.isEmpty()) {
+            System.err.println("Error: COURIER_CREATE_LIST_LIST_ID environment variable is required")
+            kotlin.system.exitProcess(1)
+        }
+
+        // Initialize Courier client using the SDK
+        val client: CourierClient = CourierOkHttpClient.builder()
+            .apiKey(apiKey)
+            .build()
+
+        // Build request parameters using the SDK's builder pattern
+        val preferencesMap = mutableMapOf<String, Any>()
+        preferencesMap["categories"] = mutableMapOf<String, Any>()
+        preferencesMap["notifications"] = mutableMapOf<String, Any>()
+        
+        val bodyBuilder = ListUpdateParams.Body.builder()
+            .name(listName ?: "My List Name")
+        bodyBuilder.preferences(JsonValue.from(preferencesMap))
+        
+        val params = ListUpdateParams.builder()
+            .listId(listId)
+            .body(bodyBuilder.build())
+            .build()
+
+        // Create or update list using the SDK (returns void)
+        client.lists().update(params)
+        
+        // Print success message since update returns void
+        val successResponse = mapOf(
+            "success" to true,
+            "message" to "List '$listId' created/updated successfully",
+            "list_id" to listId,
+            "list_name" to listName
+        )
+
+        // Print response as JSON
+        val mapper = ObjectMapper()
+        println(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(successResponse))
     } catch (e: Exception) {
-        println("{\"error\": \"${e.message}\"}")
+        System.err.println("Error: ${e.message}")
+        e.printStackTrace()
         kotlin.system.exitProcess(1)
-    } finally {
-        connection.disconnect()
     }
 }

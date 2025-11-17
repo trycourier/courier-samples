@@ -1,21 +1,60 @@
 plugins {
-    kotlin("jvm") version "1.9.0"
+    kotlin("jvm") version "2.0.21"
 }
 
 repositories {
     mavenCentral()
 }
 
+// Configure source sets to include all files that use the Java SDK
+sourceSets {
+    main {
+        kotlin {
+            include(
+                "generate-jwt.kt",
+                "upsert-user.kt",
+                "get-user-profile.kt",
+                "create-list.kt",
+                "send-template-to-user-id.kt",
+                "send-template-to-email.kt",
+                "send-template-to-list.kt",
+                "send-template-to-audience.kt",
+                "send-template-to-tenant.kt",
+                "subscribe-user-to-list.kt",
+                "unsubscribe-user-from-list.kt",
+                "EnvLoader.kt"
+            )
+            setSrcDirs(listOf("."))
+        }
+        java {
+            setSrcDirs(emptyList<String>()) // Disable Java compilation
+        }
+    }
+}
+
 dependencies {
     implementation("org.jetbrains.kotlin:kotlin-stdlib")
-    implementation("io.github.cdimascio:dotenv-kotlin:6.4.1")
-    implementation("io.ktor:ktor-client-core:2.3.5")
-    implementation("io.ktor:ktor-client-cio:2.3.5")
-    implementation("io.ktor:ktor-client-content-negotiation:2.3.5")
-    implementation("io.ktor:ktor-serialization-kotlinx-json:2.3.5")
+    
+    // Jackson for JSON processing
+    implementation("com.fasterxml.jackson.core:jackson-databind:2.15.2")
+    
+    // Courier Java SDK
+    implementation("com.courier:courier-java:4.0.1")
 }
 
 tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
-    kotlinOptions.jvmTarget = "1.8"
+    kotlinOptions.jvmTarget = "17" // Match available Java version
+}
+
+// Disable Java compilation entirely
+tasks.named("compileJava") {
+    enabled = false
+}
+
+// Task to print the runtime classpath (useful for run.sh script)
+tasks.register("printClasspath") {
+    doLast {
+        println(sourceSets["main"].runtimeClasspath.asPath)
+    }
 }
 

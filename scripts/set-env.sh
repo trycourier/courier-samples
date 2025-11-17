@@ -148,6 +148,29 @@ quote_if_needed() {
     fi
 }
 
+# Function to check if a variable is optional
+# For upsert-user operations, only user_id is required; email, name, and phone_number are optional
+is_optional_field() {
+    local var=$1
+    local base_var=$(extract_base_var_name "$var")
+    
+    # These fields are optional for upsert-user operations
+    case "$base_var" in
+        email|EMAIL|name|NAME|phone_number|PHONE_NUMBER)
+            # Check if this is an upsert-user context by looking at the title or variable name
+            # Variable names like "upsert_user_email" should match
+            # Check both the original variable name and the title
+            if echo "$TITLE" | grep -qiE "upsert.*user" || echo "$var" | grep -qiE "upsert.*user"; then
+                return 0  # Optional
+            fi
+            return 1  # Required
+            ;;
+        *)
+            return 1  # Required by default
+            ;;
+    esac
+}
+
 # Function to get help message for variable
 get_help_message() {
     local var=$1
@@ -360,18 +383,36 @@ for var in "${VARS_TO_PROMPT[@]}"; do
         # Use a simpler placeholder that doesn't duplicate the prompt text
         placeholder_text=$(echo "$display_name" | sed 's/(.*)//' | xargs)
         
+        # Check if this field is optional
+        is_optional=0
+        if is_optional_field "$var"; then
+            is_optional=1
+        fi
+        
         while true; do
             # Get input with blue prompt and pre-filled value
             # Create a blue-styled prompt using ANSI codes
-            blue_prompt=$(printf '\033[34m%s\033[0m' "$display_name: ")
+            # Add "(optional)" to the prompt if the field is optional
+            if [ $is_optional -eq 1 ]; then
+                blue_prompt=$(printf '\033[34m%s (optional): \033[0m' "$display_name")
+            else
+                blue_prompt=$(printf '\033[34m%s: \033[0m' "$display_name")
+            fi
             new_value=$(gum input --prompt "$blue_prompt" --value "$existing_value" --placeholder "$placeholder_text")
             
-            # All fields are required - check if empty
+            # Check if empty - allow empty values for optional fields
             if [ -z "$new_value" ]; then
-                gum style --foreground 1 --bold "Error: $display_name is required. Please enter a value."
-                echo ""
-                existing_value=""  # Clear existing value for retry
-                continue
+                if [ $is_optional -eq 1 ]; then
+                    # Optional field - allow empty value
+                    eval "NEW_${var}=\"\""
+                    break
+                else
+                    # Required field - show error
+                    gum style --foreground 1 --bold "Error: $display_name is required. Please enter a value."
+                    echo ""
+                    existing_value=""  # Clear existing value for retry
+                    continue
+                fi
             fi
             
             # Value is set, break out of loop
@@ -382,6 +423,9 @@ for var in "${VARS_TO_PROMPT[@]}"; do
         # Show success message with checkmark and value
         if [ -n "$new_value" ]; then
             gum style --foreground 10 "✓ $display_name: $new_value"
+        elif [ $is_optional -eq 1 ]; then
+            # Show that optional field was skipped
+            gum style --foreground 240 "○ $display_name: (skipped)"
         fi
     fi
     
@@ -545,11 +589,18 @@ update_env_file() {
                     fi
                 done
                 
-                # If this key should be updated, write the new value in place
-                if [ $should_update -eq 1 ] && [ -n "$updated_value" ]; then
-                    quoted_value=$(quote_if_needed "$updated_value")
-                    printf '%s=%s\n' "$key" "$quoted_value" >> "$temp_file"
-                    continue
+                # If this key should be updated
+                if [ $should_update -eq 1 ]; then
+                    # If value is empty (user skipped optional field), skip writing this line (remove it)
+                    if [ -z "$updated_value" ]; then
+                        # Skip this line - effectively removes the variable from .env
+                        continue
+                    else
+                        # Write the new value
+                        quoted_value=$(quote_if_needed "$updated_value")
+                        printf '%s=%s\n' "$key" "$quoted_value" >> "$temp_file"
+                        continue
+                    fi
                 fi
             fi
             

@@ -374,6 +374,40 @@ case "$LANGUAGE" in
         fi
         ;;
     kotlin)
+        # Check for Gradle (required for Kotlin samples with dependencies)
+        if ! command -v gradle &> /dev/null; then
+            pm=$(detect_package_manager)
+            case "$pm" in
+                brew) 
+                    echo -e "${BLUE}Attempting to install Gradle...${NC}" >&2
+                    if brew install gradle 2>&1; then
+                        echo -e "${GREEN}✓ Gradle has been installed${NC}" >&2
+                    else
+                        check_and_exit "gradle" "Gradle" "Install Gradle: brew install gradle or https://gradle.org/install/"
+                    fi
+                    ;;
+                apt)
+                    echo -e "${BLUE}Attempting to install Gradle...${NC}" >&2
+                    if sudo apt-get update -qq >/dev/null 2>&1 && sudo apt-get install -y gradle >/dev/null 2>&1; then
+                        echo -e "${GREEN}✓ Gradle has been installed${NC}" >&2
+                    else
+                        check_and_exit "gradle" "Gradle" "Install Gradle: sudo apt-get install gradle or https://gradle.org/install/"
+                    fi
+                    ;;
+                yum|dnf)
+                    echo -e "${BLUE}Attempting to install Gradle...${NC}" >&2
+                    if sudo yum install -y gradle >/dev/null 2>&1; then
+                        echo -e "${GREEN}✓ Gradle has been installed${NC}" >&2
+                    else
+                        check_and_exit "gradle" "Gradle" "Install Gradle: https://gradle.org/install/"
+                    fi
+                    ;;
+                *)
+                    check_and_exit "gradle" "Gradle" "Install Gradle: https://gradle.org/install/"
+                    ;;
+            esac
+        fi
+        
         # Try to install Kotlin first if missing
         if ! command -v kotlinc &> /dev/null; then
             pm=$(detect_package_manager)
