@@ -100,11 +100,12 @@ If you prefer to run scripts from the command line:
 
 ## Available Samples
 
-All 11 Java samples are available (listed alphabetically):
+All 12 Java samples are available (listed alphabetically):
 
 - **`CreateList.java`** - Create or update a notification list
 - **`GenerateJwt.java`** - Generate JWT tokens for user authentication
 - **`GetUserProfile.java`** - Retrieve a user profile
+- **`GetUserTokens.java`** - Get all tokens available for a user ID (uses Courier Java SDK)
 - **`SendTemplateToAudience.java`** - Send notifications to an audience
 - **`SendTemplateToEmail.java`** - Send notifications to an email address
 - **`SendTemplateToList.java`** - Send notifications to a list
@@ -121,6 +122,7 @@ The Java samples require:
 - **Maven** - For dependency management
 - **Jackson** - For JSON processing
 - **dotenv-java** - For loading environment variables from `.env` files
+- **Courier Java SDK** - For SDK-based samples (e.g., `GetUserTokens.java`)
 
 Dependencies are managed via Maven and defined in `pom.xml`. Install with:
 ```bash

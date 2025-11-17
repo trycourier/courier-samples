@@ -1,11 +1,14 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Net.Http;
-using System.Text;
 using System.Text.Json;
-using System.Threading.Tasks;
+using Courier;
+using Courier.Exceptions;
+using Courier.Models.Profiles;
 using DotNetEnv;
+
+// NOTE: This sample uses the official Courier C# SDK (https://github.com/trycourier/courier-csharp)
+// To use this sample, you need to reference the SDK. See upsert-user.csproj for setup instructions.
 
 // Load environment variables from .env file in server directory (shared across all language examples)
 var envPath = Path.Combine(Directory.GetParent(Directory.GetParent(Directory.GetCurrentDirectory())!.FullName)!.FullName, ".env");
@@ -23,63 +26,54 @@ if (string.IsNullOrEmpty(apiKey) || string.IsNullOrEmpty(userId))
     Environment.Exit(1);
 }
 
-// Build profile object dynamically, only including fields that are set
-// Note: All profile fields are optional. If you skip them, an empty profile will be created.
-var profile = new Dictionary<string, object>();
-if (!string.IsNullOrEmpty(email))
+try
 {
-    profile["email"] = email;
-}
-if (!string.IsNullOrEmpty(name))
-{
-    profile["name"] = name;
-}
-if (!string.IsNullOrEmpty(phoneNumber))
-{
-    profile["phone_number"] = phoneNumber;
-}
+    // Initialize Courier client using the SDK
+    var client = new CourierClient { APIKey = apiKey };
 
-// Build request body
-var requestBody = new
-{
-    profile = profile
-};
-
-// Make API request
-using var client = new HttpClient();
-client.DefaultRequestHeaders.Add("Authorization", $"Bearer {apiKey}");
-client.DefaultRequestHeaders.Add("Accept", "application/json");
-
-var json = JsonSerializer.Serialize(requestBody);
-var content = new StringContent(json, Encoding.UTF8, "application/json");
-
-var response = await client.PutAsync($"https://api.courier.com/profiles/{userId}", content);
-var responseBody = await response.Content.ReadAsStringAsync();
-
-// Handle response
-if (response.IsSuccessStatusCode)
-{
-    try
+    // Build profile object dynamically, only including fields that are set
+    // Note: All profile fields are optional. If you skip them, an empty profile will be created.
+    var profileDict = new Dictionary<string, JsonElement>();
+    if (!string.IsNullOrEmpty(email))
     {
-        var jsonDoc = JsonDocument.Parse(responseBody);
-        Console.WriteLine(JsonSerializer.Serialize(jsonDoc, new JsonSerializerOptions { WriteIndented = true }));
+        profileDict["email"] = JsonSerializer.SerializeToElement(email);
     }
-    catch
+    if (!string.IsNullOrEmpty(name))
     {
-        Console.WriteLine(responseBody);
+        profileDict["name"] = JsonSerializer.SerializeToElement(name);
     }
+    if (!string.IsNullOrEmpty(phoneNumber))
+    {
+        profileDict["phone_number"] = JsonSerializer.SerializeToElement(phoneNumber);
+    }
+
+    // Build request parameters
+    var parameters = new ProfileCreateParams
+    {
+        UserID = userId,
+        Profile = profileDict
+    };
+
+    // Create or update user profile using the SDK
+    var response = await client.Profiles.Create(parameters);
+
+    // Print response as JSON
+    var options = new JsonSerializerOptions { WriteIndented = true };
+    Console.WriteLine(JsonSerializer.Serialize(response, options));
 }
-else
+catch (CourierException ex)
 {
-    try
+    // Handle SDK errors
+    Console.Error.WriteLine($"Error: {ex.Message}");
+    if (ex is CourierApiException apiEx)
     {
-        var errorJson = JsonDocument.Parse(responseBody);
-        Console.WriteLine(JsonSerializer.Serialize(errorJson, new JsonSerializerOptions { WriteIndented = true }));
+        Console.Error.WriteLine($"HTTP Status: {apiEx.StatusCode}");
     }
-    catch
-    {
-        Console.Error.WriteLine($"Error: HTTP {(int)response.StatusCode} - {responseBody}");
-    }
+    Environment.Exit(1);
+}
+catch (Exception ex)
+{
+    Console.Error.WriteLine($"Unexpected error: {ex.Message}");
     Environment.Exit(1);
 }
 

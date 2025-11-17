@@ -1,9 +1,13 @@
 using System;
 using System.IO;
-using System.Net.Http;
 using System.Text.Json;
-using System.Threading.Tasks;
+using Courier;
+using Courier.Exceptions;
+using Courier.Models.Profiles;
 using DotNetEnv;
+
+// NOTE: This sample uses the official Courier C# SDK (https://github.com/trycourier/courier-csharp)
+// To use this sample, you need to reference the SDK. See get-user-profile.csproj for setup instructions.
 
 // Load environment variables from .env file in server directory (shared across all language examples)
 var envPath = Path.Combine(Directory.GetParent(Directory.GetParent(Directory.GetCurrentDirectory())!.FullName)!.FullName, ".env");
@@ -18,38 +22,37 @@ if (string.IsNullOrEmpty(apiKey) || string.IsNullOrEmpty(userId))
     Environment.Exit(1);
 }
 
-// Make API request
-using var client = new HttpClient();
-client.DefaultRequestHeaders.Add("Authorization", $"Bearer {apiKey}");
-client.DefaultRequestHeaders.Add("Accept", "application/json");
-
-var response = await client.GetAsync($"https://api.courier.com/profiles/{userId}");
-var responseBody = await response.Content.ReadAsStringAsync();
-
-// Handle response
-if (response.IsSuccessStatusCode)
+try
 {
-    try
+    // Initialize Courier client using the SDK
+    var client = new CourierClient { APIKey = apiKey };
+
+    // Build request parameters
+    var parameters = new ProfileRetrieveParams
     {
-        var jsonDoc = JsonDocument.Parse(responseBody);
-        Console.WriteLine(JsonSerializer.Serialize(jsonDoc, new JsonSerializerOptions { WriteIndented = true }));
-    }
-    catch
-    {
-        Console.WriteLine(responseBody);
-    }
+        UserID = userId
+    };
+
+    // Retrieve user profile using the SDK
+    var response = await client.Profiles.Retrieve(parameters);
+
+    // Print response as JSON
+    var options = new JsonSerializerOptions { WriteIndented = true };
+    Console.WriteLine(JsonSerializer.Serialize(response, options));
 }
-else
+catch (CourierException ex)
 {
-    try
+    // Handle SDK errors
+    Console.Error.WriteLine($"Error: {ex.Message}");
+    if (ex is CourierApiException apiEx)
     {
-        var errorJson = JsonDocument.Parse(responseBody);
-        Console.WriteLine(JsonSerializer.Serialize(errorJson, new JsonSerializerOptions { WriteIndented = true }));
+        Console.Error.WriteLine($"HTTP Status: {apiEx.StatusCode}");
     }
-    catch
-    {
-        Console.Error.WriteLine($"Error: HTTP {(int)response.StatusCode} - {responseBody}");
-    }
+    Environment.Exit(1);
+}
+catch (Exception ex)
+{
+    Console.Error.WriteLine($"Unexpected error: {ex.Message}");
     Environment.Exit(1);
 }
 

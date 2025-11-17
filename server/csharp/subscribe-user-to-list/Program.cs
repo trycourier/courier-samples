@@ -1,10 +1,15 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
-using System.Net.Http;
-using System.Text;
 using System.Text.Json;
-using System.Threading.Tasks;
+using Courier;
+using Courier.Exceptions;
+using Courier.Models;
+using Courier.Models.Lists.Subscriptions;
 using DotNetEnv;
+
+// NOTE: This sample uses the official Courier C# SDK (https://github.com/trycourier/courier-csharp)
+// To use this sample, you need to reference the SDK. See subscribe-user-to-list.csproj for setup instructions.
 
 // Load environment variables from .env file in server directory (shared across all language examples)
 var envPath = Path.Combine(Directory.GetParent(Directory.GetParent(Directory.GetCurrentDirectory())!.FullName)!.FullName, ".env");
@@ -20,64 +25,48 @@ if (string.IsNullOrEmpty(apiKey) || string.IsNullOrEmpty(listId) || string.IsNul
     Environment.Exit(1);
 }
 
-// Build request body
-var requestBody = new
+try
 {
-    preferences = new
+    // Initialize Courier client using the SDK
+    var client = new CourierClient { APIKey = apiKey };
+
+    // Build request parameters
+    var parameters = new SubscriptionSubscribeUserParams
     {
-        categories = new { },
-        notifications = new { }
-    }
-};
-
-// Make API request
-using var client = new HttpClient();
-client.DefaultRequestHeaders.Add("Authorization", $"Bearer {apiKey}");
-client.DefaultRequestHeaders.Add("Accept", "application/json");
-
-var json = JsonSerializer.Serialize(requestBody);
-var content = new StringContent(json, Encoding.UTF8, "application/json");
-
-var response = await client.PutAsync($"https://api.courier.com/lists/{listId}/subscriptions/{userId}", content);
-var responseBody = await response.Content.ReadAsStringAsync();
-
-// Handle response
-if (response.IsSuccessStatusCode)
-{
-    // Handle None/null responses - if response is empty, print success message
-    if (string.IsNullOrWhiteSpace(responseBody))
-    {
-        var successResponse = new
+        ListID = listId,
+        UserID = userId,
+        Preferences = new RecipientPreferences
         {
-            status = "success",
-            message = "User subscribed successfully"
-        };
-        Console.WriteLine(JsonSerializer.Serialize(successResponse, new JsonSerializerOptions { WriteIndented = true }));
-    }
-    else
-    {
-        try
-        {
-            var jsonDoc = JsonDocument.Parse(responseBody);
-            Console.WriteLine(JsonSerializer.Serialize(jsonDoc, new JsonSerializerOptions { WriteIndented = true }));
+            Categories = new Dictionary<string, NotificationPreferenceDetails>(),
+            Notifications = new Dictionary<string, NotificationPreferenceDetails>()
         }
-        catch
-        {
-            Console.WriteLine(responseBody);
-        }
-    }
+    };
+
+    // Subscribe user to list using the SDK
+    await client.Lists.Subscriptions.SubscribeUser(parameters);
+
+    // SubscribeUser returns void/empty on success, so print success message
+    var successResponse = new
+    {
+        status = "success",
+        message = "User subscribed successfully"
+    };
+    var options = new JsonSerializerOptions { WriteIndented = true };
+    Console.WriteLine(JsonSerializer.Serialize(successResponse, options));
 }
-else
+catch (CourierException ex)
 {
-    try
+    // Handle SDK errors
+    Console.Error.WriteLine($"Error: {ex.Message}");
+    if (ex is CourierApiException apiEx)
     {
-        var errorJson = JsonDocument.Parse(responseBody);
-        Console.WriteLine(JsonSerializer.Serialize(errorJson, new JsonSerializerOptions { WriteIndented = true }));
+        Console.Error.WriteLine($"HTTP Status: {apiEx.StatusCode}");
     }
-    catch
-    {
-        Console.Error.WriteLine($"Error: HTTP {(int)response.StatusCode} - {responseBody}");
-    }
+    Environment.Exit(1);
+}
+catch (Exception ex)
+{
+    Console.Error.WriteLine($"Unexpected error: {ex.Message}");
     Environment.Exit(1);
 }
 

@@ -1,13 +1,17 @@
 using System;
 using System.IO;
-using System.Net.Http;
-using System.Text;
 using System.Text.Json;
-using System.Threading.Tasks;
+using Courier;
+using Courier.Exceptions;
+using Courier.Models;
+using Courier.Models.Lists;
 using DotNetEnv;
 
+// NOTE: This sample uses the official Courier C# SDK (https://github.com/trycourier/courier-csharp)
+// To use this sample, you need to reference the SDK. See create-list.csproj for setup instructions.
+
 // Load environment variables from .env file in server directory (shared across all language examples)
-var envPath = Path.Combine(Directory.GetParent(Directory.GetParent(Directory.GetParent(Directory.GetCurrentDirectory())!.FullName)!.FullName)!.FullName, ".env");
+var envPath = Path.Combine(Directory.GetParent(Directory.GetParent(Directory.GetCurrentDirectory())!.FullName)!.FullName, ".env");
 Env.Load(envPath);
 
 var apiKey = Environment.GetEnvironmentVariable("COURIER_API_KEY");
@@ -20,31 +24,26 @@ if (string.IsNullOrEmpty(apiKey) || string.IsNullOrEmpty(listId))
     Environment.Exit(1);
 }
 
-// Build request body
-var requestBody = new
+try
 {
-    name = listName,
-    preferences = new
+    // Initialize Courier client using the SDK
+    var client = new CourierClient { APIKey = apiKey };
+
+    // Build request parameters
+    var parameters = new ListUpdateParams
     {
-        categories = new { },
-        notifications = new { }
-    }
-};
+        ListID = listId,
+        Name = listName,
+        Preferences = new RecipientPreferences
+        {
+            Categories = new Dictionary<string, NotificationPreferenceDetails>(),
+            Notifications = new Dictionary<string, NotificationPreferenceDetails>()
+        }
+    };
 
-// Make API request
-using var client = new HttpClient();
-client.DefaultRequestHeaders.Add("Authorization", $"Bearer {apiKey}");
-client.DefaultRequestHeaders.Add("Accept", "application/json");
+    // Create or update list using the SDK
+    await client.Lists.Update(parameters);
 
-var json = JsonSerializer.Serialize(requestBody);
-var content = new StringContent(json, Encoding.UTF8, "application/json");
-
-var response = await client.PutAsync($"https://api.courier.com/lists/{listId}", content);
-var responseBody = await response.Content.ReadAsStringAsync();
-
-// Handle response
-if (response.IsSuccessStatusCode)
-{
     // lists.update returns void/empty on success, so print success message
     var successResponse = new
     {
@@ -53,19 +52,22 @@ if (response.IsSuccessStatusCode)
         list_id = listId,
         name = listName
     };
-    Console.WriteLine(JsonSerializer.Serialize(successResponse, new JsonSerializerOptions { WriteIndented = true }));
+    var options = new JsonSerializerOptions { WriteIndented = true };
+    Console.WriteLine(JsonSerializer.Serialize(successResponse, options));
 }
-else
+catch (CourierException ex)
 {
-    try
+    // Handle SDK errors
+    Console.Error.WriteLine($"Error: {ex.Message}");
+    if (ex is CourierApiException apiEx)
     {
-        var errorJson = JsonDocument.Parse(responseBody);
-        Console.WriteLine(JsonSerializer.Serialize(errorJson, new JsonSerializerOptions { WriteIndented = true }));
+        Console.Error.WriteLine($"HTTP Status: {apiEx.StatusCode}");
     }
-    catch
-    {
-        Console.Error.WriteLine($"Error: HTTP {(int)response.StatusCode} - {responseBody}");
-    }
+    Environment.Exit(1);
+}
+catch (Exception ex)
+{
+    Console.Error.WriteLine($"Unexpected error: {ex.Message}");
     Environment.Exit(1);
 }
 

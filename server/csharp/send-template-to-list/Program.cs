@@ -1,10 +1,13 @@
 using System;
 using System.IO;
-using System.Net.Http;
-using System.Text;
-using System.Text.Json;
-using System.Threading.Tasks;
+using Courier;
+using Courier.Exceptions;
+using Courier.Models;
+using Courier.Models.Send;
 using DotNetEnv;
+
+// NOTE: This sample uses the official Courier C# SDK (https://github.com/trycourier/courier-csharp)
+// To use this sample, you need to reference the SDK. See send-template-to-list.csproj for setup instructions.
 
 // Load environment variables from .env file in server directory (shared across all language examples)
 var envPath = Path.Combine(Directory.GetParent(Directory.GetParent(Directory.GetCurrentDirectory())!.FullName)!.FullName, ".env");
@@ -20,54 +23,41 @@ if (string.IsNullOrEmpty(apiKey) || string.IsNullOrEmpty(listId) || string.IsNul
     Environment.Exit(1);
 }
 
-// Build request body
-var requestBody = new
+try
 {
-    message = new
+    // Initialize Courier client using the SDK
+    var client = new CourierClient { APIKey = apiKey };
+
+    // Build request parameters
+    var parameters = new SendMessageParams
     {
-        to = new
+        Message = new Message
         {
-            list_id = listId
-        },
-        template = templateId
-    }
-};
+            To = new UserRecipient { ListID = listId },
+            Template = templateId
+        }
+    };
 
-// Make API request
-using var client = new HttpClient();
-client.DefaultRequestHeaders.Add("Authorization", $"Bearer {apiKey}");
-client.DefaultRequestHeaders.Add("Accept", "application/json");
+    // Send message using the SDK
+    var response = await client.Send.Message(parameters);
 
-var json = JsonSerializer.Serialize(requestBody);
-var content = new StringContent(json, Encoding.UTF8, "application/json");
-
-var response = await client.PostAsync("https://api.courier.com/send", content);
-var responseBody = await response.Content.ReadAsStringAsync();
-
-// Handle response
-if (response.IsSuccessStatusCode)
-{
-    try
-    {
-        var jsonDoc = JsonDocument.Parse(responseBody);
-        Console.WriteLine(JsonSerializer.Serialize(jsonDoc, new JsonSerializerOptions { WriteIndented = true }));
-    }
-    catch
-    {
-        Console.WriteLine(responseBody);
-    }
+    // Print response as JSON
+    var options = new System.Text.Json.JsonSerializerOptions { WriteIndented = true };
+    Console.WriteLine(System.Text.Json.JsonSerializer.Serialize(response, options));
 }
-else
+catch (CourierException ex)
 {
-    try
+    // Handle SDK errors
+    Console.Error.WriteLine($"Error: {ex.Message}");
+    if (ex is CourierApiException apiEx)
     {
-        var errorJson = JsonDocument.Parse(responseBody);
-        Console.WriteLine(JsonSerializer.Serialize(errorJson, new JsonSerializerOptions { WriteIndented = true }));
+        Console.Error.WriteLine($"HTTP Status: {apiEx.StatusCode}");
     }
-    catch
-    {
-        Console.Error.WriteLine($"Error: HTTP {(int)response.StatusCode} - {responseBody}");
-    }
+    Environment.Exit(1);
+}
+catch (Exception ex)
+{
+    Console.Error.WriteLine($"Unexpected error: {ex.Message}");
     Environment.Exit(1);
 }
 
