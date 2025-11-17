@@ -1,7 +1,22 @@
 require 'dotenv'
 require 'json'
-require 'net/http'
-require 'uri'
+
+# Try to require trycourier gem, install dependencies if missing
+begin
+  require 'trycourier'
+rescue LoadError
+  puts "📦 Courier gem not found. Installing dependencies..."
+  script_dir = File.dirname(__FILE__)
+  Dir.chdir(script_dir) do
+    unless system('bundle install --quiet')
+      puts "Error: Failed to install dependencies. Please run 'bundle install' manually."
+      exit 1
+    end
+  end
+  puts "✓ Dependencies installed"
+  # Retry requiring the gem
+  require 'trycourier'
+end
 
 # Load environment variables from .env file in server directory (shared across all language examples)
 env_path = File.join(File.dirname(__FILE__), '..', '.env')
@@ -13,6 +28,19 @@ email = ENV['COURIER_UPSERT_USER_EMAIL']
 name = ENV['COURIER_UPSERT_USER_NAME']
 phone_number = ENV['COURIER_UPSERT_USER_PHONE_NUMBER']
 
+if api_key.nil? || api_key.empty?
+  puts "Error: COURIER_API_KEY environment variable is required"
+  exit 1
+end
+
+if user_id.nil? || user_id.empty?
+  puts "Error: COURIER_UPSERT_USER_USER_ID environment variable is required"
+  exit 1
+end
+
+# Initialize Courier client using the SDK
+client = Courier::Client.new(api_key)
+
 # Build profile object dynamically, only including fields that are set
 # Note: All profile fields are optional. If you skip them, an empty profile will be created.
 profile = {}
@@ -20,33 +48,16 @@ profile[:email] = email if email && !email.empty?
 profile[:name] = name if name && !name.empty?
 profile[:phone_number] = phone_number if phone_number && !phone_number.empty?
 
-# Build request body
-request_body = {
-  profile: profile
-}
+# Create or update user profile using the SDK
+begin
+  response = client.profiles.replace(
+    recipient_id: user_id,
+    profile: profile
+  )
 
-# Make API request
-uri = URI("https://api.courier.com/profiles/#{user_id}")
-http = Net::HTTP.new(uri.host, uri.port)
-http.use_ssl = true
-
-request = Net::HTTP::Post.new(uri)
-request['Authorization'] = "Bearer #{api_key}"
-request['Content-Type'] = 'application/json'
-request['Accept'] = 'application/json'
-request.body = request_body.to_json
-
-response = http.request(request)
-
-# Handle response
-if response.code.to_i >= 200 && response.code.to_i < 300
-  puts JSON.pretty_generate(JSON.parse(response.body))
-else
-  begin
-    error_response = JSON.parse(response.body)
-    puts JSON.pretty_generate(error_response)
-  rescue JSON::ParserError
-    puts "Error: HTTP #{response.code} - #{response.body}"
-  end
+  # Print response as JSON
+  puts JSON.pretty_generate(response)
+rescue => e
+  puts "Error: #{e.message}"
   exit 1
 end

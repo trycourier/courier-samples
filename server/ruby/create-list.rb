@@ -1,7 +1,22 @@
 require 'dotenv'
 require 'json'
-require 'net/http'
-require 'uri'
+
+# Try to require trycourier gem, install dependencies if missing
+begin
+  require 'trycourier'
+rescue LoadError
+  puts "📦 Courier gem not found. Installing dependencies..."
+  script_dir = File.dirname(__FILE__)
+  Dir.chdir(script_dir) do
+    unless system('bundle install --quiet')
+      puts "Error: Failed to install dependencies. Please run 'bundle install' manually."
+      exit 1
+    end
+  end
+  puts "✓ Dependencies installed"
+  # Retry requiring the gem
+  require 'trycourier'
+end
 
 # Load environment variables from .env file in server directory (shared across all language examples)
 env_path = File.join(File.dirname(__FILE__), '..', '.env')
@@ -11,42 +26,34 @@ api_key = ENV['COURIER_API_KEY']
 list_id = ENV['COURIER_CREATE_LIST_LIST_ID']
 list_name = ENV['COURIER_CREATE_LIST_LIST_NAME'] || 'My List Name'
 
-# Build request body
-request_body = {
-  name: list_name,
-  preferences: {
-    categories: {},
-    notifications: {}
-  }
-}
+if api_key.nil? || api_key.empty?
+  puts "Error: COURIER_API_KEY environment variable is required"
+  exit 1
+end
 
-# Make API request
-uri = URI("https://api.courier.com/lists/#{list_id}")
-http = Net::HTTP.new(uri.host, uri.port)
-http.use_ssl = true
+if list_id.nil? || list_id.empty?
+  puts "Error: COURIER_CREATE_LIST_LIST_ID environment variable is required"
+  exit 1
+end
 
-request = Net::HTTP::Put.new(uri)
-request['Authorization'] = "Bearer #{api_key}"
-request['Content-Type'] = 'application/json'
-request['Accept'] = 'application/json'
-request.body = request_body.to_json
+# Initialize Courier client using the SDK
+client = Courier::Client.new(api_key)
 
-response = http.request(request)
+# Create or update list using the SDK
+# Note: The Ruby SDK's put method only accepts name, not preferences
+begin
+  client.lists.put(list_id: list_id, name: list_name)
 
-# Handle response
-if response.code.to_i >= 200 && response.code.to_i < 300
-  puts JSON.pretty_generate({
+  # Print success message since put returns void
+  response = {
     success: true,
     message: "List '#{list_id}' created/updated successfully",
     list_id: list_id,
     list_name: list_name
-  })
-else
-  begin
-    error_response = JSON.parse(response.body)
-    puts JSON.pretty_generate(error_response)
-  rescue JSON::ParserError
-    puts "Error: HTTP #{response.code} - #{response.body}"
-  end
+  }
+
+  puts JSON.pretty_generate(response)
+rescue => e
+  puts "Error: #{e.message}"
   exit 1
 end

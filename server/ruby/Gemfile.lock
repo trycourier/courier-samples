@@ -2,12 +2,14 @@ GEM
   remote: https://rubygems.org/
   specs:
     dotenv (2.8.1)
+    trycourier (2.0.0)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
   dotenv (~> 2.8)
+  trycourier
 
 BUNDLED WITH
    1.17.2

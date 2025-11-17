@@ -1,7 +1,22 @@
 require 'dotenv'
 require 'json'
-require 'net/http'
-require 'uri'
+
+# Try to require trycourier gem, install dependencies if missing
+begin
+  require 'trycourier'
+rescue LoadError
+  puts "📦 Courier gem not found. Installing dependencies..."
+  script_dir = File.dirname(__FILE__)
+  Dir.chdir(script_dir) do
+    unless system('bundle install --quiet')
+      puts "Error: Failed to install dependencies. Please run 'bundle install' manually."
+      exit 1
+    end
+  end
+  puts "✓ Dependencies installed"
+  # Retry requiring the gem
+  require 'trycourier'
+end
 
 # Load environment variables from .env file in server directory (shared across all language examples)
 env_path = File.join(File.dirname(__FILE__), '..', '.env')
@@ -11,33 +26,36 @@ api_key = ENV['COURIER_API_KEY']
 list_id = ENV['COURIER_UNSUBSCRIBE_USER_FROM_LIST_LIST_ID']
 user_id = ENV['COURIER_UNSUBSCRIBE_USER_FROM_LIST_USER_ID']
 
-# Make API request
-uri = URI("https://api.courier.com/lists/#{list_id}/subscriptions/#{user_id}")
-http = Net::HTTP.new(uri.host, uri.port)
-http.use_ssl = true
+if api_key.nil? || api_key.empty?
+  puts "Error: COURIER_API_KEY environment variable is required"
+  exit 1
+end
 
-request = Net::HTTP::Delete.new(uri)
-request['Authorization'] = "Bearer #{api_key}"
-request['Accept'] = 'application/json'
+if list_id.nil? || list_id.empty?
+  puts "Error: COURIER_UNSUBSCRIBE_USER_FROM_LIST_LIST_ID environment variable is required"
+  exit 1
+end
 
-response = http.request(request)
+if user_id.nil? || user_id.empty?
+  puts "Error: COURIER_UNSUBSCRIBE_USER_FROM_LIST_USER_ID environment variable is required"
+  exit 1
+end
 
-# Handle response
-if response.code.to_i >= 200 && response.code.to_i < 300
-  if response.body && !response.body.empty?
-    puts JSON.pretty_generate(JSON.parse(response.body))
-  else
-    puts JSON.pretty_generate({
-      status: 'success',
-      message: 'User unsubscribed successfully'
-    })
-  end
-else
-  begin
-    error_response = JSON.parse(response.body)
-    puts JSON.pretty_generate(error_response)
-  rescue JSON::ParserError
-    puts "Error: HTTP #{response.code} - #{response.body}"
-  end
+# Initialize Courier client using the SDK
+client = Courier::Client.new(api_key)
+
+# Unsubscribe user from list using the SDK
+begin
+  client.lists.unsubscribe(list_id: list_id, recipient_id: user_id)
+
+  # Print success message since unsubscribe returns void
+  response = {
+    status: 'success',
+    message: 'User unsubscribed successfully'
+  }
+
+  puts JSON.pretty_generate(response)
+rescue => e
+  puts "Error: #{e.message}"
   exit 1
 end
