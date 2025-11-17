@@ -15,5 +15,6 @@ build/
 *.jar
 *.war
 *.nar
+.kotlin/
 # Note: .kts files are source files (like build.gradle.kts), not build artifacts
 
