@@ -129,19 +129,36 @@ All 11 C# samples are available (listed alphabetically). Each sample is in its o
 The C# samples require:
 - **`.NET SDK 10.0`** or later - For building and running C# applications
 - **`DotNetEnv`** - For loading environment variables from `.env` files
+- **Courier C# SDK** - Automatically initialized as a git submodule
 
-Dependencies are automatically restored when you run `dotnet restore` or `dotnet build`.
+### Courier C# SDK Setup
+
+The Courier C# SDK is included as a git submodule and will be **automatically initialized** when you:
+- Run any C# sample from VS Code (via launch configurations)
+- Build or run any sample using `dotnet build` or `dotnet run`
+- The `Directory.Build.targets` file automatically runs the initialization script before build
+
+If you need to manually initialize the SDK:
+```bash
+# From the project root
+git submodule update --init --recursive server/courier-csharp
+
+# Or use the convenience script
+bash server/csharp/init-sdk.sh
+```
 
 ## Implementation Notes
 
-These C# examples use direct HTTP requests to the Courier API (similar to the Ruby examples) rather than a Courier SDK. This approach:
-- Works without requiring a specific Courier C# SDK package
-- Demonstrates the raw API interactions
-- Is easy to understand and modify
+These C# examples use the **official Courier C# SDK** (https://github.com/trycourier/courier-csharp). The SDK provides:
+- Type-safe API methods
+- Automatic error handling
+- Built-in retry logic
+- Strongly-typed request/response models
 
 The examples use:
-- `System.Net.Http.HttpClient` for HTTP requests
-- `System.Text.Json` for JSON serialization (built into .NET)
+- `CourierClient` for API interactions
+- `Courier.Models.*` for request/response types
+- `Courier.Exceptions` for error handling
 - `DotNetEnv` for environment variable loading
 
 ## Documentation

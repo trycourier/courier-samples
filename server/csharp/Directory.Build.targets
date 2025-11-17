@@ -1,0 +1,37 @@
+<Project>
+  <!-- 
+    Auto-initialize Courier C# SDK submodule before build
+    This runs automatically for all projects in this directory
+  -->
+  <Target Name="InitializeCourierSDK" BeforeTargets="Restore">
+    <PropertyGroup>
+      <ProjectRoot>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)../..'))</ProjectRoot>
+      <SDKPath>$(ProjectRoot)/courier-csharp</SDKPath>
+      <SDKProjectPath>$(SDKPath)/src/Courier/Courier.csproj</SDKProjectPath>
+      <InitScriptPath>$(MSBuildThisFileDirectory)init-sdk.sh</InitScriptPath>
+      <InitScriptPathPS>$(MSBuildThisFileDirectory)init-sdk.ps1</InitScriptPathPS>
+    </PropertyGroup>
+    
+    <!-- Check if SDK project file exists -->
+    <PropertyGroup>
+      <SDKExists Condition="Exists('$(SDKProjectPath)')">true</SDKExists>
+    </PropertyGroup>
+    
+    <!-- Run initialization script on Unix/macOS/Linux -->
+    <Exec 
+      Condition="'$(OS)' != 'Windows_NT' And '$(SDKExists)' != 'true'"
+      Command="bash &quot;$(InitScriptPath)&quot;"
+      ContinueOnError="false"
+      WorkingDirectory="$(ProjectRoot)"
+      IgnoreExitCode="false" />
+    
+    <!-- Run initialization script on Windows -->
+    <Exec 
+      Condition="'$(OS)' == 'Windows_NT' And '$(SDKExists)' != 'true'"
+      Command="powershell -ExecutionPolicy Bypass -File &quot;$(InitScriptPathPS)&quot;"
+      ContinueOnError="false"
+      WorkingDirectory="$(ProjectRoot)"
+      IgnoreExitCode="false" />
+  </Target>
+</Project>
+

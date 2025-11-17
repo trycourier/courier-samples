@@ -287,67 +287,67 @@
       "name": "⚡ C#: Generate JWT",
       "type": "node-terminal",
       "request": "launch",
-      "command": "cd ${workspaceFolder} && bash scripts/check-language-prereqs.sh csharp && bash scripts/set-env.sh \"C#: Generate JWT\" --dir server api_key generate_jwt_user_id && cd server/csharp/generate-jwt && export PATH=\"$HOME/.dotnet:$PATH\" && dotnet restore -v q && dotnet run"
+      "command": "cd ${workspaceFolder} && bash scripts/check-language-prereqs.sh csharp && bash scripts/set-env.sh \"C#: Generate JWT\" --dir server api_key generate_jwt_user_id && bash server/csharp/init-sdk.sh && cd server/csharp/generate-jwt && export PATH=\"$HOME/.dotnet:$PATH\" && dotnet restore -v q && dotnet run"
     },
     {
       "name": "⚡ C#: Upsert User",
       "type": "node-terminal",
       "request": "launch",
-      "command": "cd ${workspaceFolder} && bash scripts/check-language-prereqs.sh csharp && bash scripts/set-env.sh \"C#: Upsert User\" --dir server api_key upsert_user_user_id upsert_user_email upsert_user_name upsert_user_phone_number && cd server/csharp/upsert-user && export PATH=\"$HOME/.dotnet:$PATH\" && dotnet restore -v q && dotnet run"
+      "command": "cd ${workspaceFolder} && bash scripts/check-language-prereqs.sh csharp && bash scripts/set-env.sh \"C#: Upsert User\" --dir server api_key upsert_user_user_id upsert_user_email upsert_user_name upsert_user_phone_number && bash server/csharp/init-sdk.sh && cd server/csharp/upsert-user && export PATH=\"$HOME/.dotnet:$PATH\" && dotnet restore -v q && dotnet run"
     },
     {
       "name": "⚡ C#: Get User Profile",
       "type": "node-terminal",
       "request": "launch",
-      "command": "cd ${workspaceFolder} && bash scripts/check-language-prereqs.sh csharp && bash scripts/set-env.sh \"C#: Get User Profile\" --dir server api_key get_user_profile_user_id && cd server/csharp/get-user-profile && export PATH=\"$HOME/.dotnet:$PATH\" && dotnet restore -v q && dotnet run"
+      "command": "cd ${workspaceFolder} && bash scripts/check-language-prereqs.sh csharp && bash scripts/set-env.sh \"C#: Get User Profile\" --dir server api_key get_user_profile_user_id && bash server/csharp/init-sdk.sh && cd server/csharp/get-user-profile && export PATH=\"$HOME/.dotnet:$PATH\" && dotnet restore -v q && dotnet run"
     },
     {
       "name": "⚡ C#: Create List",
       "type": "node-terminal",
       "request": "launch",
-      "command": "cd ${workspaceFolder} && bash scripts/check-language-prereqs.sh csharp && bash scripts/set-env.sh \"C#: Create List\" --dir server api_key create_list_list_id create_list_list_name && cd server/csharp/create-list && export PATH=\"$HOME/.dotnet:$PATH\" && dotnet restore -v q && dotnet run"
+      "command": "cd ${workspaceFolder} && bash scripts/check-language-prereqs.sh csharp && bash scripts/set-env.sh \"C#: Create List\" --dir server api_key create_list_list_id create_list_list_name && bash server/csharp/init-sdk.sh && cd server/csharp/create-list && export PATH=\"$HOME/.dotnet:$PATH\" && dotnet restore -v q && dotnet run"
     },
     {
       "name": "⚡ C#: Subscribe User to List",
       "type": "node-terminal",
       "request": "launch",
-      "command": "cd ${workspaceFolder} && bash scripts/check-language-prereqs.sh csharp && bash scripts/set-env.sh \"C#: Subscribe User to List\" --dir server api_key subscribe_user_to_list_list_id subscribe_user_to_list_user_id && cd server/csharp/subscribe-user-to-list && export PATH=\"$HOME/.dotnet:$PATH\" && dotnet restore -v q && dotnet run"
+      "command": "cd ${workspaceFolder} && bash scripts/check-language-prereqs.sh csharp && bash scripts/set-env.sh \"C#: Subscribe User to List\" --dir server api_key subscribe_user_to_list_list_id subscribe_user_to_list_user_id && bash server/csharp/init-sdk.sh && cd server/csharp/subscribe-user-to-list && export PATH=\"$HOME/.dotnet:$PATH\" && dotnet restore -v q && dotnet run"
     },
     {
       "name": "⚡ C#: Unsubscribe User from List",
       "type": "node-terminal",
       "request": "launch",
-      "command": "cd ${workspaceFolder} && bash scripts/check-language-prereqs.sh csharp && bash scripts/set-env.sh \"C#: Unsubscribe User from List\" --dir server api_key unsubscribe_user_from_list_list_id unsubscribe_user_from_list_user_id && cd server/csharp/unsubscribe-user-from-list && export PATH=\"$HOME/.dotnet:$PATH\" && dotnet restore -v q && dotnet run"
+      "command": "cd ${workspaceFolder} && bash scripts/check-language-prereqs.sh csharp && bash scripts/set-env.sh \"C#: Unsubscribe User from List\" --dir server api_key unsubscribe_user_from_list_list_id unsubscribe_user_from_list_user_id && bash server/csharp/init-sdk.sh && cd server/csharp/unsubscribe-user-from-list && export PATH=\"$HOME/.dotnet:$PATH\" && dotnet restore -v q && dotnet run"
     },
     {
       "name": "⚡ C#: Send Template to User ID",
       "type": "node-terminal",
       "request": "launch",
-      "command": "cd ${workspaceFolder} && bash scripts/check-language-prereqs.sh csharp && bash scripts/set-env.sh \"C#: Send Template to User ID\" --dir server api_key send_template_to_user_id_user_id send_template_to_user_id_template_id && cd server/csharp/send-template-to-user-id && export PATH=\"$HOME/.dotnet:$PATH\" && dotnet restore -v q && dotnet run"
+      "command": "cd ${workspaceFolder} && bash scripts/check-language-prereqs.sh csharp && bash scripts/set-env.sh \"C#: Send Template to User ID\" --dir server api_key send_template_to_user_id_user_id send_template_to_user_id_template_id && bash server/csharp/init-sdk.sh && cd server/csharp/send-template-to-user-id && export PATH=\"$HOME/.dotnet:$PATH\" && dotnet restore -v q && dotnet run"
     },
     {
       "name": "⚡ C#: Send Template to Email",
       "type": "node-terminal",
       "request": "launch",
-      "command": "cd ${workspaceFolder} && bash scripts/check-language-prereqs.sh csharp && bash scripts/set-env.sh \"C#: Send Template to Email\" --dir server api_key send_template_to_email_email send_template_to_email_template_id && cd server/csharp/send-template-to-email && export PATH=\"$HOME/.dotnet:$PATH\" && dotnet restore -v q && dotnet run"
+      "command": "cd ${workspaceFolder} && bash scripts/check-language-prereqs.sh csharp && bash scripts/set-env.sh \"C#: Send Template to Email\" --dir server api_key send_template_to_email_email send_template_to_email_template_id && bash server/csharp/init-sdk.sh && cd server/csharp/send-template-to-email && export PATH=\"$HOME/.dotnet:$PATH\" && dotnet restore -v q && dotnet run"
     },
     {
       "name": "⚡ C#: Send Template to List",
       "type": "node-terminal",
       "request": "launch",
-      "command": "cd ${workspaceFolder} && bash scripts/check-language-prereqs.sh csharp && bash scripts/set-env.sh \"C#: Send Template to List\" --dir server api_key send_template_to_list_list_id send_template_to_list_template_id && cd server/csharp/send-template-to-list && export PATH=\"$HOME/.dotnet:$PATH\" && dotnet restore -v q && dotnet run"
+      "command": "cd ${workspaceFolder} && bash scripts/check-language-prereqs.sh csharp && bash scripts/set-env.sh \"C#: Send Template to List\" --dir server api_key send_template_to_list_list_id send_template_to_list_template_id && bash server/csharp/init-sdk.sh && cd server/csharp/send-template-to-list && export PATH=\"$HOME/.dotnet:$PATH\" && dotnet restore -v q && dotnet run"
     },
     {
       "name": "⚡ C#: Send Template to Audience",
       "type": "node-terminal",
       "request": "launch",
-      "command": "cd ${workspaceFolder} && bash scripts/check-language-prereqs.sh csharp && bash scripts/set-env.sh \"C#: Send Template to Audience\" --dir server api_key send_template_to_audience_audience_id send_template_to_user_id_template_id && cd server/csharp/send-template-to-audience && export PATH=\"$HOME/.dotnet:$PATH\" && dotnet restore -v q && dotnet run"
+      "command": "cd ${workspaceFolder} && bash scripts/check-language-prereqs.sh csharp && bash scripts/set-env.sh \"C#: Send Template to Audience\" --dir server api_key send_template_to_audience_audience_id send_template_to_user_id_template_id && bash server/csharp/init-sdk.sh && cd server/csharp/send-template-to-audience && export PATH=\"$HOME/.dotnet:$PATH\" && dotnet restore -v q && dotnet run"
     },
     {
       "name": "⚡ C#: Send Template to Tenant",
       "type": "node-terminal",
       "request": "launch",
-      "command": "cd ${workspaceFolder} && bash scripts/check-language-prereqs.sh csharp && bash scripts/set-env.sh \"C#: Send Template to Tenant\" --dir server api_key send_template_to_tenant_tenant_id send_template_to_tenant_id_template_id && cd server/csharp/send-template-to-tenant && export PATH=\"$HOME/.dotnet:$PATH\" && dotnet restore -v q && dotnet run"
+      "command": "cd ${workspaceFolder} && bash scripts/check-language-prereqs.sh csharp && bash scripts/set-env.sh \"C#: Send Template to Tenant\" --dir server api_key send_template_to_tenant_tenant_id send_template_to_tenant_id_template_id && bash server/csharp/init-sdk.sh && cd server/csharp/send-template-to-tenant && export PATH=\"$HOME/.dotnet:$PATH\" && dotnet restore -v q && dotnet run"
     },
     {
       "name": "☕ Java: Generate JWT",
