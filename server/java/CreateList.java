@@ -1,10 +1,13 @@
+import com.courier.client.CourierClient;
+import com.courier.client.okhttp.CourierOkHttpClient;
+import com.courier.core.JsonValue;
+import com.courier.models.lists.ListUpdateParams;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.HashMap;
 import java.util.Map;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.JsonNode;
 
 /**
- * Create or update a notification list.
+ * Create or update a notification list using the Courier Java SDK.
  */
 public class CreateList {
     public static void main(String[] args) {
@@ -13,17 +16,44 @@ public class CreateList {
             String listId = EnvLoader.getEnv("COURIER_CREATE_LIST_LIST_ID");
             String listName = EnvLoader.getEnv("COURIER_CREATE_LIST_LIST_NAME", "My List Name");
 
-            CourierClient client = new CourierClient(apiKey);
+            if (apiKey == null || apiKey.isEmpty()) {
+                System.err.println("Error: COURIER_API_KEY environment variable is required");
+                System.exit(1);
+            }
 
-            Map<String, Object> requestBody = new HashMap<>();
-            requestBody.put("name", listName);
+            if (listId == null || listId.isEmpty()) {
+                System.err.println("Error: COURIER_CREATE_LIST_LIST_ID environment variable is required");
+                System.exit(1);
+            }
+
+            // Initialize Courier client using the SDK
+            CourierClient client = CourierOkHttpClient.builder()
+                    .apiKey(apiKey)
+                    .build();
+
+            // Build request parameters using the SDK's builder pattern
+            Map<String, Object> preferencesMap = new HashMap<>();
+            preferencesMap.put("categories", new HashMap<>());
+            preferencesMap.put("notifications", new HashMap<>());
             
-            Map<String, Object> preferences = new HashMap<>();
-            preferences.put("categories", new HashMap<>());
-            preferences.put("notifications", new HashMap<>());
-            requestBody.put("preferences", preferences);
+            ListUpdateParams params = ListUpdateParams.builder()
+                    .listId(listId)
+                    .body(ListUpdateParams.Body.builder()
+                            .name(listName)
+                            .preferences(JsonValue.from(preferencesMap))
+                            .build())
+                    .build();
 
-            JsonNode response = client.put("/lists/" + listId, requestBody);
+            // Create or update list using the SDK (returns void)
+            client.lists().update(params);
+            
+            // Print success message since update returns void
+            Map<String, Object> successResponse = new HashMap<>();
+            successResponse.put("success", true);
+            successResponse.put("message", "List '" + listId + "' created/updated successfully");
+            successResponse.put("list_id", listId);
+            successResponse.put("list_name", listName);
+            var response = successResponse;
 
             // Print response as JSON
             ObjectMapper mapper = new ObjectMapper();

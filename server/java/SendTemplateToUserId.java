@@ -1,10 +1,11 @@
-import java.util.HashMap;
-import java.util.Map;
+import com.courier.client.CourierClient;
+import com.courier.client.okhttp.CourierOkHttpClient;
+import com.courier.core.JsonValue;
+import com.courier.models.send.SendMessageParams;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.JsonNode;
 
 /**
- * Send notifications to a user ID.
+ * Send notifications to a user ID using the Courier Java SDK.
  */
 public class SendTemplateToUserId {
     public static void main(String[] args) {
@@ -13,23 +14,37 @@ public class SendTemplateToUserId {
             String userId = EnvLoader.getEnv("COURIER_SEND_TEMPLATE_TO_USER_ID_USER_ID");
             String templateId = EnvLoader.getEnv("COURIER_SEND_TEMPLATE_TO_USER_ID_TEMPLATE_ID");
 
-            CourierClient client = new CourierClient(apiKey);
+            if (apiKey == null || apiKey.isEmpty()) {
+                System.err.println("Error: COURIER_API_KEY environment variable is required");
+                System.exit(1);
+            }
 
-            Map<String, Object> to = new HashMap<>();
-            to.put("user_id", userId);
+            if (userId == null || userId.isEmpty()) {
+                System.err.println("Error: COURIER_SEND_TEMPLATE_TO_USER_ID_USER_ID environment variable is required");
+                System.exit(1);
+            }
 
-            Map<String, Object> data = new HashMap<>();
-            data.put("name", "Your Name");
+            if (templateId == null || templateId.isEmpty()) {
+                System.err.println("Error: COURIER_SEND_TEMPLATE_TO_USER_ID_TEMPLATE_ID environment variable is required");
+                System.exit(1);
+            }
 
-            Map<String, Object> message = new HashMap<>();
-            message.put("to", to);
-            message.put("template", templateId);
-            message.put("data", data);
+            // Initialize Courier client using the SDK
+            CourierClient client = CourierOkHttpClient.builder()
+                    .apiKey(apiKey)
+                    .build();
 
-            Map<String, Object> requestBody = new HashMap<>();
-            requestBody.put("message", message);
+            // Build request parameters using the SDK's builder pattern
+            SendMessageParams params = SendMessageParams.builder()
+                    .message(SendMessageParams.Message.builder()
+                            .to(JsonValue.from(java.util.Map.of("user_id", userId)))
+                            .template(templateId)
+                            .data(JsonValue.from(java.util.Map.of("name", "Your Name")))
+                            .build())
+                    .build();
 
-            JsonNode response = client.post("/send", requestBody);
+            // Send message using the SDK
+            var response = client.send().message(params);
 
             // Print response as JSON
             ObjectMapper mapper = new ObjectMapper();
