@@ -41,24 +41,24 @@ Kotlin examples for interacting with the Courier API.
    export PATH="$JAVA_HOME/bin:$PATH"
    
    # Compile and run
-   kotlinc create-list.kt -include-runtime -d create-list.jar
-   java -jar create-list.jar
-   rm -f create-list.jar
+   kotlinc CreateList.kt -include-runtime -d CreateList.jar
+   java -jar CreateList.jar
+   rm -f CreateList.jar
    ```
 
 ## Scripts
 
-- `create-list.kt` - Create or update a list
-- `generate-jwt.kt` - Generate JWT tokens for user authentication
-- `get-user-profile.kt` - Retrieve user profiles
-- `send-template-to-email.kt` - Send templates to email addresses
-- `send-template-to-list.kt` - Send templates to lists
-- `send-template-to-user-id.kt` - Send templates to user IDs
-- `send-template-to-audience.kt` - Send templates to audiences
-- `send-template-to-tenant.kt` - Send templates to tenants
-- `subscribe-user-to-list.kt` - Subscribe users to lists
-- `unsubscribe-user-from-list.kt` - Unsubscribe users from lists
-- `upsert-user.kt` - Create or update user profiles with optional fields
+- `CreateList.kt` - Create or update a list
+- `GenerateJwt.kt` - Generate JWT tokens for user authentication
+- `GetUserProfile.kt` - Retrieve user profiles
+- `SendTemplateToEmail.kt` - Send templates to email addresses
+- `SendTemplateToList.kt` - Send templates to lists
+- `SendTemplateToUserId.kt` - Send templates to user IDs
+- `SendTemplateToAudience.kt` - Send templates to audiences
+- `SendTemplateToTenant.kt` - Send templates to tenants
+- `SubscribeUserToList.kt` - Subscribe users to lists
+- `UnsubscribeUserFromList.kt` - Unsubscribe users from lists
+- `UpsertUser.kt` - Create or update user profiles with optional fields
 
 ## Requirements
 

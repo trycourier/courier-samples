@@ -59,10 +59,6 @@ if [ -z "$CLASSPATH" ]; then
     exit 1
 fi
 
-# Kotlin converts hyphens to underscores in class names
-# e.g., generate-jwt.kt -> Generate_jwtKt
-# Convert the class name if needed
-ACTUAL_CLASS=$(echo "$MAIN_CLASS" | sed 's/-/_/g')
-
-java -cp "$CLASSPATH" "$ACTUAL_CLASS"
+# Run the main class
+java -cp "$CLASSPATH" "$MAIN_CLASS"
 

@@ -155,67 +155,67 @@
       "name": "🔷 Kotlin: Generate JWT",
       "type": "node-terminal",
       "request": "launch",
-      "command": "cd ${workspaceFolder} && bash scripts/check-language-prereqs.sh kotlin && bash scripts/set-env.sh \"Kotlin: Generate JWT\" --dir server api_key generate_jwt_user_id && cd server/kotlin && export JAVA_HOME=$(/usr/libexec/java_home 2>/dev/null || echo /usr/local/Cellar/openjdk/25.0.1/libexec/openjdk.jdk/Contents/Home) && export PATH=\"$JAVA_HOME/bin:$PATH\" && bash run.sh Generate_jwtKt"
+      "command": "cd ${workspaceFolder} && bash scripts/check-language-prereqs.sh kotlin && bash scripts/set-env.sh \"Kotlin: Generate JWT\" --dir server api_key generate_jwt_user_id && cd server/kotlin && export JAVA_HOME=$(/usr/libexec/java_home 2>/dev/null || echo /usr/local/Cellar/openjdk/25.0.1/libexec/openjdk.jdk/Contents/Home) && export PATH=\"$JAVA_HOME/bin:$PATH\" && bash run.sh GenerateJwtKt"
     },
     {
       "name": "🔷 Kotlin: Upsert User",
       "type": "node-terminal",
       "request": "launch",
-      "command": "cd ${workspaceFolder} && bash scripts/check-language-prereqs.sh kotlin && bash scripts/set-env.sh \"Kotlin: Upsert User\" --dir server api_key upsert_user_user_id upsert_user_email upsert_user_name upsert_user_phone_number && cd server/kotlin && export JAVA_HOME=$(/usr/libexec/java_home 2>/dev/null || echo /usr/local/Cellar/openjdk/25.0.1/libexec/openjdk.jdk/Contents/Home) && export PATH=\"$JAVA_HOME/bin:$PATH\" && bash run.sh Upsert_userKt"
+      "command": "cd ${workspaceFolder} && bash scripts/check-language-prereqs.sh kotlin && bash scripts/set-env.sh \"Kotlin: Upsert User\" --dir server api_key upsert_user_user_id upsert_user_email upsert_user_name upsert_user_phone_number && cd server/kotlin && export JAVA_HOME=$(/usr/libexec/java_home 2>/dev/null || echo /usr/local/Cellar/openjdk/25.0.1/libexec/openjdk.jdk/Contents/Home) && export PATH=\"$JAVA_HOME/bin:$PATH\" && bash run.sh UpsertUserKt"
     },
     {
       "name": "🔷 Kotlin: Get User Profile",
       "type": "node-terminal",
       "request": "launch",
-      "command": "cd ${workspaceFolder} && bash scripts/check-language-prereqs.sh kotlin && bash scripts/set-env.sh \"Kotlin: Get User Profile\" --dir server api_key get_user_profile_user_id && cd server/kotlin && export JAVA_HOME=$(/usr/libexec/java_home 2>/dev/null || echo /usr/local/Cellar/openjdk/25.0.1/libexec/openjdk.jdk/Contents/Home) && export PATH=\"$JAVA_HOME/bin:$PATH\" && bash run.sh Get_user_profileKt"
+      "command": "cd ${workspaceFolder} && bash scripts/check-language-prereqs.sh kotlin && bash scripts/set-env.sh \"Kotlin: Get User Profile\" --dir server api_key get_user_profile_user_id && cd server/kotlin && export JAVA_HOME=$(/usr/libexec/java_home 2>/dev/null || echo /usr/local/Cellar/openjdk/25.0.1/libexec/openjdk.jdk/Contents/Home) && export PATH=\"$JAVA_HOME/bin:$PATH\" && bash run.sh GetUserProfileKt"
     },
     {
       "name": "🔷 Kotlin: Create List",
       "type": "node-terminal",
       "request": "launch",
-      "command": "cd ${workspaceFolder} && bash scripts/check-language-prereqs.sh kotlin && bash scripts/set-env.sh \"Kotlin: Create List\" --dir server api_key create_list_list_id create_list_list_name && cd server/kotlin && export JAVA_HOME=$(/usr/libexec/java_home 2>/dev/null || echo /usr/local/Cellar/openjdk/25.0.1/libexec/openjdk.jdk/Contents/Home) && export PATH=\"$JAVA_HOME/bin:$PATH\" && bash run.sh Create_listKt"
+      "command": "cd ${workspaceFolder} && bash scripts/check-language-prereqs.sh kotlin && bash scripts/set-env.sh \"Kotlin: Create List\" --dir server api_key create_list_list_id create_list_list_name && cd server/kotlin && export JAVA_HOME=$(/usr/libexec/java_home 2>/dev/null || echo /usr/local/Cellar/openjdk/25.0.1/libexec/openjdk.jdk/Contents/Home) && export PATH=\"$JAVA_HOME/bin:$PATH\" && bash run.sh CreateListKt"
     },
     {
       "name": "🔷 Kotlin: Subscribe User to List",
       "type": "node-terminal",
       "request": "launch",
-      "command": "cd ${workspaceFolder} && bash scripts/check-language-prereqs.sh kotlin && bash scripts/set-env.sh \"Kotlin: Subscribe User to List\" --dir server api_key subscribe_user_to_list_list_id subscribe_user_to_list_user_id && cd server/kotlin && export JAVA_HOME=$(/usr/libexec/java_home 2>/dev/null || echo /usr/local/Cellar/openjdk/25.0.1/libexec/openjdk.jdk/Contents/Home) && export PATH=\"$JAVA_HOME/bin:$PATH\" && bash run.sh Subscribe_user_to_listKt"
+      "command": "cd ${workspaceFolder} && bash scripts/check-language-prereqs.sh kotlin && bash scripts/set-env.sh \"Kotlin: Subscribe User to List\" --dir server api_key subscribe_user_to_list_list_id subscribe_user_to_list_user_id && cd server/kotlin && export JAVA_HOME=$(/usr/libexec/java_home 2>/dev/null || echo /usr/local/Cellar/openjdk/25.0.1/libexec/openjdk.jdk/Contents/Home) && export PATH=\"$JAVA_HOME/bin:$PATH\" && bash run.sh SubscribeUserToListKt"
     },
     {
       "name": "🔷 Kotlin: Unsubscribe User from List",
       "type": "node-terminal",
       "request": "launch",
-      "command": "cd ${workspaceFolder} && bash scripts/check-language-prereqs.sh kotlin && bash scripts/set-env.sh \"Kotlin: Unsubscribe User from List\" --dir server api_key unsubscribe_user_from_list_list_id unsubscribe_user_from_list_user_id && cd server/kotlin && export JAVA_HOME=$(/usr/libexec/java_home 2>/dev/null || echo /usr/local/Cellar/openjdk/25.0.1/libexec/openjdk.jdk/Contents/Home) && export PATH=\"$JAVA_HOME/bin:$PATH\" && bash run.sh Unsubscribe_user_from_listKt"
+      "command": "cd ${workspaceFolder} && bash scripts/check-language-prereqs.sh kotlin && bash scripts/set-env.sh \"Kotlin: Unsubscribe User from List\" --dir server api_key unsubscribe_user_from_list_list_id unsubscribe_user_from_list_user_id && cd server/kotlin && export JAVA_HOME=$(/usr/libexec/java_home 2>/dev/null || echo /usr/local/Cellar/openjdk/25.0.1/libexec/openjdk.jdk/Contents/Home) && export PATH=\"$JAVA_HOME/bin:$PATH\" && bash run.sh UnsubscribeUserFromListKt"
     },
     {
       "name": "🔷 Kotlin: Send Template to User ID",
       "type": "node-terminal",
       "request": "launch",
-      "command": "cd ${workspaceFolder} && bash scripts/check-language-prereqs.sh kotlin && bash scripts/set-env.sh \"Kotlin: Send Template to User ID\" --dir server api_key send_template_to_user_id_user_id send_template_to_user_id_template_id && cd server/kotlin && export JAVA_HOME=$(/usr/libexec/java_home 2>/dev/null || echo /usr/local/Cellar/openjdk/25.0.1/libexec/openjdk.jdk/Contents/Home) && export PATH=\"$JAVA_HOME/bin:$PATH\" && bash run.sh Send_template_to_user_idKt"
+      "command": "cd ${workspaceFolder} && bash scripts/check-language-prereqs.sh kotlin && bash scripts/set-env.sh \"Kotlin: Send Template to User ID\" --dir server api_key send_template_to_user_id_user_id send_template_to_user_id_template_id && cd server/kotlin && export JAVA_HOME=$(/usr/libexec/java_home 2>/dev/null || echo /usr/local/Cellar/openjdk/25.0.1/libexec/openjdk.jdk/Contents/Home) && export PATH=\"$JAVA_HOME/bin:$PATH\" && bash run.sh SendTemplateToUserIdKt"
     },
     {
       "name": "🔷 Kotlin: Send Template to Email",
       "type": "node-terminal",
       "request": "launch",
-      "command": "cd ${workspaceFolder} && bash scripts/check-language-prereqs.sh kotlin && bash scripts/set-env.sh \"Kotlin: Send Template to Email\" --dir server api_key send_template_to_email_email send_template_to_email_template_id && cd server/kotlin && export JAVA_HOME=$(/usr/libexec/java_home 2>/dev/null || echo /usr/local/Cellar/openjdk/25.0.1/libexec/openjdk.jdk/Contents/Home) && export PATH=\"$JAVA_HOME/bin:$PATH\" && bash run.sh Send_template_to_emailKt"
+      "command": "cd ${workspaceFolder} && bash scripts/check-language-prereqs.sh kotlin && bash scripts/set-env.sh \"Kotlin: Send Template to Email\" --dir server api_key send_template_to_email_email send_template_to_email_template_id && cd server/kotlin && export JAVA_HOME=$(/usr/libexec/java_home 2>/dev/null || echo /usr/local/Cellar/openjdk/25.0.1/libexec/openjdk.jdk/Contents/Home) && export PATH=\"$JAVA_HOME/bin:$PATH\" && bash run.sh SendTemplateToEmailKt"
     },
     {
       "name": "🔷 Kotlin: Send Template to List",
       "type": "node-terminal",
       "request": "launch",
-      "command": "cd ${workspaceFolder} && bash scripts/check-language-prereqs.sh kotlin && bash scripts/set-env.sh \"Kotlin: Send Template to List\" --dir server api_key send_template_to_list_list_id send_template_to_list_template_id && cd server/kotlin && export JAVA_HOME=$(/usr/libexec/java_home 2>/dev/null || echo /usr/local/Cellar/openjdk/25.0.1/libexec/openjdk.jdk/Contents/Home) && export PATH=\"$JAVA_HOME/bin:$PATH\" && bash run.sh Send_template_to_listKt"
+      "command": "cd ${workspaceFolder} && bash scripts/check-language-prereqs.sh kotlin && bash scripts/set-env.sh \"Kotlin: Send Template to List\" --dir server api_key send_template_to_list_list_id send_template_to_list_template_id && cd server/kotlin && export JAVA_HOME=$(/usr/libexec/java_home 2>/dev/null || echo /usr/local/Cellar/openjdk/25.0.1/libexec/openjdk.jdk/Contents/Home) && export PATH=\"$JAVA_HOME/bin:$PATH\" && bash run.sh SendTemplateToListKt"
     },
     {
       "name": "🔷 Kotlin: Send Template to Audience",
       "type": "node-terminal",
       "request": "launch",
-      "command": "cd ${workspaceFolder} && bash scripts/check-language-prereqs.sh kotlin && bash scripts/set-env.sh \"Kotlin: Send Template to Audience\" --dir server api_key send_template_to_audience_audience_id send_template_to_user_id_template_id && cd server/kotlin && export JAVA_HOME=$(/usr/libexec/java_home 2>/dev/null || echo /usr/local/Cellar/openjdk/25.0.1/libexec/openjdk.jdk/Contents/Home) && export PATH=\"$JAVA_HOME/bin:$PATH\" && bash run.sh Send_template_to_audienceKt"
+      "command": "cd ${workspaceFolder} && bash scripts/check-language-prereqs.sh kotlin && bash scripts/set-env.sh \"Kotlin: Send Template to Audience\" --dir server api_key send_template_to_audience_audience_id send_template_to_user_id_template_id && cd server/kotlin && export JAVA_HOME=$(/usr/libexec/java_home 2>/dev/null || echo /usr/local/Cellar/openjdk/25.0.1/libexec/openjdk.jdk/Contents/Home) && export PATH=\"$JAVA_HOME/bin:$PATH\" && bash run.sh SendTemplateToAudienceKt"
     },
     {
       "name": "🔷 Kotlin: Send Template to Tenant",
       "type": "node-terminal",
       "request": "launch",
-      "command": "cd ${workspaceFolder} && bash scripts/check-language-prereqs.sh kotlin && bash scripts/set-env.sh \"Kotlin: Send Template to Tenant\" --dir server api_key send_template_to_tenant_tenant_id send_template_to_tenant_id_template_id && cd server/kotlin && export JAVA_HOME=$(/usr/libexec/java_home 2>/dev/null || echo /usr/local/Cellar/openjdk/25.0.1/libexec/openjdk.jdk/Contents/Home) && export PATH=\"$JAVA_HOME/bin:$PATH\" && bash run.sh Send_template_to_tenantKt"
+      "command": "cd ${workspaceFolder} && bash scripts/check-language-prereqs.sh kotlin && bash scripts/set-env.sh \"Kotlin: Send Template to Tenant\" --dir server api_key send_template_to_tenant_tenant_id send_template_to_tenant_id_template_id && cd server/kotlin && export JAVA_HOME=$(/usr/libexec/java_home 2>/dev/null || echo /usr/local/Cellar/openjdk/25.0.1/libexec/openjdk.jdk/Contents/Home) && export PATH=\"$JAVA_HOME/bin:$PATH\" && bash run.sh SendTemplateToTenantKt"
     },
     {
       "name": "🐹 Go: Generate JWT",

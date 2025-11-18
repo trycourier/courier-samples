@@ -11,17 +11,17 @@ sourceSets {
     main {
         kotlin {
             include(
-                "generate-jwt.kt",
-                "upsert-user.kt",
-                "get-user-profile.kt",
-                "create-list.kt",
-                "send-template-to-user-id.kt",
-                "send-template-to-email.kt",
-                "send-template-to-list.kt",
-                "send-template-to-audience.kt",
-                "send-template-to-tenant.kt",
-                "subscribe-user-to-list.kt",
-                "unsubscribe-user-from-list.kt",
+                "GenerateJwt.kt",
+                "UpsertUser.kt",
+                "GetUserProfile.kt",
+                "CreateList.kt",
+                "SendTemplateToUserId.kt",
+                "SendTemplateToEmail.kt",
+                "SendTemplateToList.kt",
+                "SendTemplateToAudience.kt",
+                "SendTemplateToTenant.kt",
+                "SubscribeUserToList.kt",
+                "UnsubscribeUserFromList.kt",
                 "EnvLoader.kt"
             )
             setSrcDirs(listOf("."))
