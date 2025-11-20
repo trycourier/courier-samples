@@ -5,7 +5,7 @@ Kotlin examples for interacting with the Courier API.
 ## Prerequisites
 
 - **Kotlin** - Install via Homebrew (`brew install kotlin`) or [SDKMAN](https://sdkman.io/)
-- **Java 8 or higher** - Kotlin requires Java Runtime Environment (JRE)
+- **Java 11 or higher** - Kotlin requires Java Runtime Environment (JRE)
 
 ### Verify Prerequisites
 
@@ -63,5 +63,5 @@ Kotlin examples for interacting with the Courier API.
 ## Requirements
 
 - Kotlin (installed via Homebrew or SDKMAN)
-- Java 8 or higher
+- Java 11 or higher
 - Standard Kotlin/Java libraries (no external dependencies required)

@@ -12,4 +12,6 @@ server/csharp/.vs/
 server/java/target/
 server/java/**/*.class
 
-# Kotlin / Gradle build artifacts (handled by server/kotlin/.gitignore)
+# Development test scripts
+scripts/test-*.sh
+scripts/quick-test.sh

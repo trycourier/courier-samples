@@ -1,8 +1,8 @@
 # Initialize Courier C# SDK submodule if it doesn't exist
 # PowerShell script for Windows
 
-$SDK_PATH = Join-Path $PSScriptRoot "..\..\courier-csharp"
 $ProjectRoot = Split-Path (Split-Path $PSScriptRoot -Parent) -Parent
+$SDK_PATH = Join-Path $ProjectRoot "server\courier-csharp"
 
 # Check if SDK directory exists and has content
 if (-not (Test-Path $SDK_PATH) -or ((Get-ChildItem $SDK_PATH -ErrorAction SilentlyContinue | Measure-Object).Count -eq 0)) {

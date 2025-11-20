@@ -368,12 +368,6 @@
       "command": "cd ${workspaceFolder} && bash scripts/check-language-prereqs.sh java && bash scripts/set-env.sh \"Java: Get User Profile\" --dir server api_key get_user_profile_user_id && cd server/java && bash run.sh GetUserProfile"
     },
     {
-      "name": "☕ Java: Get User Tokens",
-      "type": "node-terminal",
-      "request": "launch",
-      "command": "cd ${workspaceFolder} && bash scripts/check-language-prereqs.sh java && bash scripts/set-env.sh \"Java: Get User Tokens\" --dir server api_key get_user_tokens_user_id && cd server/java && bash run.sh GetUserTokens"
-    },
-    {
       "name": "☕ Java: Create List",
       "type": "node-terminal",
       "request": "launch",

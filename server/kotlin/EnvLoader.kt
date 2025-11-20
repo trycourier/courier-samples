@@ -62,7 +62,7 @@ object EnvLoader {
     /**
      * Gets an environment variable, with fallback to system environment.
      */
-    fun getEnv(key: String, defaultValue: String? = null): String? {
+    fun getEnv(key: String, defaultValue: String = ""): String {
         val env = loadEnv()
         val value = env[key]
         if (value == null || value.isEmpty()) {

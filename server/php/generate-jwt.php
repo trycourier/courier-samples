@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__ . '/../vendor/autoload.php';
+require_once __DIR__ . '/vendor/autoload.php';
 use Courier\Client;
 
 $api_key = getenv('COURIER_API_KEY') ?: '';

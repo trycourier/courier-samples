@@ -2,6 +2,23 @@
 
 Python code samples demonstrating how to integrate with Courier's notification platform.
 
+## Prerequisites
+
+- **Python 3.7 or higher** - Required to run Python samples
+- **pip** - Python package manager (usually included with Python)
+
+### Verify Prerequisites
+
+Check if Python 3.7+ is installed:
+```bash
+python3 --version
+```
+
+If the command is not found or shows a version below 3.7, install Python 3.7 or higher:
+- **macOS (Homebrew):** `brew install python3`
+- **Linux (apt):** `sudo apt-get install python3`
+- **Windows:** Download from [python.org](https://www.python.org/downloads/)
+
 ## Quick Start
 
 Get up and running in 3 steps:

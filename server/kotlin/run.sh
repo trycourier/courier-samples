@@ -36,6 +36,16 @@ if ! command -v java &> /dev/null; then
     exit 1
 fi
 
+# Auto-detect JAVA_HOME if not set
+if [ -z "$JAVA_HOME" ] || [ ! -d "$JAVA_HOME" ]; then
+    SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+    DETECTED_HOME=$("$SCRIPT_DIR/../../scripts/detect-java-home.sh" 2>/dev/null)
+    if [ -n "$DETECTED_HOME" ] && [ -d "$DETECTED_HOME" ]; then
+        export JAVA_HOME="$DETECTED_HOME"
+        export PATH="$JAVA_HOME/bin:$PATH"
+    fi
+fi
+
 # Get the directory where this script is located
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 cd "$SCRIPT_DIR"

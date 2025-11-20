@@ -37,12 +37,12 @@ This script will verify:
 Each language has its own requirements. See the README in each language directory for details:
 
 - **[Ruby](./server/ruby/README.md)** - Ruby 2.6+, Bundler
-- **[Python](./server/python/README.md)** - Python 3.x, pip
-- **[Node.js](./server/node/README.md)** - Node.js, npm
-- **[Java](./server/java/README.md)** - Java 8+, Maven
-- **[Kotlin](./server/kotlin/README.md)** - Kotlin, Java 8+ (JAVA_HOME must be set)
+- **[Python](./server/python/README.md)** - Python 3.7+, pip
+- **[Node.js](./server/node/README.md)** - Node.js 14.0+, npm
+- **[Java](./server/java/README.md)** - Java 11+, Maven
+- **[Kotlin](./server/kotlin/README.md)** - Kotlin, Java 11+ (JAVA_HOME must be set)
 - **[C#](./server/csharp/README.md)** - .NET SDK 10.0+
-- **[Go](./server/go/README.md)** - Go 1.x
+- **[Go](./server/go/README.md)** - Go 1.18+
 - **[PHP](./server/php/README.md)** - PHP 7.4+, Composer
 
 ## Environment Variables Setup
