@@ -1,60 +1,17 @@
 <?php
-/**
- * Subscribe a user to a list using the Courier PHP SDK
- */
-
-require __DIR__ . '/vendor/autoload.php';
-
+require_once __DIR__ . '/../vendor/autoload.php';
 use Courier\Client;
-use Courier\Core\Exceptions\APIException;
-use Dotenv\Dotenv;
 
-// Load environment variables from .env file in server directory (shared across all language examples)
-$dotenv = Dotenv::createImmutable(__DIR__ . '/..');
-$dotenv->load();
+$api_key = getenv('COURIER_API_KEY') ?: '';
+$list_id = getenv('COURIER_SUBSCRIBE_USER_TO_LIST_LIST_ID') ?: '';
+$user_id = getenv('COURIER_SUBSCRIBE_USER_TO_LIST_USER_ID') ?: '';
 
-$apiKey = $_ENV['COURIER_API_KEY'] ?? '';
-$listId = $_ENV['COURIER_SUBSCRIBE_USER_TO_LIST_LIST_ID'] ?? '';
-$userId = $_ENV['COURIER_SUBSCRIBE_USER_TO_LIST_USER_ID'] ?? '';
+$client = new Client(apiKey: $api_key);
 
-if (empty($apiKey)) {
-    echo json_encode(['error' => 'COURIER_API_KEY environment variable is required'], JSON_PRETTY_PRINT) . "\n";
-    exit(1);
-}
-
-if (empty($listId)) {
-    echo json_encode(['error' => 'COURIER_SUBSCRIBE_USER_TO_LIST_LIST_ID environment variable is required'], JSON_PRETTY_PRINT) . "\n";
-    exit(1);
-}
-
-if (empty($userId)) {
-    echo json_encode(['error' => 'COURIER_SUBSCRIBE_USER_TO_LIST_USER_ID environment variable is required'], JSON_PRETTY_PRINT) . "\n";
-    exit(1);
-}
-
-// Initialize Courier client using the SDK
-$client = new Client(apiKey: $apiKey);
-
-// Subscribe user to list using the SDK
-try {
-    $client->lists->subscriptions->subscribeUser($userId, [
-        'list_id' => $listId,
-        'preferences' => [
-            'categories' => (object)[],
-            'notifications' => (object)[]
-        ]
-    ]);
-
-    // Print success message since subscribeUser returns void
-    echo json_encode([
-        'status' => 'success',
-        'message' => 'User subscribed successfully'
-    ], JSON_PRETTY_PRINT) . "\n";
-} catch (APIException $e) {
-    echo json_encode(['error' => $e->getMessage()], JSON_PRETTY_PRINT) . "\n";
-    exit(1);
-} catch (\Exception $e) {
-    echo json_encode(['error' => $e->getMessage()], JSON_PRETTY_PRINT) . "\n";
-    exit(1);
-}
-
+$client->lists->subscriptions->subscribeUser($user_id, [
+    'list_id' => $list_id,
+    'preferences' => [
+        'categories' => (object)[],
+        'notifications' => (object)[]
+    ]
+]);

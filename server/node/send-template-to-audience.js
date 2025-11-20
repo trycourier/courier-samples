@@ -3,11 +3,9 @@ import dotenv from 'dotenv';
 import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
 
-// Load environment variables from .env file in server directory (shared across all language examples)
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
-const envPath = join(__dirname, '..', '.env');
-dotenv.config({ path: envPath });
+dotenv.config({ path: join(__dirname, '..', '.env') });
 
 const apiKey = process.env.COURIER_API_KEY;
 const audienceId = process.env.COURIER_SEND_TEMPLATE_TO_AUDIENCE_AUDIENCE_ID;
@@ -24,5 +22,5 @@ const response = await client.send.message({
   }
 });
 
-console.log(JSON.stringify(response, null, 2));
+console.log(response);
 

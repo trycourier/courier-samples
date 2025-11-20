@@ -1,9 +1,11 @@
+//go:build ignore
+
+// +build ignore
+
 package main
 
 import (
 	"context"
-	"encoding/json"
-	"errors"
 	"fmt"
 	"os"
 	"path/filepath"
@@ -13,10 +15,13 @@ import (
 	"github.com/trycourier/courier-go/v4/option"
 )
 
-func main() {
-	// Load environment variables from .env file in server directory (shared across all language examples)
+func LoadEnv() {
 	envPath := filepath.Join("..", ".env")
 	godotenv.Load(envPath)
+}
+
+func main() {
+	LoadEnv()
 
 	apiKey := os.Getenv("COURIER_API_KEY")
 	userID := os.Getenv("COURIER_GENERATE_JWT_USER_ID")
@@ -25,18 +30,15 @@ func main() {
 		expiresInDays = "30"
 	}
 
-	// Initialize Courier client
 	client := courier.NewClient(
 		option.WithAPIKey(apiKey),
 	)
 
-	// Build request body
 	requestBody := map[string]interface{}{
 		"scope":      fmt.Sprintf("user_id:%s write:user-tokens inbox:read:messages inbox:write:events read:preferences write:preferences read:brands", userID),
 		"expires_in": fmt.Sprintf("%s days", expiresInDays),
 	}
 
-	// Make API request using the SDK
 	var response map[string]interface{}
 	err := client.Post(
 		context.Background(),
@@ -46,22 +48,8 @@ func main() {
 	)
 
 	if err != nil {
-		// Handle SDK errors
-		var apierr *courier.Error
-		if errors.As(err, &apierr) {
-			fmt.Fprintf(os.Stderr, "Error: HTTP %d - %s\n", apierr.StatusCode, err.Error())
-		} else {
-			fmt.Fprintf(os.Stderr, "Error making request: %v\n", err)
-		}
-		os.Exit(1)
+		panic(err.Error())
 	}
 
-	// Print response
-	output, err := json.MarshalIndent(response, "", "  ")
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error formatting response: %v\n", err)
-		os.Exit(1)
-	}
-	fmt.Println(string(output))
+	fmt.Printf("%+v\n", response)
 }
-
