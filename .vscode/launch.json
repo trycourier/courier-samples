@@ -221,67 +221,67 @@
       "name": "🐹 Go: Generate JWT",
       "type": "node-terminal",
       "request": "launch",
-      "command": "cd ${workspaceFolder} && bash scripts/check-language-prereqs.sh go && bash scripts/set-env.sh --dir server api_key generate_jwt_user_id && cd server/go && go mod tidy && go run generate-jwt.go"
+      "command": "cd ${workspaceFolder} && bash scripts/check-language-prereqs.sh go && bash scripts/set-env.sh --dir server api_key generate_jwt_user_id && cd server/go && go get github.com/joho/godotenv github.com/trycourier/courier-go/v4 && go run generate-jwt.go"
     },
     {
       "name": "🐹 Go: Upsert User",
       "type": "node-terminal",
       "request": "launch",
-      "command": "cd ${workspaceFolder} && bash scripts/check-language-prereqs.sh go && bash scripts/set-env.sh \"Go: Upsert User\" --dir server api_key upsert_user_user_id upsert_user_email upsert_user_name upsert_user_phone_number && cd server/go && go mod tidy && go run upsert-user.go"
+      "command": "cd ${workspaceFolder} && bash scripts/check-language-prereqs.sh go && bash scripts/set-env.sh \"Go: Upsert User\" --dir server api_key upsert_user_user_id upsert_user_email upsert_user_name upsert_user_phone_number && cd server/go && go get github.com/joho/godotenv github.com/trycourier/courier-go/v4 && go run upsert-user.go"
     },
     {
       "name": "🐹 Go: Get User Profile",
       "type": "node-terminal",
       "request": "launch",
-      "command": "cd ${workspaceFolder} && bash scripts/check-language-prereqs.sh go && bash scripts/set-env.sh --dir server api_key get_user_profile_user_id && cd server/go && go mod tidy && go run get-user-profile.go"
+      "command": "cd ${workspaceFolder} && bash scripts/check-language-prereqs.sh go && bash scripts/set-env.sh --dir server api_key get_user_profile_user_id && cd server/go && go get github.com/joho/godotenv github.com/trycourier/courier-go/v4 && go run get-user-profile.go"
     },
     {
       "name": "🐹 Go: Create List",
       "type": "node-terminal",
       "request": "launch",
-      "command": "cd ${workspaceFolder} && bash scripts/check-language-prereqs.sh go && bash scripts/set-env.sh --dir server api_key create_list_list_id create_list_list_name && cd server/go && go mod tidy && go run create-list.go"
+      "command": "cd ${workspaceFolder} && bash scripts/check-language-prereqs.sh go && bash scripts/set-env.sh --dir server api_key create_list_list_id create_list_list_name && cd server/go && go get github.com/joho/godotenv github.com/trycourier/courier-go/v4 && go run create-list.go"
     },
     {
       "name": "🐹 Go: Subscribe User to List",
       "type": "node-terminal",
       "request": "launch",
-      "command": "cd ${workspaceFolder} && bash scripts/check-language-prereqs.sh go && bash scripts/set-env.sh --dir server api_key subscribe_user_to_list_list_id subscribe_user_to_list_user_id && cd server/go && go mod tidy && go run subscribe-user-to-list.go"
+      "command": "cd ${workspaceFolder} && bash scripts/check-language-prereqs.sh go && bash scripts/set-env.sh --dir server api_key subscribe_user_to_list_list_id subscribe_user_to_list_user_id && cd server/go && go get github.com/joho/godotenv github.com/trycourier/courier-go/v4 && go run subscribe-user-to-list.go"
     },
     {
       "name": "🐹 Go: Unsubscribe User from List",
       "type": "node-terminal",
       "request": "launch",
-      "command": "cd ${workspaceFolder} && bash scripts/check-language-prereqs.sh go && bash scripts/set-env.sh --dir server api_key unsubscribe_user_from_list_list_id unsubscribe_user_from_list_user_id && cd server/go && go mod tidy && go run unsubscribe-user-from-list.go"
+      "command": "cd ${workspaceFolder} && bash scripts/check-language-prereqs.sh go && bash scripts/set-env.sh --dir server api_key unsubscribe_user_from_list_list_id unsubscribe_user_from_list_user_id && cd server/go && go get github.com/joho/godotenv github.com/trycourier/courier-go/v4 && go run unsubscribe-user-from-list.go"
     },
     {
       "name": "🐹 Go: Send Template to User ID",
       "type": "node-terminal",
       "request": "launch",
-      "command": "cd ${workspaceFolder} && bash scripts/check-language-prereqs.sh go && bash scripts/set-env.sh --dir server api_key send_template_to_user_id_user_id send_template_to_user_id_template_id && cd server/go && go mod tidy && go run send-template-to-user-id.go"
+      "command": "cd ${workspaceFolder} && bash scripts/check-language-prereqs.sh go && bash scripts/set-env.sh --dir server api_key send_template_to_user_id_user_id send_template_to_user_id_template_id && cd server/go && go get github.com/joho/godotenv github.com/trycourier/courier-go/v4 && go run send-template-to-user-id.go"
     },
     {
       "name": "🐹 Go: Send Template to Email",
       "type": "node-terminal",
       "request": "launch",
-      "command": "cd ${workspaceFolder} && bash scripts/check-language-prereqs.sh go && bash scripts/set-env.sh --dir server api_key send_template_to_email_email send_template_to_email_template_id && cd server/go && go mod tidy && go run send-template-to-email.go"
+      "command": "cd ${workspaceFolder} && bash scripts/check-language-prereqs.sh go && bash scripts/set-env.sh --dir server api_key send_template_to_email_email send_template_to_email_template_id && cd server/go && go get github.com/joho/godotenv github.com/trycourier/courier-go/v4 && go run send-template-to-email.go"
     },
     {
       "name": "🐹 Go: Send Template to List",
       "type": "node-terminal",
       "request": "launch",
-      "command": "cd ${workspaceFolder} && bash scripts/check-language-prereqs.sh go && bash scripts/set-env.sh --dir server api_key send_template_to_list_list_id send_template_to_list_template_id && cd server/go && go mod tidy && go run send-template-to-list.go"
+      "command": "cd ${workspaceFolder} && bash scripts/check-language-prereqs.sh go && bash scripts/set-env.sh --dir server api_key send_template_to_list_list_id send_template_to_list_template_id && cd server/go && go get github.com/joho/godotenv github.com/trycourier/courier-go/v4 && go run send-template-to-list.go"
     },
     {
       "name": "🐹 Go: Send Template to Audience",
       "type": "node-terminal",
       "request": "launch",
-      "command": "cd ${workspaceFolder} && bash scripts/check-language-prereqs.sh go && bash scripts/set-env.sh --dir server api_key send_template_to_audience_audience_id send_template_to_list_template_id && cd server/go && go mod tidy && go run send-template-to-audience.go"
+      "command": "cd ${workspaceFolder} && bash scripts/check-language-prereqs.sh go && bash scripts/set-env.sh --dir server api_key send_template_to_audience_audience_id send_template_to_list_template_id && cd server/go && go get github.com/joho/godotenv github.com/trycourier/courier-go/v4 && go run send-template-to-audience.go"
     },
     {
       "name": "🐹 Go: Send Template to Tenant",
       "type": "node-terminal",
       "request": "launch",
-      "command": "cd ${workspaceFolder} && bash scripts/check-language-prereqs.sh go && bash scripts/set-env.sh --dir server api_key send_template_to_tenant_tenant_id send_template_to_list_template_id && cd server/go && go mod tidy && go run send-template-to-tenant.go"
+      "command": "cd ${workspaceFolder} && bash scripts/check-language-prereqs.sh go && bash scripts/set-env.sh --dir server api_key send_template_to_tenant_tenant_id send_template_to_list_template_id && cd server/go && go get github.com/joho/godotenv github.com/trycourier/courier-go/v4 && go run send-template-to-tenant.go"
     },
     {
       "name": "⚡ C#: Generate JWT",
