@@ -278,16 +278,35 @@ get_env_key() {
         # Script-specific variable - normalize the full name
         normalize_var_name "$var"
     else
-        # Base variable - use legacy mapping for React apps (jwt needs VITE_ prefix)
-        case "$var" in
-            jwt)
-                echo "VITE_COURIER_JWT"
-                ;;
-            *)
-                # For other base variables, normalize with COURIER_ prefix
-                normalize_var_name "$var"
-                ;;
-        esac
+        # Base variable - use legacy mapping for React apps (jwt, template_id, tenant_id need VITE_ prefix)
+        # Check if we're in a React app directory
+        if echo "$TARGET_DIR" | grep -q "web/react"; then
+            case "$var" in
+                jwt)
+                    echo "VITE_COURIER_JWT"
+                    ;;
+                template_id)
+                    echo "VITE_COURIER_TEMPLATE_ID"
+                    ;;
+                tenant_id)
+                    echo "VITE_COURIER_TENANT_ID"
+                    ;;
+                *)
+                    # For other base variables, normalize with COURIER_ prefix
+                    normalize_var_name "$var"
+                    ;;
+            esac
+        else
+            case "$var" in
+                jwt)
+                    echo "VITE_COURIER_JWT"
+                    ;;
+                *)
+                    # For other base variables, normalize with COURIER_ prefix
+                    normalize_var_name "$var"
+                    ;;
+            esac
+        fi
     fi
 }
 
@@ -309,6 +328,19 @@ fi
 EXISTING_jwt=$(get_env_value "VITE_COURIER_JWT")
 if [ -z "$EXISTING_jwt" ]; then
     EXISTING_jwt=$(get_env_value "COURIER_JWT")
+fi
+
+# For template_id and tenant_id in React apps, check VITE_COURIER_ versions
+if echo "$TARGET_DIR" | grep -q "web/react"; then
+    EXISTING_template_id=$(get_env_value "VITE_COURIER_TEMPLATE_ID")
+    if [ -z "$EXISTING_template_id" ]; then
+        EXISTING_template_id=$(get_env_value "COURIER_TEMPLATE_ID")
+    fi
+    
+    EXISTING_tenant_id=$(get_env_value "VITE_COURIER_TENANT_ID")
+    if [ -z "$EXISTING_tenant_id" ]; then
+        EXISTING_tenant_id=$(get_env_value "COURIER_TENANT_ID")
+    fi
 fi
 
 # Display header
@@ -337,6 +369,12 @@ for var in "${VARS_TO_PROMPT[@]}"; do
             ;;
         jwt)
             existing_value="$EXISTING_jwt"
+            ;;
+        template_id)
+            existing_value="$EXISTING_template_id"
+            ;;
+        tenant_id)
+            existing_value="$EXISTING_tenant_id"
             ;;
         *)
             existing_value=$(get_env_value "$env_key")
@@ -377,7 +415,13 @@ for var in "${VARS_TO_PROMPT[@]}"; do
     if [ "$var" = "jwt" ]; then
         # Mark jwt as prompted but don't ask for it yet
         # We'll generate it after checking for api_key and user_id
-        eval "NEW_${var}=\"\""
+        # But first, check if we already have a value - if so, keep it
+        if [ -n "$existing_value" ]; then
+            eval "NEW_${var}=\"\$existing_value\""
+            gum style --foreground 10 "✓ $display_name: (using existing value)"
+        else
+            eval "NEW_${var}=\"\""
+        fi
     else
         # Prompt for the value with validation loop
         # Use a simpler placeholder that doesn't duplicate the prompt text
@@ -432,6 +476,19 @@ for var in "${VARS_TO_PROMPT[@]}"; do
     echo ""
 done
 
+# Function to get JWT scopes based on context
+get_jwt_scopes() {
+    local user_id=$1
+    # Check if we're in a Designer context (has template_id or tenant_id)
+    if echo "$TARGET_DIR" | grep -q "designer" || echo "$PROMPTED_VARS_LIST" | grep -q "|template_id|" || echo "$PROMPTED_VARS_LIST" | grep -q "|tenant_id|"; then
+        # Designer needs specific tenant scopes for GraphQL API access
+        echo "user_id:${user_id} tenants:read tenants:notifications:read tenants:notifications:write tenants:brand:read"
+    else
+        # Standard scopes for other samples
+        echo "user_id:${user_id} write:user-tokens inbox:read:messages inbox:write:events read:preferences write:preferences read:brands"
+    fi
+}
+
 # Check if jwt was requested
 JWT_REQUESTED=0
 for var in "${VARS_TO_PROMPT[@]}"; do
@@ -441,114 +498,229 @@ for var in "${VARS_TO_PROMPT[@]}"; do
     fi
 done
 
-# If jwt is requested, check if api_key and user_id are available
+# If jwt is requested, check if we already have a value or need to generate it
 if [ $JWT_REQUESTED -eq 1 ]; then
-    # Get api_key value (from prompt or existing)
-    api_key_value=""
-    user_id_value=""
-    
-    # Check if api_key was prompted
-    if echo "$PROMPTED_VARS_LIST" | grep -q "|api_key|"; then
-        api_key_value="$NEW_api_key"
+    # Check if JWT was already provided (from existing value or user input)
+    jwt_value=""
+    if echo "$PROMPTED_VARS_LIST" | grep -q "|jwt|"; then
+        jwt_value="$NEW_jwt"
     else
-        api_key_value="$EXISTING_api_key"
+        jwt_value="$EXISTING_jwt"
     fi
     
-    # Check if user_id was prompted
-    if echo "$PROMPTED_VARS_LIST" | grep -q "|user_id|"; then
-        user_id_value="$NEW_user_id"
+    # If JWT is already provided, skip generation
+    if [ -n "$jwt_value" ]; then
+        gum style --foreground 10 "✓ Using provided JWT token"
+        echo ""
     else
-        user_id_value="$EXISTING_user_id"
+        # JWT not provided, try to generate it
+        # Get api_key value (from prompt or existing)
+        api_key_value=""
+        user_id_value=""
+        
+        # Check if api_key was prompted
+        if echo "$PROMPTED_VARS_LIST" | grep -q "|api_key|"; then
+            api_key_value="$NEW_api_key"
+        else
+            api_key_value="$EXISTING_api_key"
+        fi
+        
+        # Check if user_id was prompted
+        if echo "$PROMPTED_VARS_LIST" | grep -q "|user_id|"; then
+            user_id_value="$NEW_user_id"
+        else
+            user_id_value="$EXISTING_user_id"
+        fi
+        
+        # Check if both are missing - if so, prompt user to provide JWT manually
+        if [ -z "$api_key_value" ] && [ -z "$user_id_value" ]; then
+            gum style --foreground 3 --bold "⚠ Cannot auto-generate JWT. Both API key and User ID are required."
+            gum style --foreground 240 "Please provide JWT token manually or provide api_key and user_id to generate it."
+            echo ""
+            # Prompt for JWT manually
+            jwt_input=$(gum input --prompt "$(printf '\033[34m%s: \033[0m' 'Courier JWT Token')" --placeholder "Enter your JWT token")
+            if [ -n "$jwt_input" ]; then
+                NEW_jwt="$jwt_input"
+                gum style --foreground 10 "✓ Courier JWT Token: (provided)"
+            else
+                gum style --foreground 1 --bold "Error: JWT token is required."
+                exit 1
+            fi
+            echo ""
+        # Check if either is missing - show specific error and prompt for JWT
+        elif [ -z "$api_key_value" ]; then
+            gum style --foreground 3 --bold "⚠ Cannot auto-generate JWT. API key is required."
+            gum style --foreground 240 "Please provide JWT token manually or provide api_key to generate it."
+            echo ""
+            # Prompt for JWT manually
+            jwt_input=$(gum input --prompt "$(printf '\033[34m%s: \033[0m' 'Courier JWT Token')" --placeholder "Enter your JWT token")
+            if [ -n "$jwt_input" ]; then
+                NEW_jwt="$jwt_input"
+                gum style --foreground 10 "✓ Courier JWT Token: (provided)"
+            else
+                gum style --foreground 1 --bold "Error: JWT token is required."
+                exit 1
+            fi
+            echo ""
+        elif [ -z "$user_id_value" ]; then
+            gum style --foreground 3 --bold "⚠ Cannot auto-generate JWT. User ID is required."
+            gum style --foreground 240 "Please provide user_id to generate JWT token."
+            echo ""
+            # Prompt for user_id so we can generate JWT
+            user_id_input=$(gum input --prompt "$(printf '\033[34m%s: \033[0m' 'Courier User ID')" --placeholder "Enter your user ID")
+            if [ -n "$user_id_input" ]; then
+                user_id_value="$user_id_input"
+                gum style --foreground 10 "✓ Courier User ID: $user_id_input"
+                echo ""
+                # Now generate JWT with the provided user_id
+                gum style --foreground 240 "Generating JWT token..."
+                echo ""
+                
+                # Set expiration (default to 30 days)
+                EXPIRES_IN_DAYS="${COURIER_EXPIRES_IN_DAYS:-30}"
+                
+                # Get appropriate scopes based on context
+                JWT_SCOPES=$(get_jwt_scopes "$user_id_value")
+                
+                # Generate JWT token directly using curl
+                JWT_RESPONSE=$(curl -s -w "\n%{http_code}" --request POST \
+                  --url https://api.courier.com/auth/issue-token \
+                  --header 'Accept: application/json' \
+                  --header "Authorization: Bearer ${api_key_value}" \
+                  --header 'Content-Type: application/json' \
+                  --data "{
+                    \"scope\": \"${JWT_SCOPES}\", 
+                    \"expires_in\": \"${EXPIRES_IN_DAYS} days\"
+                  }" 2>&1)
+                
+                # Extract HTTP status code (last line)
+                HTTP_CODE=$(echo "$JWT_RESPONSE" | tail -n 1)
+                # Extract response body (all but last line) - macOS compatible
+                JWT_BODY=$(echo "$JWT_RESPONSE" | sed '$d')
+                
+                # Check if request was successful
+                if [ "$HTTP_CODE" != "200" ] && [ "$HTTP_CODE" != "201" ]; then
+                    gum style --foreground 1 --bold "Error: Failed to generate JWT token (HTTP $HTTP_CODE)"
+                    gum style --foreground 240 "Response: $JWT_BODY"
+                    exit 1
+                fi
+                
+                # Extract token from JSON response
+                # Try using jq if available
+                if command -v jq &> /dev/null; then
+                    JWT_TOKEN=$(echo "$JWT_BODY" | jq -r '.token // empty' 2>/dev/null)
+                fi
+                
+                # If jq didn't work or isn't available, try sed parsing
+                if [ -z "$JWT_TOKEN" ]; then
+                    # Try to extract token from JSON: {"token": "value"}
+                    JWT_TOKEN=$(echo "$JWT_BODY" | sed -n 's/.*"token"[[:space:]]*:[[:space:]]*"\([^"]*\)".*/\1/p')
+                fi
+                
+                # If still empty, try alternative JSON formats
+                if [ -z "$JWT_TOKEN" ]; then
+                    # Try compact JSON format: {"token":"value"}
+                    JWT_TOKEN=$(echo "$JWT_BODY" | sed -n 's/.*"token":"\([^"]*\)".*/\1/p')
+                fi
+                
+                # If still empty, the response might be just the token string
+                if [ -z "$JWT_TOKEN" ]; then
+                    # Remove any JSON wrapper and quotes, trim whitespace
+                    JWT_TOKEN=$(echo "$JWT_BODY" | sed 's/^{"token":"\(.*\)"}$/\1/' | sed 's/^"\(.*\)"$/\1/' | xargs)
+                fi
+                
+                # Trim whitespace and newlines
+                JWT_TOKEN=$(echo "$JWT_TOKEN" | tr -d '\n\r' | xargs)
+                
+                if [ -n "$JWT_TOKEN" ] && [ "$JWT_TOKEN" != "null" ]; then
+                    NEW_jwt="$JWT_TOKEN"
+                    # Show truncated JWT for display (first 50 chars)
+                    jwt_display=$(echo "$JWT_TOKEN" | cut -c1-50)
+                    gum style --foreground 10 "✓ Courier JWT Token: ${jwt_display}..."
+                else
+                    gum style --foreground 1 --bold "Error: Failed to generate JWT token"
+                    gum style --foreground 240 "Response: $JWT_RESPONSE"
+                    exit 1
+                fi
+            else
+                gum style --foreground 1 --bold "Error: User ID is required to generate JWT token."
+                exit 1
+            fi
+            echo ""
+        else
+            # Both are available, generate JWT
+            gum style --foreground 240 "Generating JWT token..."
+            echo ""
+            
+            # Set expiration (default to 30 days)
+            EXPIRES_IN_DAYS="${COURIER_EXPIRES_IN_DAYS:-30}"
+            
+            # Get appropriate scopes based on context
+            JWT_SCOPES=$(get_jwt_scopes "$user_id_value")
+            
+            # Generate JWT token directly using curl
+            JWT_RESPONSE=$(curl -s -w "\n%{http_code}" --request POST \
+              --url https://api.courier.com/auth/issue-token \
+              --header 'Accept: application/json' \
+              --header "Authorization: Bearer ${api_key_value}" \
+              --header 'Content-Type: application/json' \
+              --data "{
+                \"scope\": \"${JWT_SCOPES}\", 
+                \"expires_in\": \"${EXPIRES_IN_DAYS} days\"
+              }" 2>&1)
+            
+            # Extract HTTP status code (last line)
+            HTTP_CODE=$(echo "$JWT_RESPONSE" | tail -n 1)
+            # Extract response body (all but last line) - macOS compatible
+            JWT_BODY=$(echo "$JWT_RESPONSE" | sed '$d')
+            
+            # Check if request was successful
+            if [ "$HTTP_CODE" != "200" ] && [ "$HTTP_CODE" != "201" ]; then
+                gum style --foreground 1 --bold "Error: Failed to generate JWT token (HTTP $HTTP_CODE)"
+                gum style --foreground 240 "Response: $JWT_BODY"
+                exit 1
+            fi
+            
+            # Extract token from JSON response
+            # Try using jq if available
+            if command -v jq &> /dev/null; then
+                JWT_TOKEN=$(echo "$JWT_BODY" | jq -r '.token // empty' 2>/dev/null)
+            fi
+            
+            # If jq didn't work or isn't available, try sed parsing
+            if [ -z "$JWT_TOKEN" ]; then
+                # Try to extract token from JSON: {"token": "value"}
+                JWT_TOKEN=$(echo "$JWT_BODY" | sed -n 's/.*"token"[[:space:]]*:[[:space:]]*"\([^"]*\)".*/\1/p')
+            fi
+            
+            # If still empty, try alternative JSON formats
+            if [ -z "$JWT_TOKEN" ]; then
+                # Try compact JSON format: {"token":"value"}
+                JWT_TOKEN=$(echo "$JWT_BODY" | sed -n 's/.*"token":"\([^"]*\)".*/\1/p')
+            fi
+            
+            # If still empty, the response might be just the token string
+            if [ -z "$JWT_TOKEN" ]; then
+                # Remove any JSON wrapper and quotes, trim whitespace
+                JWT_TOKEN=$(echo "$JWT_BODY" | sed 's/^{"token":"\(.*\)"}$/\1/' | sed 's/^"\(.*\)"$/\1/' | xargs)
+            fi
+            
+            # Trim whitespace and newlines
+            JWT_TOKEN=$(echo "$JWT_TOKEN" | tr -d '\n\r' | xargs)
+            
+            if [ -n "$JWT_TOKEN" ] && [ "$JWT_TOKEN" != "null" ]; then
+                NEW_jwt="$JWT_TOKEN"
+                # Show truncated JWT for display (first 50 chars)
+                jwt_display=$(echo "$JWT_TOKEN" | cut -c1-50)
+                gum style --foreground 10 "✓ Courier JWT Token: ${jwt_display}..."
+            else
+                gum style --foreground 1 --bold "Error: Failed to generate JWT token"
+                gum style --foreground 240 "Response: $JWT_RESPONSE"
+                exit 1
+            fi
+            echo ""
+        fi
     fi
-    
-    # Check if both are missing - if so, end the script
-    if [ -z "$api_key_value" ] && [ -z "$user_id_value" ]; then
-        gum style --foreground 1 --bold "Error: Cannot generate JWT. Both API key and User ID are required."
-        gum style --foreground 240 "Please provide api_key and user_id before generating jwt."
-        exit 1
-    fi
-    
-    # Check if either is missing - show specific error
-    if [ -z "$api_key_value" ]; then
-        gum style --foreground 1 --bold "Error: Cannot generate JWT. API key is required."
-        gum style --foreground 240 "Please provide api_key before generating jwt."
-        exit 1
-    fi
-    
-    if [ -z "$user_id_value" ]; then
-        gum style --foreground 1 --bold "Error: Cannot generate JWT. User ID is required."
-        gum style --foreground 240 "Please provide user_id before generating jwt."
-        exit 1
-    fi
-    
-    # Both are available, generate JWT
-    gum style --foreground 240 "Generating JWT token..."
-    echo ""
-    
-    # Set expiration (default to 30 days)
-    EXPIRES_IN_DAYS="${COURIER_EXPIRES_IN_DAYS:-30}"
-    
-    # Generate JWT token directly using curl
-    JWT_RESPONSE=$(curl -s -w "\n%{http_code}" --request POST \
-      --url https://api.courier.com/auth/issue-token \
-      --header 'Accept: application/json' \
-      --header "Authorization: Bearer ${api_key_value}" \
-      --header 'Content-Type: application/json' \
-      --data "{
-        \"scope\": \"user_id:${user_id_value} write:user-tokens inbox:read:messages inbox:write:events read:preferences write:preferences read:brands\", 
-        \"expires_in\": \"${EXPIRES_IN_DAYS} days\"
-      }" 2>&1)
-    
-    # Extract HTTP status code (last line)
-    HTTP_CODE=$(echo "$JWT_RESPONSE" | tail -n 1)
-    # Extract response body (all but last line) - macOS compatible
-    JWT_BODY=$(echo "$JWT_RESPONSE" | sed '$d')
-    
-    # Check if request was successful
-    if [ "$HTTP_CODE" != "200" ] && [ "$HTTP_CODE" != "201" ]; then
-        gum style --foreground 1 --bold "Error: Failed to generate JWT token (HTTP $HTTP_CODE)"
-        gum style --foreground 240 "Response: $JWT_BODY"
-        exit 1
-    fi
-    
-    # Extract token from JSON response
-    # Try using jq if available
-    if command -v jq &> /dev/null; then
-        JWT_TOKEN=$(echo "$JWT_BODY" | jq -r '.token // empty' 2>/dev/null)
-    fi
-    
-    # If jq didn't work or isn't available, try sed parsing
-    if [ -z "$JWT_TOKEN" ]; then
-        # Try to extract token from JSON: {"token": "value"}
-        JWT_TOKEN=$(echo "$JWT_BODY" | sed -n 's/.*"token"[[:space:]]*:[[:space:]]*"\([^"]*\)".*/\1/p')
-    fi
-    
-    # If still empty, try alternative JSON formats
-    if [ -z "$JWT_TOKEN" ]; then
-        # Try compact JSON format: {"token":"value"}
-        JWT_TOKEN=$(echo "$JWT_BODY" | sed -n 's/.*"token":"\([^"]*\)".*/\1/p')
-    fi
-    
-    # If still empty, the response might be just the token string
-    if [ -z "$JWT_TOKEN" ]; then
-        # Remove any JSON wrapper and quotes, trim whitespace
-        JWT_TOKEN=$(echo "$JWT_BODY" | sed 's/^{"token":"\(.*\)"}$/\1/' | sed 's/^"\(.*\)"$/\1/' | xargs)
-    fi
-    
-    # Trim whitespace and newlines
-    JWT_TOKEN=$(echo "$JWT_TOKEN" | tr -d '\n\r' | xargs)
-    
-    if [ -n "$JWT_TOKEN" ] && [ "$JWT_TOKEN" != "null" ]; then
-        NEW_jwt="$JWT_TOKEN"
-        # Show truncated JWT for display (first 50 chars)
-        jwt_display=$(echo "$JWT_TOKEN" | cut -c1-50)
-        gum style --foreground 10 "✓ Courier JWT Token: ${jwt_display}..."
-    else
-        gum style --foreground 1 --bold "Error: Failed to generate JWT token"
-        gum style --foreground 240 "Response: $JWT_RESPONSE"
-        exit 1
-    fi
-    echo ""
 fi
 
 # Function to update .env file while preserving existing variables
