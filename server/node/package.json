@@ -1,0 +1,14 @@
+{
+  "name": "courier-samples-node",
+  "version": "1.0.0",
+  "description": "Courier API examples using Node.js SDK",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "@trycourier/courier": "^7.0.0",
+    "dotenv": "^16.0.0"
+  }
+}
+

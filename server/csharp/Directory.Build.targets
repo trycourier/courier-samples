@@ -1,0 +1,64 @@
+<Project>
+  <!-- 
+    Auto-initialize Courier C# SDK submodule before build
+    This runs automatically for all projects in this directory
+  -->
+  <Target Name="InitializeCourierSDK" BeforeTargets="Restore;ResolveProjectReferences">
+    <PropertyGroup>
+      <ProjectRoot>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)../..'))</ProjectRoot>
+      <SDKPath>$(ProjectRoot)/server/courier-csharp</SDKPath>
+      <SDKProjectPath>$(SDKPath)/src/Courier/Courier.csproj</SDKProjectPath>
+      <InitScriptPath>$(MSBuildThisFileDirectory)init-sdk.sh</InitScriptPath>
+      <InitScriptPathPS>$(MSBuildThisFileDirectory)init-sdk.ps1</InitScriptPathPS>
+    </PropertyGroup>
+    
+    <!-- Check if SDK project file exists -->
+    <PropertyGroup>
+      <SDKExists Condition="Exists('$(SDKProjectPath)')">true</SDKExists>
+    </PropertyGroup>
+    
+    <!-- Check if we're in a git repository -->
+    <PropertyGroup>
+      <IsGitRepo Condition="Exists('$(ProjectRoot)/.git') Or Exists('$(ProjectRoot)/../.git')">true</IsGitRepo>
+    </PropertyGroup>
+    
+    <!-- Try direct git submodule command first (faster, works if git is available) -->
+    <Exec 
+      Condition="'$(SDKExists)' != 'true' And '$(IsGitRepo)' == 'true' And Exists('$(ProjectRoot)/.gitmodules')"
+      Command="git submodule update --init --recursive"
+      ContinueOnError="true"
+      WorkingDirectory="$(ProjectRoot)"
+      IgnoreExitCode="true">
+      <Output TaskParameter="ExitCode" PropertyName="GitSubmoduleExitCode" />
+    </Exec>
+    
+    <!-- If direct git command failed or we're not in git repo, try init script on Unix/macOS/Linux -->
+    <Exec 
+      Condition="'$(OS)' != 'Windows_NT' And '$(SDKExists)' != 'true' And ('$(GitSubmoduleExitCode)' != '0' Or '$(IsGitRepo)' != 'true')"
+      Command="bash &quot;$(InitScriptPath)&quot; || true"
+      ContinueOnError="true"
+      WorkingDirectory="$(ProjectRoot)"
+      IgnoreExitCode="true"
+      Timeout="30000" />
+    
+    <!-- If direct git command failed or we're not in git repo, try init script on Windows -->
+    <Exec 
+      Condition="'$(OS)' == 'Windows_NT' And '$(SDKExists)' != 'true' And ('$(GitSubmoduleExitCode)' != '0' Or '$(IsGitRepo)' != 'true')"
+      Command="powershell -ExecutionPolicy Bypass -File &quot;$(InitScriptPathPS)&quot;"
+      ContinueOnError="true"
+      WorkingDirectory="$(ProjectRoot)"
+      IgnoreExitCode="true"
+      Timeout="30000" />
+    
+    <!-- Verify SDK exists after initialization attempt -->
+    <PropertyGroup>
+      <SDKExistsAfterInit Condition="Exists('$(SDKProjectPath)')">true</SDKExistsAfterInit>
+    </PropertyGroup>
+    
+    <!-- Warning if SDK still doesn't exist -->
+    <Warning
+      Condition="'$(SDKExistsAfterInit)' != 'true'"
+      Text="Courier C# SDK not found. Please run: git submodule update --init --recursive server/courier-csharp" />
+  </Target>
+</Project>
+

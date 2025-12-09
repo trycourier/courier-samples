@@ -2,3 +2,16 @@
 .DS_Store
 assets/.DS_Store
 server/python/venv/
+
+# C# / .NET build artifacts
+server/csharp/**/bin/
+server/csharp/**/obj/
+server/csharp/.vs/
+
+# Java / Maven build artifacts
+server/java/target/
+server/java/**/*.class
+
+# Development test scripts
+scripts/test-*.sh
+scripts/quick-test.sh

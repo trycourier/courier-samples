@@ -1,0 +1,36 @@
+# Binaries
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+*.test
+
+# Test binary
+*.test
+
+# Output of the go coverage tool
+*.out
+
+# Go workspace file
+go.work
+
+# Compiled binaries (executables without extension)
+# These are created when running 'go build' on individual .go files
+create-list
+generate-jwt
+get-user-profile
+send-template-to-audience
+send-template-to-email
+send-template-to-list
+send-template-to-tenant
+send-template-to-user-id
+subscribe-user-to-list
+unsubscribe-user-from-list
+upsert-user
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+

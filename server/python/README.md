@@ -2,6 +2,23 @@
 
 Python code samples demonstrating how to integrate with Courier's notification platform.
 
+## Prerequisites
+
+- **Python 3.7 or higher** - Required to run Python samples
+- **pip** - Python package manager (usually included with Python)
+
+### Verify Prerequisites
+
+Check if Python 3.7+ is installed:
+```bash
+python3 --version
+```
+
+If the command is not found or shows a version below 3.7, install Python 3.7 or higher:
+- **macOS (Homebrew):** `brew install python3`
+- **Linux (apt):** `sudo apt-get install python3`
+- **Windows:** Download from [python.org](https://www.python.org/downloads/)
+
 ## Quick Start
 
 Get up and running in 3 steps:
@@ -16,18 +33,18 @@ Get up and running in 3 steps:
 
 2. **Set up environment variables:**
    
-   Create a `.env` file in the `server/curl/` directory (shared with curl scripts). You have two options:
+   Create a `.env` file in the `server/` directory (shared across all language examples). You have two options:
 
    **Option A: Using the interactive script (Recommended)**
    ```bash
    # From the project root, run set-env.sh for the variables you need
-   bash scripts/set-env.sh --dir server/curl api_key generate_jwt_user_id
+   bash scripts/set-env.sh --dir server api_key generate_jwt_user_id
    ```
    The script will prompt you for each variable interactively. If `.env.example` exists, it will be used as a starting point.
 
    **Option B: Copy from .env.example and edit manually**
    ```bash
-   cd server/curl
+   cd server
    cp .env.example .env
    # Then edit .env with your actual values
    ```
@@ -89,8 +106,8 @@ All 11 Python samples are available (listed alphabetically):
 - **`send-template-to-list.py`** - Send notifications to a list
 - **`send-template-to-tenant.py`** - Send notifications to a tenant
 - **`send-template-to-user-id.py`** - Send notifications to a user ID
-- **`subscribe-user.py`** - Subscribe a user to a list
-- **`unsubscribe-user.py`** - Unsubscribe a user from a list
+- **`subscribe-user-to-list.py`** - Subscribe a user to a list
+- **`unsubscribe-user-from-list.py`** - Unsubscribe a user from a list
 - **`upsert-user.py`** - Create or update a user profile
 
 ## Dependencies
