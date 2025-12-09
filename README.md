@@ -78,6 +78,7 @@ The script will prompt you for each variable interactively. If `.env.example` ex
 - **[Inbox](./web/react/inbox/)** - Full-page notification center
 - **[Toast](./web/react/toast/)** - Toast notifications
 - **[Popup Menu](./web/react/popup-menu/)** - Inbox popup menu
+- **[Designer](./web/react/designer/)** - Visual template editor
 
 ### Mobile
 
@@ -90,14 +91,14 @@ The script will prompt you for each variable interactively. If `.env.example` ex
 ### Server
 
 - **[cURL Scripts](./server/curl/)**
-- **[Node.js](./server/node/)** (Coming Soon 🔜)
+- **[Node.js](./server/node/)**
 - **[Python](./server/python/)**
-- **[Java](./server/java/)** (Coming Soon 🔜)
-- **[Kotlin](./server/kotlin/)** (Coming Soon 🔜)
-- **[Go](./server/go/)** (Coming Soon 🔜)
-- **[C#](./server/csharp/)** (Coming Soon 🔜)
-- **[PHP](./server/php/)** (Coming Soon 🔜)
-- **[Ruby](./server/ruby/)** (Coming Soon 🔜)
+- **[Java](./server/java/)**
+- **[Kotlin](./server/kotlin/)**
+- **[Go](./server/go/)**
+- **[C#](./server/csharp/)**
+- **[PHP](./server/php/)**
+- **[Ruby](./server/ruby/)**
 
 ## Documentation
 
