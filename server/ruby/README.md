@@ -48,13 +48,4 @@ Add this to your `~/.zshrc` or `~/.bash_profile` to make it permanent.
 - `unsubscribe-user-from-list.rb` - Unsubscribe users from lists
 - `upsert-user.rb` - Create or update user profiles with optional fields
 
-### Bulk API (SDK v4)
-- `bulk-create-job-v1.rb` - Create bulk job using V1 format (event mapping)
-- `bulk-create-job-v2.rb` - Create bulk job using V2 format (template)
-- `bulk-add-users.rb` - Add users to a bulk job
-- `bulk-run-job.rb` - Run a bulk job
-- `bulk-retrieve-job.rb` - Retrieve bulk job status
-- `bulk-list-users.rb` - List users in a bulk job with pagination
-- `bulk-complete-workflow.rb` - Complete workflow example (create → add users → run)
-
 **Note:** All samples now use Courier SDK v4, which requires Ruby 3.2.0 or higher.
