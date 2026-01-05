@@ -489,6 +489,71 @@ get_jwt_scopes() {
     fi
 }
 
+# Function to check if JWT is expired
+# Returns 0 if expired or invalid, 1 if valid
+is_jwt_expired() {
+    local jwt=$1
+    if [ -z "$jwt" ]; then
+        return 0  # Empty JWT is considered expired
+    fi
+    
+    # JWT has three parts separated by dots: header.payload.signature
+    # Extract the payload (second part)
+    local payload=$(echo "$jwt" | cut -d '.' -f 2)
+    if [ -z "$payload" ]; then
+        return 0  # Invalid JWT format
+    fi
+    
+    # Decode base64 payload (add padding if needed)
+    local padding=$((4 - ${#payload} % 4))
+    if [ $padding -ne 4 ]; then
+        payload="${payload}$(printf '%*s' $padding | tr ' ' '=')"
+    fi
+    
+    # Try to decode and extract exp field
+    # Use base64 -d (Linux) or base64 -D (macOS)
+    local decoded=""
+    if command -v base64 &> /dev/null; then
+        # Try Linux style first (base64 -d)
+        decoded=$(echo "$payload" | base64 -d 2>/dev/null || echo "")
+        # If that failed, try macOS style (base64 -D)
+        if [ -z "$decoded" ]; then
+            decoded=$(echo "$payload" | base64 -D 2>/dev/null || echo "")
+        fi
+    fi
+    
+    # If we still can't decode, assume expired
+    if [ -z "$decoded" ]; then
+        return 0
+    fi
+    
+    # Extract exp timestamp (Unix epoch time)
+    local exp=""
+    if command -v jq &> /dev/null; then
+        exp=$(echo "$decoded" | jq -r '.exp // empty' 2>/dev/null)
+    fi
+    
+    # If jq not available, try sed
+    if [ -z "$exp" ]; then
+        exp=$(echo "$decoded" | sed -n 's/.*"exp"[[:space:]]*:[[:space:]]*\([0-9]*\).*/\1/p')
+    fi
+    
+    # If we can't extract exp, assume expired to be safe
+    if [ -z "$exp" ] || [ "$exp" = "null" ]; then
+        return 0
+    fi
+    
+    # Get current timestamp
+    local current_time=$(date +%s)
+    
+    # Check if expired (exp < current_time)
+    if [ "$exp" -lt "$current_time" ]; then
+        return 0  # Expired
+    else
+        return 1  # Valid
+    fi
+}
+
 # Check if jwt was requested
 JWT_REQUESTED=0
 for var in "${VARS_TO_PROMPT[@]}"; do
@@ -508,29 +573,60 @@ if [ $JWT_REQUESTED -eq 1 ]; then
         jwt_value="$EXISTING_jwt"
     fi
     
-    # If JWT is already provided, skip generation
-    if [ -n "$jwt_value" ]; then
-        gum style --foreground 10 "✓ Using provided JWT token"
-        echo ""
+    # Get api_key and user_id values (from prompt or existing) - needed for regeneration
+    api_key_value=""
+    user_id_value=""
+    
+    # Check if api_key was prompted
+    if echo "$PROMPTED_VARS_LIST" | grep -q "|api_key|"; then
+        api_key_value="$NEW_api_key"
     else
-        # JWT not provided, try to generate it
-        # Get api_key value (from prompt or existing)
-        api_key_value=""
-        user_id_value=""
-        
-        # Check if api_key was prompted
-        if echo "$PROMPTED_VARS_LIST" | grep -q "|api_key|"; then
-            api_key_value="$NEW_api_key"
+        api_key_value="$EXISTING_api_key"
+    fi
+    
+    # Check if user_id was prompted
+    if echo "$PROMPTED_VARS_LIST" | grep -q "|user_id|"; then
+        user_id_value="$NEW_user_id"
+    else
+        user_id_value="$EXISTING_user_id"
+    fi
+    
+    # Check if JWT exists and is valid
+    if [ -n "$jwt_value" ]; then
+        # Check if JWT is expired
+        if is_jwt_expired "$jwt_value"; then
+            gum style --foreground 3 "⚠ Existing JWT token is expired or invalid"
+            # If we have API key and user ID, regenerate automatically
+            if [ -n "$api_key_value" ] && [ -n "$user_id_value" ]; then
+                gum style --foreground 240 "Regenerating JWT token..."
+                echo ""
+                jwt_value=""  # Clear expired JWT to trigger regeneration
+            else
+                gum style --foreground 3 "Cannot auto-regenerate: API key and User ID required"
+                gum style --foreground 240 "Please provide api_key and user_id to generate a new JWT"
+                echo ""
+                # Prompt for JWT manually
+                jwt_input=$(gum input --prompt "$(printf '\033[34m%s: \033[0m' 'Courier JWT Token')" --placeholder "Enter your JWT token")
+                if [ -n "$jwt_input" ]; then
+                    NEW_jwt="$jwt_input"
+                    gum style --foreground 10 "✓ Courier JWT Token: (provided)"
+                    echo ""
+                    # Skip to end of JWT handling
+                    jwt_value="SKIP"
+                else
+                    gum style --foreground 1 --bold "Error: JWT token is required."
+                    exit 1
+                fi
+            fi
         else
-            api_key_value="$EXISTING_api_key"
+            gum style --foreground 10 "✓ Using existing JWT token"
+            echo ""
         fi
-        
-        # Check if user_id was prompted
-        if echo "$PROMPTED_VARS_LIST" | grep -q "|user_id|"; then
-            user_id_value="$NEW_user_id"
-        else
-            user_id_value="$EXISTING_user_id"
-        fi
+    fi
+    
+    # If JWT is not provided or was expired and needs regeneration
+    if [ -z "$jwt_value" ] || [ "$jwt_value" != "SKIP" ]; then
+        # JWT not provided or needs regeneration, try to generate it
         
         # Check if both are missing - if so, prompt user to provide JWT manually
         if [ -z "$api_key_value" ] && [ -z "$user_id_value" ]; then
@@ -801,6 +897,14 @@ update_env_file() {
                     printf '%s=%s\n' "VITE_COURIER_USER_ID" "$quoted_value" >> "$temp_file"
                 fi
             fi
+            
+            # For jwt, also check/add COURIER_JWT (for vanilla web components)
+            if [ "$var" = "jwt" ] && [ -n "$value" ]; then
+                if ! grep -q "^[[:space:]]*COURIER_JWT=" "$ENV_FILE" 2>/dev/null; then
+                    quoted_value=$(quote_if_needed "$value")
+                    printf '%s=%s\n' "COURIER_JWT" "$quoted_value" >> "$temp_file"
+                fi
+            fi
         done
     else
         # New file - add header
@@ -821,6 +925,12 @@ update_env_file() {
             if [ "$var" = "user_id" ] && [ -n "$value" ]; then
                 quoted_value=$(quote_if_needed "$value")
                 printf '%s=%s\n' "VITE_COURIER_USER_ID" "$quoted_value" >> "$temp_file"
+            fi
+            
+            # For jwt, also write COURIER_JWT (for vanilla web components)
+            if [ "$var" = "jwt" ] && [ -n "$value" ]; then
+                quoted_value=$(quote_if_needed "$value")
+                printf '%s=%s\n' "COURIER_JWT" "$quoted_value" >> "$temp_file"
             fi
         done
     fi

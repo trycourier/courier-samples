@@ -8,6 +8,9 @@ server/csharp/**/bin/
 server/csharp/**/obj/
 server/csharp/.vs/
 
+# Courier C# SDK submodule (generated on-demand)
+server/courier-csharp/
+
 # Java / Maven build artifacts
 server/java/target/
 server/java/**/*.class
