@@ -29,67 +29,109 @@
       "name": "💎 Ruby: Generate JWT",
       "type": "node-terminal",
       "request": "launch",
-      "command": "cd ${workspaceFolder} && bash scripts/check-language-prereqs.sh ruby && bash scripts/set-env.sh \"Ruby: Generate JWT\" --dir server api_key generate_jwt_user_id && cd server/ruby && bundle install --quiet --path vendor/bundle && bundle exec ruby generate-jwt.rb"
+      "command": "cd ${workspaceFolder} && export PATH=\"/usr/local/opt/ruby@3.2/bin:$PATH\" && bash scripts/check-language-prereqs.sh ruby && bash scripts/set-env.sh \"Ruby: Generate JWT\" --dir server api_key generate_jwt_user_id && cd server/ruby && bundle config set path 'vendor/bundle' && bundle install --quiet && bundle exec ruby generate-jwt.rb"
     },
     {
       "name": "💎 Ruby: Upsert User",
       "type": "node-terminal",
       "request": "launch",
-      "command": "cd ${workspaceFolder} && bash scripts/check-language-prereqs.sh ruby && bash scripts/set-env.sh \"Ruby: Upsert User\" --dir server api_key upsert_user_user_id upsert_user_email upsert_user_name upsert_user_phone_number && cd server/ruby && bundle install --quiet --path vendor/bundle && bundle exec ruby upsert-user.rb"
+      "command": "cd ${workspaceFolder} && export PATH=\"/usr/local/opt/ruby@3.2/bin:$PATH\" && bash scripts/check-language-prereqs.sh ruby && bash scripts/set-env.sh \"Ruby: Upsert User\" --dir server api_key upsert_user_user_id upsert_user_email upsert_user_name upsert_user_phone_number && cd server/ruby && bundle config set path 'vendor/bundle' && bundle install --quiet && bundle exec ruby upsert-user.rb"
     },
     {
       "name": "💎 Ruby: Get User Profile",
       "type": "node-terminal",
       "request": "launch",
-      "command": "cd ${workspaceFolder} && bash scripts/check-language-prereqs.sh ruby && bash scripts/set-env.sh \"Ruby: Get User Profile\" --dir server api_key get_user_profile_user_id && cd server/ruby && bundle install --quiet --path vendor/bundle && bundle exec ruby get-user-profile.rb"
+      "command": "cd ${workspaceFolder} && export PATH=\"/usr/local/opt/ruby@3.2/bin:$PATH\" && bash scripts/check-language-prereqs.sh ruby && bash scripts/set-env.sh \"Ruby: Get User Profile\" --dir server api_key get_user_profile_user_id && cd server/ruby && bundle config set path 'vendor/bundle' && bundle install --quiet && bundle exec ruby get-user-profile.rb"
     },
     {
       "name": "💎 Ruby: Create List",
       "type": "node-terminal",
       "request": "launch",
-      "command": "cd ${workspaceFolder} && bash scripts/check-language-prereqs.sh ruby && bash scripts/set-env.sh \"Ruby: Create List\" --dir server api_key create_list_list_id create_list_list_name && cd server/ruby && bundle install --quiet --path vendor/bundle && bundle exec ruby create-list.rb"
+      "command": "cd ${workspaceFolder} && export PATH=\"/usr/local/opt/ruby@3.2/bin:$PATH\" && bash scripts/check-language-prereqs.sh ruby && bash scripts/set-env.sh \"Ruby: Create List\" --dir server api_key create_list_list_id create_list_list_name && cd server/ruby && bundle config set path 'vendor/bundle' && bundle install --quiet && bundle exec ruby create-list.rb"
     },
     {
       "name": "💎 Ruby: Subscribe User to List",
       "type": "node-terminal",
       "request": "launch",
-      "command": "cd ${workspaceFolder} && bash scripts/check-language-prereqs.sh ruby && bash scripts/set-env.sh \"Ruby: Subscribe User to List\" --dir server api_key subscribe_user_to_list_list_id subscribe_user_to_list_user_id && cd server/ruby && bundle install --quiet --path vendor/bundle && bundle exec ruby subscribe-user-to-list.rb"
+      "command": "cd ${workspaceFolder} && export PATH=\"/usr/local/opt/ruby@3.2/bin:$PATH\" && bash scripts/check-language-prereqs.sh ruby && bash scripts/set-env.sh \"Ruby: Subscribe User to List\" --dir server api_key subscribe_user_to_list_list_id subscribe_user_to_list_user_id && cd server/ruby && bundle config set path 'vendor/bundle' && bundle install --quiet && bundle exec ruby subscribe-user-to-list.rb"
     },
     {
       "name": "💎 Ruby: Unsubscribe User from List",
       "type": "node-terminal",
       "request": "launch",
-      "command": "cd ${workspaceFolder} && bash scripts/check-language-prereqs.sh ruby && bash scripts/set-env.sh \"Ruby: Unsubscribe User from List\" --dir server api_key unsubscribe_user_from_list_list_id unsubscribe_user_from_list_user_id && cd server/ruby && bundle install --quiet --path vendor/bundle && bundle exec ruby unsubscribe-user-from-list.rb"
+      "command": "cd ${workspaceFolder} && export PATH=\"/usr/local/opt/ruby@3.2/bin:$PATH\" && bash scripts/check-language-prereqs.sh ruby && bash scripts/set-env.sh \"Ruby: Unsubscribe User from List\" --dir server api_key unsubscribe_user_from_list_list_id unsubscribe_user_from_list_user_id && cd server/ruby && bundle config set path 'vendor/bundle' && bundle install --quiet && bundle exec ruby unsubscribe-user-from-list.rb"
     },
     {
       "name": "💎 Ruby: Send Template to User ID",
       "type": "node-terminal",
       "request": "launch",
-      "command": "cd ${workspaceFolder} && bash scripts/check-language-prereqs.sh ruby && bash scripts/set-env.sh \"Ruby: Send Template to User ID\" --dir server api_key send_template_to_user_id_user_id send_template_to_user_id_template_id && cd server/ruby && bundle install --quiet --path vendor/bundle && bundle exec ruby send-template-to-user-id.rb"
+      "command": "cd ${workspaceFolder} && export PATH=\"/usr/local/opt/ruby@3.2/bin:$PATH\" && bash scripts/check-language-prereqs.sh ruby && bash scripts/set-env.sh \"Ruby: Send Template to User ID\" --dir server api_key send_template_to_user_id_user_id send_template_to_user_id_template_id && cd server/ruby && bundle config set path 'vendor/bundle' && bundle install --quiet && bundle exec ruby send-template-to-user-id.rb"
     },
     {
       "name": "💎 Ruby: Send Template to Email",
       "type": "node-terminal",
       "request": "launch",
-      "command": "cd ${workspaceFolder} && bash scripts/check-language-prereqs.sh ruby && bash scripts/set-env.sh \"Ruby: Send Template to Email\" --dir server api_key send_template_to_email_email send_template_to_email_template_id && cd server/ruby && bundle install --quiet --path vendor/bundle && bundle exec ruby send-template-to-email.rb"
+      "command": "cd ${workspaceFolder} && export PATH=\"/usr/local/opt/ruby@3.2/bin:$PATH\" && bash scripts/check-language-prereqs.sh ruby && bash scripts/set-env.sh \"Ruby: Send Template to Email\" --dir server api_key send_template_to_email_email send_template_to_email_template_id && cd server/ruby && bundle config set path 'vendor/bundle' && bundle install --quiet && bundle exec ruby send-template-to-email.rb"
     },
     {
       "name": "💎 Ruby: Send Template to List",
       "type": "node-terminal",
       "request": "launch",
-      "command": "cd ${workspaceFolder} && bash scripts/check-language-prereqs.sh ruby && bash scripts/set-env.sh \"Ruby: Send Template to List\" --dir server api_key send_template_to_list_list_id send_template_to_list_template_id && cd server/ruby && bundle install --quiet --path vendor/bundle && bundle exec ruby send-template-to-list.rb"
+      "command": "cd ${workspaceFolder} && export PATH=\"/usr/local/opt/ruby@3.2/bin:$PATH\" && bash scripts/check-language-prereqs.sh ruby && bash scripts/set-env.sh \"Ruby: Send Template to List\" --dir server api_key send_template_to_list_list_id send_template_to_list_template_id && cd server/ruby && bundle config set path 'vendor/bundle' && bundle install --quiet && bundle exec ruby send-template-to-list.rb"
     },
     {
       "name": "💎 Ruby: Send Template to Audience",
       "type": "node-terminal",
       "request": "launch",
-      "command": "cd ${workspaceFolder} && bash scripts/check-language-prereqs.sh ruby && bash scripts/set-env.sh \"Ruby: Send Template to Audience\" --dir server api_key send_template_to_audience_audience_id send_template_to_user_id_template_id && cd server/ruby && bundle install --quiet --path vendor/bundle && bundle exec ruby send-template-to-audience.rb"
+      "command": "cd ${workspaceFolder} && export PATH=\"/usr/local/opt/ruby@3.2/bin:$PATH\" && bash scripts/check-language-prereqs.sh ruby && bash scripts/set-env.sh \"Ruby: Send Template to Audience\" --dir server api_key send_template_to_audience_audience_id send_template_to_user_id_template_id && cd server/ruby && bundle config set path 'vendor/bundle' && bundle install --quiet && bundle exec ruby send-template-to-audience.rb"
     },
     {
       "name": "💎 Ruby: Send Template to Tenant",
       "type": "node-terminal",
       "request": "launch",
-      "command": "cd ${workspaceFolder} && bash scripts/check-language-prereqs.sh ruby && bash scripts/set-env.sh \"Ruby: Send Template to Tenant\" --dir server api_key send_template_to_tenant_tenant_id send_template_to_tenant_id_template_id && cd server/ruby && bundle install --quiet --path vendor/bundle && bundle exec ruby send-template-to-tenant.rb"
+      "command": "cd ${workspaceFolder} && export PATH=\"/usr/local/opt/ruby@3.2/bin:$PATH\" && bash scripts/check-language-prereqs.sh ruby && bash scripts/set-env.sh \"Ruby: Send Template to Tenant\" --dir server api_key send_template_to_tenant_tenant_id send_template_to_tenant_id_template_id && cd server/ruby && bundle config set path 'vendor/bundle' && bundle install --quiet && bundle exec ruby send-template-to-tenant.rb"
+    },
+    {
+      "name": "💎 Ruby: Bulk Create Job (V1)",
+      "type": "node-terminal",
+      "request": "launch",
+      "command": "cd ${workspaceFolder} && export PATH=\"/usr/local/opt/ruby@3.2/bin:$PATH\" && bash scripts/check-language-prereqs.sh ruby && bash scripts/set-env.sh \"Ruby: Bulk Create Job (V1)\" --dir server api_key bulk_event_id && cd server/ruby && bundle config set path 'vendor/bundle' && bundle install --quiet && bundle exec ruby bulk-create-job-v1.rb"
+    },
+    {
+      "name": "💎 Ruby: Bulk Create Job (V2)",
+      "type": "node-terminal",
+      "request": "launch",
+      "command": "cd ${workspaceFolder} && export PATH=\"/usr/local/opt/ruby@3.2/bin:$PATH\" && bash scripts/check-language-prereqs.sh ruby && bash scripts/set-env.sh \"Ruby: Bulk Create Job (V2)\" --dir server api_key bulk_template_id && cd server/ruby && bundle config set path 'vendor/bundle' && bundle install --quiet && bundle exec ruby bulk-create-job-v2.rb"
+    },
+    {
+      "name": "💎 Ruby: Bulk Add Users",
+      "type": "node-terminal",
+      "request": "launch",
+      "command": "cd ${workspaceFolder} && export PATH=\"/usr/local/opt/ruby@3.2/bin:$PATH\" && bash scripts/check-language-prereqs.sh ruby && bash scripts/set-env.sh \"Ruby: Bulk Add Users\" --dir server api_key bulk_job_id && cd server/ruby && bundle config set path 'vendor/bundle' && bundle install --quiet && bundle exec ruby bulk-add-users.rb"
+    },
+    {
+      "name": "💎 Ruby: Bulk Run Job",
+      "type": "node-terminal",
+      "request": "launch",
+      "command": "cd ${workspaceFolder} && export PATH=\"/usr/local/opt/ruby@3.2/bin:$PATH\" && bash scripts/check-language-prereqs.sh ruby && bash scripts/set-env.sh \"Ruby: Bulk Run Job\" --dir server api_key bulk_job_id && cd server/ruby && bundle config set path 'vendor/bundle' && bundle install --quiet && bundle exec ruby bulk-run-job.rb"
+    },
+    {
+      "name": "💎 Ruby: Bulk Retrieve Job",
+      "type": "node-terminal",
+      "request": "launch",
+      "command": "cd ${workspaceFolder} && export PATH=\"/usr/local/opt/ruby@3.2/bin:$PATH\" && bash scripts/check-language-prereqs.sh ruby && bash scripts/set-env.sh \"Ruby: Bulk Retrieve Job\" --dir server api_key bulk_job_id && cd server/ruby && bundle config set path 'vendor/bundle' && bundle install --quiet && bundle exec ruby bulk-retrieve-job.rb"
+    },
+    {
+      "name": "💎 Ruby: Bulk List Users",
+      "type": "node-terminal",
+      "request": "launch",
+      "command": "cd ${workspaceFolder} && export PATH=\"/usr/local/opt/ruby@3.2/bin:$PATH\" && bash scripts/check-language-prereqs.sh ruby && bash scripts/set-env.sh \"Ruby: Bulk List Users\" --dir server api_key bulk_job_id bulk_cursor && cd server/ruby && bundle config set path 'vendor/bundle' && bundle install --quiet && bundle exec ruby bulk-list-users.rb"
+    },
+    {
+      "name": "💎 Ruby: Bulk Complete Workflow",
+      "type": "node-terminal",
+      "request": "launch",
+      "command": "cd ${workspaceFolder} && export PATH=\"/usr/local/opt/ruby@3.2/bin:$PATH\" && bash scripts/check-language-prereqs.sh ruby && bash scripts/set-env.sh \"Ruby: Bulk Complete Workflow\" --dir server api_key bulk_event_id && cd server/ruby && bundle config set path 'vendor/bundle' && bundle install --quiet && bundle exec ruby bulk-complete-workflow.rb"
     },
     {
       "name": "🐘 PHP: Generate JWT",

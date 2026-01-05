@@ -8,15 +8,15 @@ api_key = ENV['COURIER_API_KEY']
 list_id = ENV['COURIER_SEND_TEMPLATE_TO_LIST_LIST_ID']
 template_id = ENV['COURIER_SEND_TEMPLATE_TO_LIST_TEMPLATE_ID']
 
-client = Courier::Client.new(api_key)
+client = Trycourier::Client.new(api_key: api_key)
 
-response = client.send_message({
+response = client.send_.message(
   message: {
     to: {
       list_id: list_id
     },
     template: template_id
   }
-})
+)
 
 puts response

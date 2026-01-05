@@ -1,15 +1,18 @@
 GEM
   remote: https://rubygems.org/
   specs:
+    connection_pool (3.0.2)
     dotenv (2.8.1)
-    trycourier (2.0.0)
+    trycourier (4.5.0)
+      connection_pool
 
 PLATFORMS
   ruby
+  x86_64-darwin-23
 
 DEPENDENCIES
   dotenv (~> 2.8)
-  trycourier
+  trycourier (~> 4.0)
 
 BUNDLED WITH
-   1.17.2
+   2.7.1
