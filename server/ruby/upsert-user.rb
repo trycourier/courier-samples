@@ -10,16 +10,13 @@ email = ENV['COURIER_UPSERT_USER_EMAIL']
 name = ENV['COURIER_UPSERT_USER_NAME']
 phone_number = ENV['COURIER_UPSERT_USER_PHONE_NUMBER']
 
-client = Courier::Client.new(api_key)
+client = Trycourier::Client.new(api_key: api_key)
 
 profile = {}
 profile[:email] = email if email && !email.empty?
 profile[:name] = name if name && !name.empty?
 profile[:phone_number] = phone_number if phone_number && !phone_number.empty?
 
-response = client.profiles.replace(
-  recipient_id: user_id,
-  profile: profile
-)
+response = client.profiles.replace(user_id, profile: profile)
 
 puts response

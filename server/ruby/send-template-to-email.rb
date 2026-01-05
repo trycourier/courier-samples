@@ -8,9 +8,9 @@ api_key = ENV['COURIER_API_KEY']
 email = ENV['COURIER_SEND_TEMPLATE_TO_EMAIL_EMAIL']
 template_id = ENV['COURIER_SEND_TEMPLATE_TO_EMAIL_TEMPLATE_ID']
 
-client = Courier::Client.new(api_key)
+client = Trycourier::Client.new(api_key: api_key)
 
-response = client.send_message({
+response = client.send_.message(
   message: {
     to: {
       email: email
@@ -20,6 +20,6 @@ response = client.send_message({
       name: 'Your Name'
     }
   }
-})
+)
 
 puts response
