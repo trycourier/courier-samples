@@ -73,12 +73,18 @@ The script will prompt you for each variable interactively. If `.env.example` ex
 
 ## Sample Applications
 
-### Web (React)
+### Web
 
+#### React
 - **[Inbox](./web/react/inbox/)** - Full-page notification center
 - **[Toast](./web/react/toast/)** - Toast notifications
 - **[Popup Menu](./web/react/popup-menu/)** - Inbox popup menu
 - **[Designer](./web/react/designer/)** - Visual template editor
+
+#### Vanilla JavaScript
+- **[Inbox](./web/vanilla/inbox/)** - Full-page notification center
+- **[Toast](./web/vanilla/toast/)** - Toast notifications
+- **[Popup Menu](./web/vanilla/popup-menu/)** - Inbox popup menu
 
 ### Mobile
 
