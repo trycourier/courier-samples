@@ -1,8 +1,21 @@
 # Courier Web Inbox Popup Menu
 
-![Screenshot](../../assets/popup-menu.png)
+![Screenshot](../../../assets/popup-menu.png)
 
 ## Run the app
+
+There are two main ways to run the app:
+
+### Option 1: VS Code Launch Configuration
+
+- Open the Run and Debug panel in VS Code (⌘⇧D / Ctrl+Shift+D)
+- Click the play button ▶️
+- Select "Vanilla: Popup Menu" from the dropdown
+- When prompted, enter your Courier API key and user ID
+- The JWT token will be automatically generated (or regenerated if expired)
+- The server will start and automatically open in your browser
+
+### Option 2: Command Line
 
 From this directory:
 

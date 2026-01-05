@@ -11,7 +11,8 @@ There are two main ways to run the app:
 - Open the Run and Debug panel in VS Code (⌘⇧D / Ctrl+Shift+D)
 - Click the play button ▶️
 - Select "React: Toast" from the dropdown
-- When prompted, enter your Courier API key, user ID, and JWT
+- When prompted, enter your Courier API key and user ID
+- The JWT token will be automatically generated (or regenerated if expired)
 - The dev server will start and automatically open in your browser
 
 ### Option 2: Command Line
