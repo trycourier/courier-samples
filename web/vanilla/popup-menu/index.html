@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/courier_logo.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Courier Inbox Popup Menu</title>
+    <script type="importmap">
+    {
+      "imports": {
+        "@trycourier/courier-js": "https://unpkg.com/@trycourier/courier-js@latest/dist/index.mjs",
+        "@trycourier/courier-ui-core": "https://unpkg.com/@trycourier/courier-ui-core@latest/dist/index.mjs",
+        "@trycourier/courier-ui-inbox": "https://unpkg.com/@trycourier/courier-ui-inbox@latest/dist/index.mjs"
+      }
+    }
+    </script>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+          'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+          sans-serif;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+      }
+    </style>
+  </head>
+  <body>
+    <courier-inbox-popup-menu id="inbox-popup"></courier-inbox-popup-menu>
+
+    <script type="module">
+      import '@trycourier/courier-ui-inbox';
+      import { Courier } from '@trycourier/courier-ui-inbox';
+
+      await customElements.whenDefined('courier-inbox-popup-menu');
+
+      const generateCourierJwtOnYourServer = async () => {
+        await new Promise((resolve) => setTimeout(resolve, 1000));
+        return window.COURIER_JWT || '';
+      };
+
+      const initialize = async () => {
+        const jwt = await generateCourierJwtOnYourServer();
+        const userId = window.COURIER_USER_ID || '';
+
+        if (!jwt || !userId) {
+          return;
+        }
+
+        if (Courier && Courier.shared) {
+          try {
+            Courier.shared.signIn({
+              userId,
+              jwt,
+            });
+          } catch (error) {
+            console.error('Error calling signIn:', error);
+          }
+        }
+      };
+
+      initialize();
+    </script>
+  </body>
+</html>

@@ -20,10 +20,14 @@ export default function App() {
   useEffect(() => {
     const signIn = async () => {
       const jwt = await generateCourierJwtOnYourServer();
-      courier.shared.signIn({
-        userId: import.meta.env.VITE_COURIER_USER_ID,
-        jwt,
-      });
+      const userId = import.meta.env.VITE_COURIER_USER_ID;
+
+      if (jwt && userId) {
+        courier.shared.signIn({
+          userId,
+          jwt,
+        });
+      }
     };
     signIn();
   }, []);

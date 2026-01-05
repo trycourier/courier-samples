@@ -19,19 +19,23 @@ export default function App() {
 
   useEffect(() => {
     const signIn = async () => {
-      const jwt = await generateCourierJwtOnYourServer();      
-      courier.shared.signIn({
-        userId: import.meta.env.VITE_COURIER_USER_ID,
-        jwt,
-      });
-      
-      // Add a local example
-      // Note: Other messages can be added when you send messages via inbox to your users
-      courier.toast.addMessage({
-        messageId: '123',
-        title: '🙌 Inbox is setup!',
-        body: 'You can now send messages to your users via the inbox or use addMessage (like this!) to show a notification locally.',
-      });
+      const jwt = await generateCourierJwtOnYourServer();
+      const userId = import.meta.env.VITE_COURIER_USER_ID;
+
+      if (jwt && userId) {
+        courier.shared.signIn({
+          userId,
+          jwt,
+        });
+        
+        // Add a local example
+        // Note: Other messages can be added when you send messages via inbox to your users
+        courier.toast.addMessage({
+          messageId: '123',
+          title: '🙌 Inbox is setup!',
+          body: 'You can now send messages to your users via the inbox or use addMessage (like this!) to show a notification locally.',
+        });
+      }
     };
 
     signIn();

@@ -26,6 +26,24 @@
       "command": "cd ${workspaceFolder} && bash scripts/set-env.sh \"React: Designer\" --dir web/react/designer api_key template_id tenant_id jwt && cd web/react/designer && npm i && npm run dev -- --open"
     },
     {
+      "name": "🌐 Vanilla: Inbox",
+      "type": "node-terminal",
+      "request": "launch",
+      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh \"Vanilla: Inbox\" --dir web/vanilla/inbox api_key user_id jwt && cd web/vanilla && node launch-sample.js inbox"
+    },
+    {
+      "name": "🌐 Vanilla: Popup Menu",
+      "type": "node-terminal",
+      "request": "launch",
+      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh \"Vanilla: Popup Menu\" --dir web/vanilla/popup-menu api_key user_id jwt && cd web/vanilla && node launch-sample.js popup-menu"
+    },
+    {
+      "name": "🌐 Vanilla: Toast",
+      "type": "node-terminal",
+      "request": "launch",
+      "command": "cd ${workspaceFolder} && bash scripts/set-env.sh \"Vanilla: Toast\" --dir web/vanilla/toast api_key user_id jwt && cd web/vanilla && node launch-sample.js toast"
+    },
+    {
       "name": "💎 Ruby: Generate JWT",
       "type": "node-terminal",
       "request": "launch",
