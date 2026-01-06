@@ -12,6 +12,10 @@ There are two main ways to run the app:
 - When prompted, enter your Courier API key, template ID, tenant ID, and JWT
 - The dev server will start and automatically open in your browser
 
+### Demo
+
+![Demo: Starting a sample app using the VS Code Launch Configuration](../../../assets/launcher-video.gif)
+
 ### Option 2: Command Line
 
 From this directory:
