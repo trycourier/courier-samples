@@ -35,7 +35,12 @@ export default function App() {
       tenantId={import.meta.env.VITE_COURIER_TENANT_ID || "tenant-123"} 
       token={jwt}
     >
-      <TemplateEditor/>
+      <TemplateEditor
+        routing={{
+          method: "single", // "single" for fallback delivery, "all" for simultaneous delivery
+          channels: ["email", "sms", "push", "inbox", "slack", "msteams"] // Available channels in the editor
+        }}
+      />
     </TemplateProvider>
   );
 }
