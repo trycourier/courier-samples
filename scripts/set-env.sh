@@ -666,6 +666,7 @@ if [ $JWT_REQUESTED -eq 1 ]; then
             user_id_input=$(gum input --prompt "$(printf '\033[34m%s: \033[0m' 'Courier User ID')" --placeholder "Enter your user ID")
             if [ -n "$user_id_input" ]; then
                 user_id_value="$user_id_input"
+                NEW_user_id="$user_id_input"  # Save it so it gets persisted to .env
                 gum style --foreground 10 "✓ Courier User ID: $user_id_input"
                 echo ""
                 # Now generate JWT with the provided user_id
@@ -857,6 +858,15 @@ update_env_file() {
                     fi
                 done
                 
+                # Also check if user_id was provided during JWT generation but wasn't in prompt list
+                if [ $should_update -eq 0 ] && [ -n "$NEW_user_id" ]; then
+                    user_id_env_key=$(get_env_key "user_id")
+                    if [ "$key" = "$user_id_env_key" ] || [ "$key" = "VITE_COURIER_USER_ID" ]; then
+                        should_update=1
+                        updated_value="$NEW_user_id"
+                    fi
+                fi
+                
                 # If this key should be updated
                 if [ $should_update -eq 1 ]; then
                     # If value is empty (user skipped optional field), skip writing this line (remove it)
@@ -906,6 +916,21 @@ update_env_file() {
                 fi
             fi
         done
+        
+        # Also save user_id if it was provided during JWT generation but wasn't in the prompt list
+        if [ -n "$NEW_user_id" ] && ! echo "$PROMPTED_VARS_LIST" | grep -q "|user_id|"; then
+            env_key=$(get_env_key "user_id")
+            # Check if this variable already exists in the file
+            if ! grep -q "^[[:space:]]*${env_key}=" "$ENV_FILE" 2>/dev/null; then
+                quoted_value=$(quote_if_needed "$NEW_user_id")
+                printf '%s=%s\n' "$env_key" "$quoted_value" >> "$temp_file"
+            fi
+            # Also add VITE_COURIER_USER_ID if it doesn't exist
+            if ! grep -q "^[[:space:]]*VITE_COURIER_USER_ID=" "$ENV_FILE" 2>/dev/null; then
+                quoted_value=$(quote_if_needed "$NEW_user_id")
+                printf '%s=%s\n' "VITE_COURIER_USER_ID" "$quoted_value" >> "$temp_file"
+            fi
+        fi
     else
         # New file - add header
         echo "# Courier Environment Variables" > "$temp_file"
@@ -933,6 +958,16 @@ update_env_file() {
                 printf '%s=%s\n' "COURIER_JWT" "$quoted_value" >> "$temp_file"
             fi
         done
+        
+        # Also save user_id if it was provided during JWT generation but wasn't in the prompt list
+        if [ -n "$NEW_user_id" ] && ! echo "$PROMPTED_VARS_LIST" | grep -q "|user_id|"; then
+            env_key=$(get_env_key "user_id")
+            quoted_value=$(quote_if_needed "$NEW_user_id")
+            printf '%s=%s\n' "$env_key" "$quoted_value" >> "$temp_file"
+            # Also add VITE_COURIER_USER_ID
+            quoted_value=$(quote_if_needed "$NEW_user_id")
+            printf '%s=%s\n' "VITE_COURIER_USER_ID" "$quoted_value" >> "$temp_file"
+        fi
     fi
     
     # Replace the original file
