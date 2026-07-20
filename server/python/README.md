@@ -113,7 +113,7 @@ All 11 Python samples are available (listed alphabetically):
 ## Dependencies
 
 The Python samples require:
-- **`courier`** - Official Courier Python SDK
+- **`trycourier`** - Official Courier Python SDK (imported in code as `courier`)
 - **`python-dotenv`** - For loading environment variables from `.env` files
 
 Install with:
@@ -158,7 +158,7 @@ cd tests
 
 This script will:
 1. Create a Python virtual environment (if it doesn't exist)
-2. Install required dependencies (`courier` and `python-dotenv`)
+2. Install required dependencies (`trycourier` and `python-dotenv`)
 3. Run comprehensive tests on all samples
 
 All test scripts are located in the `tests/` directory:

@@ -19,6 +19,6 @@ if (!empty($email)) $profile['email'] = $email;
 if (!empty($name)) $profile['name'] = $name;
 if (!empty($phone_number)) $profile['phone_number'] = $phone_number;
 
-$response = $client->profiles->replace($user_id, ['profile' => $profile]);
+$response = $client->profiles->create($user_id, ['profile' => $profile]);
 
 echo $response . "\n";

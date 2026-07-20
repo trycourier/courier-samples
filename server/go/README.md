@@ -104,7 +104,7 @@ All 11 Go samples are available (listed alphabetically):
 ## Dependencies
 
 The Go samples require:
-- **`github.com/trycourier/courier-go/v2`** - Official Courier Go SDK
+- **`github.com/trycourier/courier-go/v4`** - Official Courier Go SDK
 - **`github.com/joho/godotenv`** - For loading environment variables from `.env` files
 
 Dependencies are managed via Go modules and defined in `go.mod`. Install with:

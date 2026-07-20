@@ -39,7 +39,7 @@ dependencies {
     implementation("com.fasterxml.jackson.core:jackson-databind:2.15.2")
     
     // Courier Java SDK
-    implementation("com.courier:courier-java:4.0.1")
+    implementation("com.courier:courier-java:4.20.2")
 }
 
 tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {

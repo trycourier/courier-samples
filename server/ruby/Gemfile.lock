@@ -1,9 +1,11 @@
 GEM
   remote: https://rubygems.org/
   specs:
+    cgi (0.5.2)
     connection_pool (3.0.2)
     dotenv (2.8.1)
-    trycourier (4.5.0)
+    trycourier (4.19.2)
+      cgi
       connection_pool
 
 PLATFORMS
@@ -15,4 +17,4 @@ DEPENDENCIES
   trycourier (~> 4.0)
 
 BUNDLED WITH
-   2.7.1
+   2.4.10

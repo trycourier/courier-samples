@@ -117,10 +117,9 @@ All 11 Java samples are available (listed alphabetically):
 ## Dependencies
 
 The Java samples require:
-- **Java 11 or higher** - For HTTP client and other modern features
+- **Java 11 or higher** - Minimum runtime for the SDK
 - **Maven** - For dependency management
-- **Jackson** - For JSON processing
-- **dotenv-java** - For loading environment variables from `.env` files
+- **`com.courier:courier-java`** - Official Courier Java SDK
 
 Dependencies are managed via Maven and defined in `pom.xml`. Install with:
 ```bash
@@ -132,7 +131,7 @@ mvn clean install
 
 For complete reference documentation, see:
 - [Courier API Documentation](https://www.courier.com/docs)
-- [Java HTTP Client Documentation](https://docs.oracle.com/en/java/javase/11/docs/api/java.net.http/java/net/http/HttpClient.html)
+- [Courier Java SDK Documentation](https://www.courier.com/docs/sdk-libraries/java)
 
 ---
 

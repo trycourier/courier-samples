@@ -15,7 +15,7 @@ const client = new Courier({ apiKey });
 
 const response = await client.auth.issueToken({
   scope: `user_id:${userId} write:user-tokens inbox:read:messages inbox:write:events read:preferences write:preferences read:brands`,
-  expiresIn: `${expiresInDays} days`
+  expires_in: `${expiresInDays} days`
 });
 
 console.log(response);

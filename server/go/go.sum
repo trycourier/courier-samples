@@ -12,3 +12,5 @@ github.com/tidwall/sjson v1.2.5 h1:kLy8mja+1c9jlljvWTlSazM7cKDRfJuR/bOJhcY5NcY=
 github.com/tidwall/sjson v1.2.5/go.mod h1:Fvgq9kS/6ociJEDnK0Fk1cpYF4FIW6ZF7LAe+6jwd28=
 github.com/trycourier/courier-go/v4 v4.1.0 h1:fsE4LojGiaKVxI2XL2w5HWmU5JoaRK1jAhaWmn6VVJo=
 github.com/trycourier/courier-go/v4 v4.1.0/go.mod h1:0ZQyZUNupRxUytcf9bLyIjCyssOKl0vT+wqjjaMaw6k=
+github.com/trycourier/courier-go/v4 v4.18.2 h1:ETRCI9ZSet6CsW4Tr9I2qHD6RNt85rpS2SO+pAEgXQU=
+github.com/trycourier/courier-go/v4 v4.18.2/go.mod h1:0ZQyZUNupRxUytcf9bLyIjCyssOKl0vT+wqjjaMaw6k=

@@ -1,7 +1,7 @@
 import com.courier.client.CourierClient;
 import com.courier.client.okhttp.CourierOkHttpClient;
 import com.courier.core.JsonValue;
-import com.courier.models.profiles.ProfileReplaceParams;
+import com.courier.models.profiles.ProfileCreateParams;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -22,14 +22,14 @@ public class UpsertUser {
         if (name != null && !name.isEmpty()) profileMap.put("name", name);
         if (phoneNumber != null && !phoneNumber.isEmpty()) profileMap.put("phone_number", phoneNumber);
 
-        ProfileReplaceParams params = ProfileReplaceParams.builder()
+        ProfileCreateParams params = ProfileCreateParams.builder()
                 .userId(userId)
-                .body(ProfileReplaceParams.Body.builder()
+                .body(ProfileCreateParams.Body.builder()
                         .profile(JsonValue.from(profileMap))
                         .build())
                 .build();
 
-        var response = client.profiles().replace(params);
+        var response = client.profiles().create(params);
         System.out.println(response);
     }
 }

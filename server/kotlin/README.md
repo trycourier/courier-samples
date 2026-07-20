@@ -64,4 +64,4 @@ Kotlin examples for interacting with the Courier API.
 
 - Kotlin (installed via Homebrew or SDKMAN)
 - Java 11 or higher
-- Standard Kotlin/Java libraries (no external dependencies required)
+- Courier Java SDK (`com.courier:courier-java`) — managed via Gradle (`build.gradle.kts`)

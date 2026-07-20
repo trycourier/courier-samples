@@ -1,7 +1,7 @@
 import com.courier.client.CourierClient
 import com.courier.client.okhttp.CourierOkHttpClient
 import com.courier.core.JsonValue
-import com.courier.models.profiles.ProfileReplaceParams
+import com.courier.models.profiles.ProfileCreateParams
 
 fun main() {
     val apiKey = EnvLoader.getEnv("COURIER_API_KEY")
@@ -19,16 +19,16 @@ fun main() {
     if (!name.isNullOrEmpty()) profileMap["name"] = name
     if (!phoneNumber.isNullOrEmpty()) profileMap["phone_number"] = phoneNumber
 
-    val params = ProfileReplaceParams.builder()
+    val params = ProfileCreateParams.builder()
         .userId(userId)
         .body(
-            ProfileReplaceParams.Body.builder()
+            ProfileCreateParams.Body.builder()
                 .profile(JsonValue.from(profileMap))
                 .build()
         )
         .build()
 
-    val response = client.profiles().replace(params)
+    val response = client.profiles().create(params)
     println(response)
 }
 

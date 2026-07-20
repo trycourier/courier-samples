@@ -17,6 +17,6 @@ profile[:email] = email if email && !email.empty?
 profile[:name] = name if name && !name.empty?
 profile[:phone_number] = phone_number if phone_number && !phone_number.empty?
 
-response = client.profiles.replace(user_id, profile: profile)
+response = client.profiles.create(user_id, profile: profile)
 
 puts response
