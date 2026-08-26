@@ -5,7 +5,7 @@
     "require": {
         "php": ">=8.1",
         "vlucas/phpdotenv": "^5.5",
-        "trycourier/courier": "^3.0",
+        "trycourier/courier": "^7.1",
         "guzzlehttp/guzzle": "^7.0",
         "nyholm/psr7": "^1.0"
     },
@@ -15,4 +15,3 @@
         }
     }
 }
-

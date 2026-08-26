@@ -154,13 +154,13 @@ class Program
         // Get the parent directory (server/csharp) from the tests directory
         // Use the assembly location to find the correct base path
         var assemblyLocation = System.Reflection.Assembly.GetExecutingAssembly().Location;
-        var assemblyDir = Path.GetDirectoryName(assemblyLocation) ?? Directory.GetCurrentDirectory();
+        var assemblyDir = Path.GetDirectoryName(assemblyLocation) ?? System.IO.Directory.GetCurrentDirectory();
         
         // Navigate from bin/Debug/net10.0/... to server/csharp
         var parentDir = assemblyDir;
         while (parentDir != null && !Path.GetFileName(parentDir).Equals("csharp", StringComparison.OrdinalIgnoreCase))
         {
-            var parent = Directory.GetParent(parentDir);
+            var parent = System.IO.Directory.GetParent(parentDir);
             if (parent == null) break;
             parentDir = parent.FullName;
         }
@@ -168,10 +168,10 @@ class Program
         // If we couldn't find csharp directory, try going up from current directory
         if (parentDir == null || !Directory.Exists(parentDir))
         {
-            var currentDir = Directory.GetCurrentDirectory();
+            var currentDir = System.IO.Directory.GetCurrentDirectory();
             if (currentDir.Contains("tests"))
             {
-                parentDir = Path.GetFullPath(Path.Combine(currentDir, ".."));
+                parentDir = Path.GetFullPath(System.IO.Path.Combine(currentDir, ".."));
             }
             else
             {
@@ -187,7 +187,7 @@ class Program
                 return dirName != "tests" && 
                        dirName != "bin" && 
                        dirName != "obj" &&
-                       File.Exists(Path.Combine(d, dirName + ".csproj"));
+                       File.Exists(System.IO.Path.Combine(d, dirName + ".csproj"));
             })
             .OrderBy(d => d)
             .ToList();
@@ -205,8 +205,8 @@ class Program
         foreach (var projectDir in projectDirs)
         {
             var projectName = Path.GetFileName(projectDir);
-            var projectPath = Path.Combine(projectDir, projectName + ".csproj");
-            var programPath = Path.Combine(projectDir, "Program.cs");
+            var projectPath = System.IO.Path.Combine(projectDir, projectName + ".csproj");
+            var programPath = System.IO.Path.Combine(projectDir, "Program.cs");
             
             if (!File.Exists(projectPath) || !File.Exists(programPath))
             {

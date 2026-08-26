@@ -9,7 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@trycourier/courier-react": "latest",
+    "@trycourier/courier-react": "^9.2.12",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },

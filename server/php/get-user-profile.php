@@ -4,7 +4,7 @@ use Courier\Client;
 use Dotenv\Dotenv;
 
 $dotenv = Dotenv::createImmutable(__DIR__ . '/..');
-$dotenv->load();
+$dotenv->safeLoad();
 
 $api_key = $_ENV['COURIER_API_KEY'] ?? '';
 $user_id = $_ENV['COURIER_GET_USER_PROFILE_USER_ID'] ?? '';

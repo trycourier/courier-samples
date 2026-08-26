@@ -1,11 +1,7 @@
 import Courier from '@trycourier/courier';
 import dotenv from 'dotenv';
-import { fileURLToPath } from 'url';
-import { dirname, join } from 'path';
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
-dotenv.config({ path: join(__dirname, '..', '.env') });
+dotenv.config({ path: new URL('../.env', import.meta.url) });
 
 const apiKey = process.env.COURIER_API_KEY;
 const audienceId = process.env.COURIER_SEND_TEMPLATE_TO_AUDIENCE_AUDIENCE_ID;

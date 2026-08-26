@@ -4,7 +4,7 @@ use Courier\Client;
 use Dotenv\Dotenv;
 
 $dotenv = Dotenv::createImmutable(__DIR__ . '/..');
-$dotenv->load();
+$dotenv->safeLoad();
 
 $api_key = $_ENV['COURIER_API_KEY'] ?? '';
 $user_id = $_ENV['COURIER_UPSERT_USER_USER_ID'] ?? '';
@@ -19,6 +19,6 @@ if (!empty($email)) $profile['email'] = $email;
 if (!empty($name)) $profile['name'] = $name;
 if (!empty($phone_number)) $profile['phone_number'] = $phone_number;
 
-$response = $client->profiles->replace($user_id, ['profile' => $profile]);
+$response = $client->profiles->replace($user_id, profile: $profile);
 
 echo $response . "\n";

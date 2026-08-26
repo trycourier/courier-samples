@@ -2,11 +2,11 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text.Json;
-using Courier;
-using Courier.Models.Profiles;
+using TryCourier;
+using TryCourier.Models.Profiles;
 using DotNetEnv;
 
-var envPath = Path.Combine(Directory.GetParent(Directory.GetParent(Directory.GetCurrentDirectory())!.FullName)!.FullName, ".env");
+var envPath = System.IO.Path.Combine(System.IO.Directory.GetParent(System.IO.Directory.GetParent(System.IO.Directory.GetCurrentDirectory())!.FullName)!.FullName, ".env");
 Env.Load(envPath);
 
 var apiKey = Environment.GetEnvironmentVariable("COURIER_API_KEY");
@@ -15,7 +15,7 @@ var email = Environment.GetEnvironmentVariable("COURIER_UPSERT_USER_EMAIL");
 var name = Environment.GetEnvironmentVariable("COURIER_UPSERT_USER_NAME");
 var phoneNumber = Environment.GetEnvironmentVariable("COURIER_UPSERT_USER_PHONE_NUMBER");
 
-var client = new CourierClient { APIKey = apiKey! };
+var client = new CourierClient { ApiKey = apiKey! };
 
 var profileDict = new Dictionary<string, JsonElement>();
 if (!string.IsNullOrEmpty(email)) profileDict["email"] = JsonSerializer.SerializeToElement(email);

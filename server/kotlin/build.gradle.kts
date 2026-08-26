@@ -39,11 +39,19 @@ dependencies {
     implementation("com.fasterxml.jackson.core:jackson-databind:2.15.2")
     
     // Courier Java SDK
-    implementation("com.courier:courier-java:4.0.1")
+    implementation("com.courier:courier-java:6.2.0")
 }
 
-tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
-    kotlinOptions.jvmTarget = "17" // Match available Java version
+// Keep Kotlin and Java on the same target so the build works on any modern JDK.
+kotlin {
+    compilerOptions {
+        jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_17)
+    }
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
 }
 
 // Disable Java compilation entirely

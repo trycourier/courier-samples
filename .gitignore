@@ -8,9 +8,6 @@ server/csharp/**/bin/
 server/csharp/**/obj/
 server/csharp/.vs/
 
-# Courier C# SDK submodule (generated on-demand)
-server/courier-csharp/
-
 # Java / Maven build artifacts
 server/java/target/
 server/java/**/*.class
@@ -18,3 +15,12 @@ server/java/**/*.class
 # Development test scripts
 scripts/test-*.sh
 scripts/quick-test.sh
+
+# Node / web build output and caches
+node_modules/
+**/.vite/
+web/**/dist/
+
+# Kotlin / Gradle build artifacts
+server/kotlin/build/
+server/kotlin/.gradle/

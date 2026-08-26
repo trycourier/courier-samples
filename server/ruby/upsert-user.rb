@@ -1,5 +1,5 @@
 require 'dotenv'
-require 'trycourier'
+require 'courier'
 
 env_path = File.join(File.dirname(__FILE__), '..', '.env')
 Dotenv.load(env_path)
@@ -10,7 +10,7 @@ email = ENV['COURIER_UPSERT_USER_EMAIL']
 name = ENV['COURIER_UPSERT_USER_NAME']
 phone_number = ENV['COURIER_UPSERT_USER_PHONE_NUMBER']
 
-client = Trycourier::Client.new(api_key: api_key)
+client = Courier::Client.new(api_key: api_key)
 
 profile = {}
 profile[:email] = email if email && !email.empty?

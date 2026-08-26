@@ -141,7 +141,7 @@ The Courier C# SDK is included as a git submodule and will be **automatically in
 If you need to manually initialize the SDK:
 ```bash
 # From the project root
-git submodule update --init --recursive server/courier-csharp
+dotnet restore
 
 # Or use the convenience script
 bash server/csharp/init-sdk.sh
@@ -149,7 +149,7 @@ bash server/csharp/init-sdk.sh
 
 ## Implementation Notes
 
-These C# examples use the **official Courier C# SDK** (https://github.com/trycourier/courier-csharp). The SDK provides:
+These C# examples use the **official Courier C# SDK**, published on NuGet as [`trycourier`](https://www.nuget.org/packages/trycourier). `dotnet restore` pulls it in, so there is nothing to clone. The SDK provides:
 - Type-safe API methods
 - Automatic error handling
 - Built-in retry logic

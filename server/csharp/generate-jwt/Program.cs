@@ -1,17 +1,17 @@
 using System;
 using System.IO;
-using Courier;
-using Courier.Models.Auth;
+using TryCourier;
+using TryCourier.Models.Auth;
 using DotNetEnv;
 
-var envPath = Path.Combine(Directory.GetParent(Directory.GetParent(Directory.GetCurrentDirectory())!.FullName)!.FullName, ".env");
+var envPath = System.IO.Path.Combine(System.IO.Directory.GetParent(System.IO.Directory.GetParent(System.IO.Directory.GetCurrentDirectory())!.FullName)!.FullName, ".env");
 Env.Load(envPath);
 
 var apiKey = Environment.GetEnvironmentVariable("COURIER_API_KEY");
 var userId = Environment.GetEnvironmentVariable("COURIER_GENERATE_JWT_USER_ID");
 var expiresInDays = Environment.GetEnvironmentVariable("COURIER_EXPIRES_IN_DAYS") ?? "30";
 
-var client = new CourierClient { APIKey = apiKey! };
+var client = new CourierClient { ApiKey = apiKey! };
 
 var parameters = new AuthIssueTokenParams
 {

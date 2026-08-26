@@ -1,3 +1,0 @@
-[submodule "server/courier-csharp"]
-	path = server/courier-csharp
-	url = https://github.com/trycourier/courier-csharp.git
